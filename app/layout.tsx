@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { Spectral } from "next/font/google";
 import "@/_styles/globals.css";
+import Header from "@/_components/navigation/header/header";
 
 const spectralSerif = Spectral({
   variable: "--font-spectral",
   subsets: ["latin"],
-  weight: ["200", "600"],
+  weight: ["200", "400", "600"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.hensleyinteriors.co.za/"),
+  metadataBase: new URL("https://www.clonekings.co.za/"),
   title: "Clone Kings",
   description: "",
   keywords: "",
@@ -34,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${spectralSerif.variable} antialiased`}>
+        <Header />
         {children}
       </body>
     </html>

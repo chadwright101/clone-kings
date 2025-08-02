@@ -6,6 +6,7 @@
   --color-white: #FFFFFF;
   --color-yellow: #FAB121;
   --color-link-blue: #0000ff;
+  --color-red: #D64040;
   --color-transparent: transparent;
 
   --text-*: initial;
@@ -87,7 +88,7 @@
   top: 0;
   left: 0;
   border: 3px solid transparent;
-  border-top-color: #e7e7e3;
+  border-top-color: #FFFFFF;
   animation: spin 1s linear infinite;
 }
 
@@ -108,8 +109,8 @@
 /* swiper styles */
 
 :root {
-  --swiper-pagination-color: #4B433E;
-  --swiper-pagination-bullet-inactive-color: #4B433E;
+  --swiper-pagination-color: #FAB121;
+  --swiper-pagination-bullet-inactive-color: #FAB121;
   --swiper-pagination-bullet-inactive-opacity: 0.5;
   --swiper-pagination-bullet-size: 8px;
   --swiper-pagination-bullet-horizontal-gap: 4px;
@@ -136,7 +137,7 @@
 .swiper-button-next:after,
 .swiper-button-prev:after {
   font-size: 20px !important;
-  color: #9b6546;
+  color: #FAB121;
   transition: color 0.2s ease;
 }
 
@@ -148,10 +149,10 @@
   left: 0 !important;
 }
 
-/* .swiper-button-next:hover,
+.swiper-button-next:hover,
 .swiper-button-prev:hover {
-  @apply bg-light-light-brown/80;
-} */
+  @apply bg-yellow/80;
+}
 
 .swiper-button-next:hover:after,
 .swiper-button-prev:hover:after {
