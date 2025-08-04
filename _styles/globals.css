@@ -68,7 +68,7 @@
   }
 
   a {
-    @apply desktop:text-link-blue ease-in-out duration-200;
+    @apply p-2 -m-2 desktop:p-0 desktop:m-0 desktop:hover:opacity-80 cursor-pointer ease-in-out duration-300;
   }
 }
 
