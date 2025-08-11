@@ -1,7 +1,12 @@
 {
   "heroSlider": [
-    "/images/image1.png",
-    "/images/image2.png",
-    "/images/image3.png"
+    "/images/placeholders/image2.png",
+    "/images/placeholders/image9.jpg",
+    "/images/placeholders/image5.jpg",
+    "/images/placeholders/image1.png",
+    "/images/placeholders/image6.jpg",
+    "/images/placeholders/image3.png",
+    "/images/placeholders/image7.jpg",
+    "/images/placeholders/image8.jpg"
   ]
 }

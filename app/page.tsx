@@ -1,9 +1,11 @@
+import AboutComponent from "@/_components/home-page/about-component";
 import HeroComponent from "@/_components/home-page/hero/hero-component";
 
 export default function Home() {
   return (
-    <div>
+    <div className="space-y-10 desktop:space-y-15">
       <HeroComponent />
+      <AboutComponent />
     </div>
   );
 }
