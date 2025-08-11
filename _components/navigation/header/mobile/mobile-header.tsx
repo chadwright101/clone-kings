@@ -44,7 +44,7 @@ export function MobileHeader({ isScrolled }: HeaderProps) {
             height={18}
             priority
             className={classNames(
-              "absolute -top-[7.5px] -z-10 -left-1 ease-in-out duration-300",
+              "absolute top-0 -z-10 left-1 ease-in-out duration-300",
               {
                 "scale-80": isScrolled,
               }

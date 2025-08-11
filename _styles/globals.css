@@ -39,11 +39,13 @@
 
   html {
     scroll-behavior: smooth;
+    @apply bg-black
   }
 
   * {
     color: #333333;
     font-family: 'Spectral', Georgia, serif;
+    @apply text-white
   }
 
   h1,
@@ -109,9 +111,9 @@
 /* swiper styles */
 
 :root {
-  --swiper-pagination-color: #FAB121;
-  --swiper-pagination-bullet-inactive-color: #FAB121;
-  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  --swiper-pagination-color: #FFFFFF;
+  --swiper-pagination-bullet-inactive-color: #FFFFFF;
+  --swiper-pagination-bullet-inactive-opacity: 1;
   --swiper-pagination-bullet-size: 8px;
   --swiper-pagination-bullet-horizontal-gap: 4px;
 }

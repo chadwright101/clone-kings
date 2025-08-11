@@ -7,7 +7,7 @@ import Footer from "@/_components/navigation/footer/footer";
 const spectralSerif = Spectral({
   variable: "--font-spectral",
   subsets: ["latin"],
-  weight: ["200", "400", "600"],
+  weight: ["200", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
