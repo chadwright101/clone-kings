@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function AboutComponent() {
   return (
-    <section className="max-w-[1280px] mx-auto desktop:pt-15">
-      <div className="mx-5 border-y-4 border-yellow py-10 grid gap-10 desktop:mx-10 desktop:border-none desktop:py-0 desktop:grid-cols-2">
+    <main className="max-w-[1280px] mx-auto desktop:pt-15">
+      <div className="mx-5 border-t-4 border-yellow py-10 grid gap-10 desktop:mx-10 desktop:border-none desktop:py-0 desktop:grid-cols-2">
         <h3 className="text-heading col-span-full">About</h3>
         <div className="grid gap-10 tablet:grid-cols-2 desktop:grid-cols-1 desktop:col-span-full">
           <div className="space-y-4">
@@ -25,19 +25,20 @@ export default function AboutComponent() {
               width={800}
               height={600}
               className="object-cover h-full aspect-[4/2.5] tablet:aspect-[4/2] desktop:aspect-[4/3.5]"
+              sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
             />
             <Image
               src="/images/placeholders/image7.jpg"
               alt="About Clone Kings"
-              width={800}
-              height={600}
+              width={380}
+              height={300}
               className="hidden desktop:block object-cover desktop:aspect-[4/3.5]"
             />
             <Image
               src="/images/placeholders/image8.jpg"
               alt="About Clone Kings"
-              width={800}
-              height={600}
+              width={380}
+              height={300}
               className="hidden desktop:block object-cover desktop:aspect-[4/3.5]"
             />
           </div>
@@ -58,6 +59,7 @@ export default function AboutComponent() {
             width={800}
             height={600}
             className="object-cover h-full aspect-[4/2.5] tablet:aspect-[4/2.5]"
+            sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
           />
         </div>
         <div className="grid gap-10 tablet:grid-cols-2 desktop:grid-cols-1">
@@ -86,9 +88,10 @@ export default function AboutComponent() {
             width={800}
             height={600}
             className="hidden tablet:block h-full object-cover aspect-[4/2.5] tablet:aspect-[4/2] desktop:aspect-[4/1.75]"
+            sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
           />
         </div>
       </div>
-    </section>
+    </main>
   );
 }

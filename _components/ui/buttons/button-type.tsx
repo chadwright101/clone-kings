@@ -17,6 +17,7 @@ const ButtonType = ({
       onClick={onClick}
       className={buttonStyles(cssClasses, disabled, pending)}
       disabled={disabled || pending}
+      style={{ fontVariant: "small-caps" }}
     >
       {pending && type === "submit" ? (
         <div className="py-[1.5px]">

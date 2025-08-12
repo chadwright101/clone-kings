@@ -20,6 +20,7 @@ export default function HeroComponent() {
             height={735}
             className="object-cover min-w-[564px] h-auto desktop:min-w-[471px] desktop:w-[471px] desktop:mr-5"
             priority
+            sizes="(max-width:1280px) 564px, 471px"
           />
         </div>
         <div className="z-10 desktop:grid desktop:place-items-center desktop:border-y-4 desktop:border-yellow desktop:py-5 desktop:order-first">

@@ -11,11 +11,11 @@
 
   --text-*: initial;
   --text-paragraph: 1rem;
-  --text-paragraph--font-weight: 200;
+  --text-paragraph--font-weight: 300;
   --text-subheading: 1.25rem;
   --text-subheading--font-weight: 600;
   --text-heading: 2.5rem;
-  --text-heading--font-weight: 200;
+  --text-heading--font-weight: 300;
   --text-heading--line-height: 40px;
 
   --breakpoint-*: initial;

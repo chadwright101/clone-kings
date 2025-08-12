@@ -30,7 +30,7 @@ const HeroSlider = ({ cssClasses, data }: Props) => {
       loop
     >
       {data.map((slide, index) => (
-        <SwiperSlide key={index} className="pb-7">
+        <SwiperSlide key={index} className="pb-8">
           <Image
             src={slide}
             alt={`Clone Kings - Image ${index + 1}`}
@@ -38,6 +38,7 @@ const HeroSlider = ({ cssClasses, data }: Props) => {
             width={1280}
             height={600}
             loading={index < 1 ? "eager" : "lazy"}
+            sizes="(max-width: 1280px) 100vw, 1280px"
           />
         </SwiperSlide>
       ))}

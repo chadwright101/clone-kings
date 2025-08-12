@@ -1,12 +1,46 @@
 {
   "heroSlider": [
     "/images/placeholders/image2.png",
-    "/images/placeholders/image9.jpg",
+    "/images/placeholders/image4.jpg",
     "/images/placeholders/image5.jpg",
     "/images/placeholders/image1.png",
     "/images/placeholders/image6.jpg",
     "/images/placeholders/image3.png",
     "/images/placeholders/image7.jpg",
     "/images/placeholders/image8.jpg"
+  ],
+  "strains": [
+    {
+      "title": "Strain 1",
+      "image": "/images/placeholders/image8.jpg"
+    },
+    {
+      "title": "Strain 2",
+      "image": "/images/placeholders/image7.jpg"
+    },
+    {
+      "title": "Strain 3",
+      "image": "/images/placeholders/image6.jpg"
+    },
+    {
+      "title": "Strain 4",
+      "image": "/images/placeholders/image4.jpg"
+    },
+    {
+      "title": "Strain 5",
+      "image": "/images/placeholders/image5.jpg"
+    },
+    {
+      "title": "Strain 6",
+      "image": "/images/placeholders/image6.jpg"
+    },
+    {
+      "title": "Strain 7",
+      "image": "/images/placeholders/image7.jpg"
+    },
+    {
+      "title": "Strain 8",
+      "image": "/images/placeholders/image8.jpg"
+    }
   ]
 }
