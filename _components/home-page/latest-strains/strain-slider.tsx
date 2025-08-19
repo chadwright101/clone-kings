@@ -98,23 +98,23 @@ const StrainSlider = ({ cssClasses, data }: SlideDataProps) => {
           <path
             d="M16 29.3334C23.3638 29.3334 29.3333 23.3639 29.3333 16.0001C29.3334 8.63629 23.3638 2.66675 16 2.66675C8.63622 2.66675 2.66669 8.63629 2.66668 16.0001C2.66668 23.3639 8.63622 29.3334 16 29.3334Z"
             stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M16 10.6667L10.6667 16.0001L16 21.3334"
             stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M21.3334 16L10.6667 16"
             stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </button>
@@ -130,23 +130,23 @@ const StrainSlider = ({ cssClasses, data }: SlideDataProps) => {
           <path
             d="M16 29.3334C23.3638 29.3334 29.3333 23.3639 29.3333 16.0001C29.3334 8.63629 23.3638 2.66675 16 2.66675C8.63622 2.66675 2.66669 8.63629 2.66668 16.0001C2.66668 23.3639 8.63622 29.3334 16 29.3334Z"
             stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M16 10.6667L21.3333 16.0001L16 21.3334"
             stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M10.6667 16L21.3334 16"
             stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </button>

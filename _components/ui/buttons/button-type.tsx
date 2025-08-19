@@ -1,6 +1,6 @@
 import { useFormStatus } from "react-dom";
 import { ButtonProps } from "@/_types/button-types";
-import { buttonStyles } from "@/_lib/utils/button-styles";
+import { buttonStyles } from "@/_styles/button-styles";
 
 const ButtonType = ({
   children,
@@ -8,6 +8,7 @@ const ButtonType = ({
   cssClasses,
   type = "submit",
   disabled = false,
+  colorBlack = false,
 }: ButtonProps) => {
   const { pending } = useFormStatus();
 
@@ -15,13 +16,13 @@ const ButtonType = ({
     <button
       type={type}
       onClick={onClick}
-      className={buttonStyles(cssClasses, disabled, pending)}
+      className={buttonStyles(cssClasses, disabled, pending, colorBlack)}
       disabled={disabled || pending}
       style={{ fontVariant: "small-caps" }}
     >
       {pending && type === "submit" ? (
-        <div className="py-[1.5px]">
-          <div className="spinner-submit"></div>
+        <div className="py-[3px]">
+          <div className="spinner"></div>
         </div>
       ) : (
         <>{children}</>

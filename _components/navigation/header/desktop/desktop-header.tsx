@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import classNames from "classnames";
-
 import navData from "@/_data/nav-data.json";
 import { CartButton } from "@/_components/ui/buttons/cart-button";
 

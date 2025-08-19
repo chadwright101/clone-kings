@@ -1,4 +1,4 @@
-import { buttonStyles } from "@/_lib/utils/button-styles";
+import { buttonStyles } from "@/_styles/button-styles";
 import { ButtonProps } from "@/_types/button-types";
 import Link from "next/link";
 

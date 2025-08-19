@@ -42,5 +42,9 @@
       "title": "Strain 8",
       "image": "/images/placeholders/image8.jpg"
     }
-  ]
+  ],
+  "contact": {
+    "email": "info@clonekings.co.za",
+    "phone": "+27 83 123 4567"
+  }
 }

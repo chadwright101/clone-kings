@@ -26,6 +26,7 @@ const HeroSlider = ({ cssClasses, data }: Props) => {
       effect="fade"
       pagination={{
         dynamicBullets: true,
+        clickable: true,
       }}
       loop
     >
