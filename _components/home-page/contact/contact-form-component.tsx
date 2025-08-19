@@ -50,11 +50,9 @@ const ContactFormComponent = () => {
         </p>
       )}
       {showEmailSubmitted ? (
-        <>
-          <p className="text-[20px] text-center text-black tablet:text-left pb-5">
-            Your email has been sent, we will be in touch soon.
-          </p>
-        </>
+        <p className="text-[20px] font-bold text-black pb-5 desktop:h-[450px]">
+          Your email has been sent, we will be in touch soon.
+        </p>
       ) : (
         <form
           className="flex flex-col gap-8"

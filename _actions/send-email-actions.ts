@@ -52,7 +52,7 @@ export async function sendEmail(formData: FormData): Promise<void> {
       const mailOptions: MailOptions = {
         from: process.env.SMTP_USER as string,
         to: process.env.SMTP_SEND_TO as string,
-        subject: "Website form submission - Heather Hensley Interiors",
+        subject: "Website form submission - Clone Kings",
         replyTo: email,
         html: emailHtmlContent,
       };
