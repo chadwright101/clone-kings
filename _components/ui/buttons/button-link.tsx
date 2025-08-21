@@ -9,12 +9,13 @@ const ButtonLink = ({
   href = "#",
   disabled,
   ariaLabel,
+  colorBlack = false,
 }: ButtonProps) => {
   return (
     <Link
       href={href}
       onClick={onClick}
-      className={buttonStyles(cssClasses, disabled)}
+      className={buttonStyles(cssClasses, disabled, colorBlack)}
       aria-label={ariaLabel}
       style={{ fontVariant: "small-caps" }}
     >

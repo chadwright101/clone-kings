@@ -7,10 +7,11 @@ export const buttonStyles = (
   colorBlack?: boolean
 ) =>
   classNames(
-    "border-4 flex text-subheading text-center py-0.5 px-4 justify-center duration-500 rounded-md min-w-[100px] cursor-pointer",
+    "border-4 flex text-subheading text-center py-0.5 px-4 justify-center ease-in-out duration-300 rounded-md min-w-[100px]",
     cssClasses,
     {
       "opacity-50 cursor-not-allowed hover:none": pending || disabled,
+      "cursor-pointer": !(disabled || pending),
       "bg-black border-black text-white": colorBlack,
       "bg-yellow border-yellow text-black": !colorBlack,
       "desktop:hover:bg-black desktop:hover:text-white":

@@ -6,3 +6,19 @@ export interface showContactProps {
   buttonClasses?: string;
   linkClasses?: string;
 }
+
+export interface StrainProps {
+  title: string;
+  image: string;
+  description: string[];
+  price: number;
+  inStock: boolean;
+  variety?: string;
+  tac?: number;
+  height?: string;
+  yield?: string;
+  floweringTime?: string;
+  flavours?: string;
+  medicinal?: string;
+  supplier?: string;
+}
