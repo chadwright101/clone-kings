@@ -6,9 +6,13 @@ import ButtonType from "@/_components/ui/buttons/button-type";
 
 interface StrainCartComponentProps {
   inStock: boolean;
+  cssClasses?: string;
 }
 
-const StrainCartComponent = ({ inStock }: StrainCartComponentProps) => {
+const StrainCartComponent = ({
+  inStock,
+  cssClasses,
+}: StrainCartComponentProps) => {
   const [quantity, setQuantity] = useState<number | string>(1);
 
   const increaseQuantity = () =>
@@ -43,15 +47,20 @@ const StrainCartComponent = ({ inStock }: StrainCartComponentProps) => {
   };
 
   return (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex flex-col items-center w-[46px]">
+    <div
+      className={classNames(
+        "flex items-center gap-5 justify-between w-full",
+        cssClasses
+      )}
+    >
+      <div className="grid items-center w-[46px] tablet:grid-cols-2 tablet:w-auto">
         <button
           onClick={increaseQuantity}
           disabled={
             !inStock || (typeof quantity === "number" && quantity >= 99)
           }
           className={classNames(
-            "bg-yellow w-full h-6 rounded-t-md flex items-center justify-center",
+            "bg-yellow w-full h-6 rounded-t-md flex items-center justify-center tablet:w-[22px] tablet:rounded-t-none tablet:rounded-tr-md",
             {
               "cursor-not-allowed opacity-50":
                 !inStock || (typeof quantity === "number" && quantity >= 99),
@@ -67,7 +76,7 @@ const StrainCartComponent = ({ inStock }: StrainCartComponentProps) => {
           </svg>
         </button>
 
-        <div className="border-2 border-white w-full h-[39px] flex items-center justify-center">
+        <div className="border-2 border-white w-full h-[39px] flex items-center justify-center tablet:order-first tablet:row-span-2 tablet:h-[48px] tablet:rounded-l-md tablet:w-[46px]">
           {inStock ? (
             <input
               type="number"
@@ -89,7 +98,7 @@ const StrainCartComponent = ({ inStock }: StrainCartComponentProps) => {
             !inStock || (typeof quantity === "number" && quantity === 1)
           }
           className={classNames(
-            "bg-yellow w-full h-6 rounded-b-md flex items-center justify-center border-t border-white",
+            "bg-yellow w-full h-6 rounded-b-md flex items-center justify-center border-t border-white tablet:w-[22px] tablet:rounded-b-none tablet:rounded-br-md",
             {
               "opacity-50 cursor-not-allowed":
                 !inStock || (typeof quantity === "number" && quantity === 1),

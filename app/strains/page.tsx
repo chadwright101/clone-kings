@@ -4,16 +4,14 @@ import { useState, useMemo } from "react";
 import FilterSearchComponent from "@/_components/strains-page/filter-search-component";
 import StrainComponent from "@/_components/strains-page/strain-component";
 
-import strainData from "@/_data/general-data.json";
-
-const { strains } = strainData;
+import strainData from "@/_data/strains-data.json";
 
 const Strains = () => {
   const [filter, setFilter] = useState("Latest");
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredStrains = useMemo(() => {
-    let filtered = [...strains];
+    let filtered = [...strainData];
 
     if (searchTerm) {
       filtered = filtered.filter(

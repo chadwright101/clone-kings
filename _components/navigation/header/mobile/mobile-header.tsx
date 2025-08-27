@@ -6,12 +6,10 @@ import Link from "next/link";
 
 import classNames from "classnames";
 
-import { HeaderProps } from "@/_types/general-types";
-
 import navData from "@/_data/nav-data.json";
 import { CartButton } from "@/_components/ui/buttons/cart-button";
 
-export function MobileHeader({ isScrolled }: HeaderProps) {
+export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -28,14 +26,7 @@ export function MobileHeader({ isScrolled }: HeaderProps) {
 
   return (
     <div className="relative px-7 pb-3 pt-6 desktop:hidden">
-      <div
-        className={classNames(
-          "flex w-full items-center justify-between ease-in-out duration-300",
-          {
-            "translate-y-0.5": isScrolled,
-          }
-        )}
-      >
+      <div className="flex w-full items-center justify-between">
         <Link href="/" className="relative">
           <Image
             src="/graphics/crown.png"
@@ -43,21 +34,9 @@ export function MobileHeader({ isScrolled }: HeaderProps) {
             width={23}
             height={18}
             priority
-            className={classNames(
-              "absolute top-0 -z-10 left-1 ease-in-out duration-300",
-              {
-                "scale-80": isScrolled,
-              }
-            )}
+            className="absolute -z-10 -left-1 -top-2"
           />
-          <span
-            className={classNames(
-              "text-white text-[24px] font-normal ease-in-out duration-300 uppercase",
-              {
-                "scale-80": isScrolled,
-              }
-            )}
-          >
+          <span className="text-white text-[24px] font-normal uppercase">
             Clone Kings
           </span>
         </Link>
@@ -89,14 +68,7 @@ export function MobileHeader({ isScrolled }: HeaderProps) {
       >
         <div className="flex w-full py-10 items-center justify-between px-7">
           <CartButton large cssClasses="-translate-y-0.5" />
-          <button
-            onClick={() => setIsOpen(false)}
-            aria-label="Close menu"
-            className={classNames({
-              "-mt-3": isScrolled,
-              "-mt-1.5": !isScrolled,
-            })}
-          >
+          <button onClick={() => setIsOpen(false)} aria-label="Close menu">
             <Image
               src="/icons/close.svg"
               alt="Close menu"

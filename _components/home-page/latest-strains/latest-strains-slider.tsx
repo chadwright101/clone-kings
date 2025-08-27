@@ -12,11 +12,11 @@ import { useState } from "react";
 import classNames from "classnames";
 
 interface SlideDataProps {
-  data: { title: string; image: string }[];
+  data: { title: string; images: string[] }[];
   cssClasses?: string;
 }
 
-const StrainSlider = ({ cssClasses, data }: SlideDataProps) => {
+const LatestStrainsSlider = ({ cssClasses, data }: SlideDataProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -57,34 +57,35 @@ const StrainSlider = ({ cssClasses, data }: SlideDataProps) => {
             },
           }}
         >
-          {data.map(({ title, image }, index) => (
-            <SwiperSlide key={index} className="pb-8">
-              <Link
-                href={`/${title.toLowerCase().replace(/\s+/g, "-")}`}
-                className="flex flex-col gap-3 items-center"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                <div className="aspect-square overflow-hidden desktop:aspect-auto desktop:h-[304px]">
-                  <Image
-                    src={image}
-                    alt={`Clone Kings - ${title}`}
-                    width={800}
-                    height={600}
-                    className={classNames(
-                      "object-cover h-full w-full transition-transform duration-300 delay-150",
-                      {
-                        "desktop:scale-105": hoveredIndex === index,
-                      }
-                    )}
-                  />
-                </div>
-                <p className="flex flex-col justify-center text-white text-paragraph text-center w-full">
-                  {title}
-                </p>
-              </Link>
-            </SwiperSlide>
-          ))}
+          {data &&
+            data.map(({ title, images }, index) => (
+              <SwiperSlide key={index} className="pb-8">
+                <Link
+                  href={`/strains/${title.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="flex flex-col gap-3 items-center"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
+                  <div className="aspect-square overflow-hidden desktop:aspect-auto desktop:h-[304px]">
+                    <Image
+                      src={images[0]}
+                      alt={`Clone Kings - ${title}`}
+                      width={800}
+                      height={600}
+                      className={classNames(
+                        "object-cover h-full w-full transition-transform duration-300 delay-150",
+                        {
+                          "desktop:scale-105": hoveredIndex === index,
+                        }
+                      )}
+                    />
+                  </div>
+                  <p className="flex flex-col justify-center text-white text-paragraph text-center w-full">
+                    {title}
+                  </p>
+                </Link>
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
       <button className="hidden swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-full z-10 w-8 h-8 desktop:flex items-center justify-center desktop:hover:cursor-pointer desktop:hover:scale-[110%] ease-in-out duration-300">
@@ -154,4 +155,4 @@ const StrainSlider = ({ cssClasses, data }: SlideDataProps) => {
   );
 };
 
-export default StrainSlider;
+export default LatestStrainsSlider;

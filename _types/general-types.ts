@@ -9,7 +9,7 @@ export interface showContactProps {
 
 export interface StrainProps {
   title: string;
-  image: string;
+  images: string[];
   description: string[];
   price: number;
   inStock: boolean;

@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -21,7 +21,7 @@ const HeroSlider = ({ cssClasses, data }: Props) => {
       }}
       spaceBetween={12}
       speed={1000}
-      modules={[Autoplay, Pagination, EffectFade, Navigation]}
+      modules={[Autoplay, Pagination, EffectFade]}
       className={cssClasses}
       effect="fade"
       pagination={{
@@ -35,7 +35,7 @@ const HeroSlider = ({ cssClasses, data }: Props) => {
           <Image
             src={slide}
             alt={`Clone Kings - Image ${index + 1}`}
-            className="rounded-none w-full h-full object-cover"
+            className="w-full h-full object-cover"
             width={1280}
             height={600}
             loading={index < 1 ? "eager" : "lazy"}
