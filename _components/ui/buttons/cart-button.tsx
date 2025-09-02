@@ -1,18 +1,21 @@
+"use client";
+
 import classNames from "classnames";
+import { useCart } from "@/_contexts/cart-context";
 
 interface CartProps {
-  itemCount?: number;
   onClick?: () => void;
   cssClasses?: string;
   large?: boolean;
 }
 
 export function CartButton({
-  itemCount = 99,
   onClick,
   cssClasses,
   large,
 }: CartProps) {
+  const { getTotalItems } = useCart();
+  const itemCount = getTotalItems();
   return (
     <button
       onClick={onClick}

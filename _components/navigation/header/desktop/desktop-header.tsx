@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import navData from "@/_data/nav-data.json";
 import { CartButton } from "@/_components/ui/buttons/cart-button";
 
 export function DesktopHeader() {
+  const router = useRouter();
+  
   return (
     <div className="hidden pt-7 px-10 items-center justify-between desktop:flex">
       <Link
@@ -38,7 +43,7 @@ export function DesktopHeader() {
             );
           })}
           <li>
-            <CartButton />
+            <CartButton onClick={() => router.push("/cart")} />
           </li>
         </ul>
       </nav>

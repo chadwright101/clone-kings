@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import classNames from "classnames";
 
@@ -11,6 +12,7 @@ import { CartButton } from "@/_components/ui/buttons/cart-button";
 
 export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (isOpen) {
@@ -41,7 +43,7 @@ export function MobileHeader() {
           </span>
         </Link>
         <div className="flex items-center gap-10">
-          <CartButton large />
+          <CartButton large onClick={() => router.push("/cart")} />
           <button
             onClick={() => setIsOpen(true)}
             className="ease-in-out duration-300 -m-3 p-3"
@@ -67,7 +69,7 @@ export function MobileHeader() {
         )}
       >
         <div className="flex w-full py-10 items-center justify-between px-7">
-          <CartButton large cssClasses="-translate-y-0.5" />
+          <CartButton large cssClasses="-translate-y-0.5" onClick={() => { router.push("/cart"); setIsOpen(false); }} />
           <button onClick={() => setIsOpen(false)} aria-label="Close menu">
             <Image
               src="/icons/close.svg"

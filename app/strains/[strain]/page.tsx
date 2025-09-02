@@ -52,6 +52,10 @@ const StrainPage = async ({ params }: StrainPageProps) => {
             </div>
           </div>
           <StrainCartComponent
+            strainId={strainSlug}
+            strainName={strain.title}
+            strainPrice={strain.price}
+            strainImage={strain.images[0]}
             inStock={strain.inStock}
             cssClasses="desktop:justify-start"
           />

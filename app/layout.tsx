@@ -3,6 +3,7 @@ import { Spectral } from "next/font/google";
 import "@/_styles/globals.css";
 import Header from "@/_components/navigation/header/header";
 import Footer from "@/_components/navigation/footer/footer";
+import { CartProvider } from "@/_contexts/cart-context";
 
 const spectralSerif = Spectral({
   variable: "--font-spectral",
@@ -36,9 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${spectralSerif.variable} antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <CartProvider>
+          <Header />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

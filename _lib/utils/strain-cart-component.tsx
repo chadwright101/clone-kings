@@ -3,17 +3,28 @@
 import { useState } from "react";
 import classNames from "classnames";
 import ButtonType from "@/_components/ui/buttons/button-type";
+import { useCart } from "@/_contexts/cart-context";
 
 interface StrainCartComponentProps {
+  strainId: string;
+  strainName: string;
+  strainPrice: number;
+  strainImage?: string;
   inStock: boolean;
   cssClasses?: string;
 }
 
 const StrainCartComponent = ({
+  strainId,
+  strainName,
+  strainPrice,
+  strainImage,
   inStock,
   cssClasses,
 }: StrainCartComponentProps) => {
   const [quantity, setQuantity] = useState<number | string>(1);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const { addToCart } = useCart();
 
   const increaseQuantity = () =>
     setQuantity((prev) => {
@@ -44,6 +55,23 @@ const StrainCartComponent = ({
     if (quantity === "" || (typeof quantity === "number" && quantity < 1)) {
       setQuantity(1);
     }
+  };
+
+  const handleAddToCart = () => {
+    const qty = typeof quantity === "string" ? 1 : quantity;
+    addToCart(
+      {
+        id: strainId,
+        name: strainName,
+        price: strainPrice,
+        image: strainImage,
+      },
+      qty
+    );
+    
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 2000);
+    setQuantity(1);
   };
 
   return (
@@ -120,8 +148,9 @@ const StrainCartComponent = ({
           "cursor-not-allowed opacity-50": !inStock,
         })}
         disabled={!inStock}
+        onClick={handleAddToCart}
       >
-        Add To Cart
+        {showSuccess ? "Added!" : "Add To Cart"}
       </ButtonType>
     </div>
   );

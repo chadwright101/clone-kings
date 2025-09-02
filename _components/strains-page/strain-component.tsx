@@ -33,7 +33,13 @@ const StrainComponent = ({ strainData }: StrainComponentProps) => {
         <p className="text-paragraph">{strainData.supplier}</p>
         <p className="text-paragraph">R{strainData.price}</p>
       </div>
-      <StrainCartComponent inStock={strainData.inStock} />
+      <StrainCartComponent 
+        strainId={strainData.title.toLowerCase().replace(/\s+/g, "-")}
+        strainName={strainData.title}
+        strainPrice={strainData.price}
+        strainImage={strainData.images[0]}
+        inStock={strainData.inStock} 
+      />
     </li>
   );
 };
