@@ -7,4 +7,5 @@ export interface ButtonProps {
   ariaLabel?: string;
   type?: "submit" | "reset" | "button";
   colorBlack?: boolean;
+  title?: string;
 }

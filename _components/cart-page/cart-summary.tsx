@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { sendOrderEmail } from "@/_actions/send-order-email-action";
 
 export default function CartSummary() {
-  const { getTotalPrice, items, clearCart } = useCart();
+  const { getTotalPrice, items, clearCart, getTotalItems } = useCart();
   const [isPending, startTransition] = useTransition();
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +19,7 @@ export default function CartSummary() {
   });
 
   const totalPrice = getTotalPrice();
+  const totalItems = getTotalItems();
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -31,18 +32,18 @@ export default function CartSummary() {
 
   const handleSubmit = async (formDataElement: FormData) => {
     setError(null);
-    
+
     const orderData = {
       ...formData,
       items: items,
       totalPrice: totalPrice,
     };
-    
+
     formDataElement.append("orderData", JSON.stringify(orderData));
-    
+
     startTransition(async () => {
       const result = await sendOrderEmail(formDataElement);
-      
+
       if (result.success) {
         setShowSuccess(true);
         clearCart();
@@ -52,7 +53,7 @@ export default function CartSummary() {
           phone: "",
           notes: "",
         });
-        
+
         setTimeout(() => {
           window.location.href = "/";
         }, 3000);
@@ -99,6 +100,17 @@ export default function CartSummary() {
         </h2>
 
         <div className="space-y-3 pb-5 border-b border-yellow/25">
+          <div
+            className={classNames(
+              "flex justify-between text-paragraph text-white",
+              {
+                "p-2 -mx-2 bg-red rounded-md": totalItems < 4,
+              }
+            )}
+          >
+            <span>Total clones</span>
+            <span>{totalItems}</span>
+          </div>
           <div className="flex justify-between text-paragraph text-white">
             <span>Subtotal</span>
             <span>R{totalPrice.toFixed(2)}</span>
@@ -111,9 +123,12 @@ export default function CartSummary() {
 
         <div className="space-y-4">
           <h3 className="text-subheading text-white">Your Details</h3>
-          
+
           <div>
-            <label htmlFor="name" className="block text-paragraph text-white/80 mb-2">
+            <label
+              htmlFor="name"
+              className="block text-paragraph text-white/80 mb-2"
+            >
               Name *
             </label>
             <input
@@ -129,7 +144,10 @@ export default function CartSummary() {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-paragraph text-white/80 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-paragraph text-white/80 mb-2"
+            >
               Email *
             </label>
             <input
@@ -145,7 +163,10 @@ export default function CartSummary() {
           </div>
 
           <div>
-            <label htmlFor="phone" className="block text-paragraph text-white/80 mb-2">
+            <label
+              htmlFor="phone"
+              className="block text-paragraph text-white/80 mb-2"
+            >
               Phone *
             </label>
             <input
@@ -161,7 +182,10 @@ export default function CartSummary() {
           </div>
 
           <div>
-            <label htmlFor="notes" className="block text-paragraph text-white/80 mb-2">
+            <label
+              htmlFor="notes"
+              className="block text-paragraph text-white/80 mb-2"
+            >
               Order Notes (Optional)
             </label>
             <textarea
@@ -184,17 +208,14 @@ export default function CartSummary() {
 
         <ButtonType
           type="submit"
-          disabled={isPending}
+          disabled={isPending || totalItems < 4}
           cssClasses={classNames("w-full", {
             "opacity-50 cursor-not-allowed": isPending,
           })}
+          title="You must have at least 4 clones in your cart to submit an order"
         >
           {isPending ? "Submitting..." : "Submit Order"}
         </ButtonType>
-
-        <p className="text-[12px] text-white/60 text-center">
-          By submitting this order, you agree to be contacted via email and phone
-        </p>
       </form>
     </div>
   );

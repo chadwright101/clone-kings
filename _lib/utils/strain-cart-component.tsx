@@ -4,6 +4,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { useCart } from "@/_contexts/cart-context";
+import Link from "next/link";
 
 interface StrainCartComponentProps {
   strainId: string;
@@ -24,12 +25,13 @@ const StrainCartComponent = ({
 }: StrainCartComponentProps) => {
   const [quantity, setQuantity] = useState<number | string>(1);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showViewCart, setShowViewCart] = useState(false);
   const { addToCart } = useCart();
 
   const increaseQuantity = () =>
     setQuantity((prev) => {
       const num = typeof prev === "string" ? 1 : prev;
-      return num < 99 ? num + 1 : 99;
+      return num < 50 ? num + 1 : 50;
     });
   const decreaseQuantity = () =>
     setQuantity((prev) => {
@@ -44,10 +46,10 @@ const StrainCartComponent = ({
       return;
     }
     const numValue = parseInt(value);
-    if (!isNaN(numValue) && numValue >= 1 && numValue <= 99) {
+    if (!isNaN(numValue) && numValue >= 1 && numValue <= 50) {
       setQuantity(numValue);
-    } else if (numValue > 99) {
-      setQuantity(99);
+    } else if (numValue > 50) {
+      setQuantity(50);
     }
   };
 
@@ -68,8 +70,9 @@ const StrainCartComponent = ({
       },
       qty
     );
-    
+
     setShowSuccess(true);
+    setShowViewCart(true);
     setTimeout(() => setShowSuccess(false), 2000);
     setQuantity(1);
   };
@@ -77,81 +80,105 @@ const StrainCartComponent = ({
   return (
     <div
       className={classNames(
-        "flex items-center gap-5 justify-between w-full",
+        "relative grid gap-5 w-full desktop:gap-2.5",
         cssClasses
       )}
     >
-      <div className="grid items-center w-[46px] tablet:grid-cols-2 tablet:w-auto">
-        <button
-          onClick={increaseQuantity}
-          disabled={
-            !inStock || (typeof quantity === "number" && quantity >= 99)
-          }
-          className={classNames(
-            "bg-yellow w-full h-6 rounded-t-md flex items-center justify-center tablet:w-[22px] tablet:rounded-t-none tablet:rounded-tr-md",
-            {
-              "cursor-not-allowed opacity-50":
-                !inStock || (typeof quantity === "number" && quantity >= 99),
-              "tablet:hover:cursor-pointer tablet:hover:opacity-90 ease-in-out duration-300":
-                inStock &&
-                (typeof quantity !== "number" ||
-                  (typeof quantity === "number" && quantity < 99)),
+      <div className="flex items-center gap-5 justify-between w-full">
+        <div className="grid items-center w-[46px] tablet:grid-cols-2 tablet:w-auto">
+          <button
+            onClick={increaseQuantity}
+            disabled={
+              !inStock || (typeof quantity === "number" && quantity >= 50)
             }
-          )}
-        >
-          <svg width="10" height="5" viewBox="0 0 10 5" fill="none">
-            <path d="M5 0L0 5H10L5 0Z" fill="#353535" />
-          </svg>
-        </button>
+            title={
+              !inStock ? "This product is currently out of stock" : undefined
+            }
+            className={classNames(
+              "bg-yellow w-full h-6 rounded-t-md flex items-center justify-center tablet:w-[22px] tablet:rounded-t-none tablet:rounded-tr-md",
+              {
+                "cursor-not-allowed opacity-50":
+                  !inStock || (typeof quantity === "number" && quantity >= 50),
+                "tablet:hover:cursor-pointer tablet:hover:opacity-90 ease-in-out duration-300":
+                  inStock &&
+                  (typeof quantity !== "number" ||
+                    (typeof quantity === "number" && quantity < 50)),
+              }
+            )}
+          >
+            <svg width="10" height="5" viewBox="0 0 10 5" fill="none">
+              <path d="M5 0L0 5H10L5 0Z" fill="#353535" />
+            </svg>
+          </button>
 
-        <div className="border-2 border-white w-full h-[39px] flex items-center justify-center tablet:order-first tablet:row-span-2 tablet:h-[48px] tablet:rounded-l-md tablet:w-[46px]">
-          {inStock ? (
-            <input
-              type="number"
-              min="1"
-              max="99"
-              value={quantity}
-              onChange={handleQuantityChange}
-              onBlur={handleQuantityBlur}
-              className="bg-transparent text-white text-[20px] text-center w-full focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            />
-          ) : (
-            <span className="text-white text-[20px]">0</span>
-          )}
+          <div className="border-2 border-white w-full h-[39px] flex items-center justify-center tablet:order-first tablet:row-span-2 tablet:h-[48px] tablet:rounded-l-md tablet:w-[46px]">
+            {inStock ? (
+              <input
+                type="number"
+                min="1"
+                max="50"
+                value={quantity}
+                onChange={handleQuantityChange}
+                onBlur={handleQuantityBlur}
+                className="bg-transparent text-white text-[20px] text-center w-full focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+            ) : (
+              <span className="text-white text-[20px]">0</span>
+            )}
+          </div>
+
+          <button
+            onClick={decreaseQuantity}
+            disabled={
+              !inStock || (typeof quantity === "number" && quantity === 1)
+            }
+            title={
+              !inStock ? "This product is currently out of stock" : undefined
+            }
+            className={classNames(
+              "bg-yellow w-full h-6 rounded-b-md flex items-center justify-center border-t border-white tablet:w-[22px] tablet:rounded-b-none tablet:rounded-br-md",
+              {
+                "opacity-50 cursor-not-allowed":
+                  !inStock || (typeof quantity === "number" && quantity === 1),
+                "tablet:hover:cursor-pointer tablet:hover:opacity-90 ease-in-out duration-300":
+                  inStock &&
+                  (typeof quantity !== "number" ||
+                    (typeof quantity === "number" && quantity !== 1)),
+              }
+            )}
+          >
+            <svg width="10" height="5" viewBox="0 0 10 5" fill="none">
+              <path d="M5 5L10 0H0L5 5Z" fill="#353535" />
+            </svg>
+          </button>
         </div>
-
-        <button
-          onClick={decreaseQuantity}
-          disabled={
-            !inStock || (typeof quantity === "number" && quantity === 1)
+        <ButtonType
+          type="button"
+          cssClasses={classNames({
+            "cursor-not-allowed opacity-50": !inStock,
+          })}
+          disabled={!inStock}
+          title={
+            !inStock ? "This product is currently out of stock" : undefined
           }
-          className={classNames(
-            "bg-yellow w-full h-6 rounded-b-md flex items-center justify-center border-t border-white tablet:w-[22px] tablet:rounded-b-none tablet:rounded-br-md",
-            {
-              "opacity-50 cursor-not-allowed":
-                !inStock || (typeof quantity === "number" && quantity === 1),
-              "tablet:hover:cursor-pointer tablet:hover:opacity-90 ease-in-out duration-300":
-                inStock &&
-                (typeof quantity !== "number" ||
-                  (typeof quantity === "number" && quantity !== 1)),
-            }
-          )}
+          onClick={handleAddToCart}
         >
-          <svg width="10" height="5" viewBox="0 0 10 5" fill="none">
-            <path d="M5 5L10 0H0L5 5Z" fill="#353535" />
-          </svg>
-        </button>
+          {showSuccess ? "Added!" : "Add To Cart"}
+        </ButtonType>
       </div>
-      <ButtonType
-        type="button"
-        cssClasses={classNames({
-          "cursor-not-allowed opacity-50": !inStock,
-        })}
-        disabled={!inStock}
-        onClick={handleAddToCart}
-      >
-        {showSuccess ? "Added!" : "Add To Cart"}
-      </ButtonType>
+      {typeof quantity === "number" && quantity >= 50 && (
+        <p className="text-yellow italic">
+          Please contact us directly for any orders with over 50 clones from a
+          single plant -{" "}
+          <Link
+            href="/#contact"
+            className="underline underline-offset-4 desktop:hover:opacity-80"
+            target="_blank"
+          >
+            Contact Us
+          </Link>
+        </p>
+      )}
     </div>
   );
 };

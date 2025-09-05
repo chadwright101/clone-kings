@@ -5,6 +5,7 @@ import Image from "next/image";
 import classNames from "classnames";
 import { CartItem } from "@/_types/cart-types";
 import { useCart } from "@/_contexts/cart-context";
+import Link from "next/link";
 
 interface CartItemComponentProps {
   item: CartItem;
@@ -15,13 +16,16 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
   const [quantity, setQuantity] = useState<number | string>(item.quantity);
 
   const increaseQuantity = () => {
-    const newQty = Math.min(item.quantity + 1, 99);
+    const newQty = Math.min(item.quantity + 1, 50);
+    setQuantity(newQty);
     updateQuantity(item.id, newQty);
   };
 
   const decreaseQuantity = () => {
     if (item.quantity > 1) {
-      updateQuantity(item.id, item.quantity - 1);
+      const newQty = item.quantity - 1;
+      setQuantity(newQty);
+      updateQuantity(item.id, newQty);
     }
   };
 
@@ -32,12 +36,12 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
       return;
     }
     const numValue = parseInt(value);
-    if (!isNaN(numValue) && numValue >= 1 && numValue <= 99) {
+    if (!isNaN(numValue) && numValue >= 1 && numValue <= 50) {
       setQuantity(numValue);
       updateQuantity(item.id, numValue);
-    } else if (numValue > 99) {
-      setQuantity(99);
-      updateQuantity(item.id, 99);
+    } else if (numValue > 50) {
+      setQuantity(50);
+      updateQuantity(item.id, 50);
     }
   };
 
@@ -48,20 +52,20 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
   };
 
   return (
-    <div className="bg-black/50 border border-yellow/25 rounded-lg p-5">
-      <div className="flex gap-5">
+    <div className="bg-black/50 border border-yellow/25 rounded-md p-5 grid gap-5">
+      <div className="flex flex-col gap-5 min-[375px]:flex-row">
         {item.image && (
-          <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-md">
+          <div className="relative w-full h-32 overflow-hidden rounded-md min-[375px]:w-32 min-[375px]:h-40 desktop:w-24 desktop:h-32">
             <Image
               src={item.image}
               alt={item.name}
-              fill
-              className="object-cover"
-              sizes="96px"
+              width={160}
+              height={160}
+              className="h-full w-full object-cover"
             />
           </div>
         )}
-        
+
         <div className="flex-1 space-y-3">
           <div className="flex justify-between items-start">
             <div>
@@ -70,7 +74,7 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
             </div>
             <button
               onClick={() => removeFromCart(item.id)}
-              className="text-yellow hover:text-white transition-colors duration-300 p-2 -m-2"
+              className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0"
               aria-label="Remove item"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -89,13 +93,13 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
               <div className="grid items-center w-[46px] tablet:grid-cols-2 tablet:w-auto">
                 <button
                   onClick={increaseQuantity}
-                  disabled={item.quantity >= 99}
+                  disabled={item.quantity >= 50}
                   className={classNames(
                     "bg-yellow w-full h-6 rounded-t-md flex items-center justify-center tablet:w-[22px] tablet:rounded-t-none tablet:rounded-tr-md",
                     {
-                      "cursor-not-allowed opacity-50": item.quantity >= 99,
+                      "cursor-not-allowed opacity-50": item.quantity >= 50,
                       "tablet:hover:cursor-pointer tablet:hover:opacity-90 ease-in-out duration-300":
-                        item.quantity < 99,
+                        item.quantity < 50,
                     }
                   )}
                 >
@@ -108,7 +112,7 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
                   <input
                     type="number"
                     min="1"
-                    max="99"
+                    max="50"
                     value={item.quantity}
                     onChange={handleQuantityChange}
                     onBlur={handleQuantityBlur}
@@ -144,6 +148,19 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
           </div>
         </div>
       </div>
+      {typeof quantity === "number" && quantity >= 50 && (
+        <p className="text-yellow italic">
+          *Please contact us directly for any orders with over 50 clones from a
+          single plant -{" "}
+          <Link
+            href="/#contact"
+            className="underline underline-offset-4 desktop:hover:opacity-80"
+            target="_blank"
+          >
+            Contact Us
+          </Link>
+        </p>
+      )}
     </div>
   );
 }

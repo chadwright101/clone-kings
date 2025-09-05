@@ -2,6 +2,7 @@
 
 import classNames from "classnames";
 import { useCart } from "@/_contexts/cart-context";
+import { useState, useEffect, useRef } from "react";
 
 interface CartProps {
   onClick?: () => void;
@@ -9,21 +10,29 @@ interface CartProps {
   large?: boolean;
 }
 
-export function CartButton({
-  onClick,
-  cssClasses,
-  large,
-}: CartProps) {
+export function CartButton({ onClick, cssClasses, large }: CartProps) {
   const { getTotalItems } = useCart();
   const itemCount = getTotalItems();
+  const prevItemCount = useRef(itemCount);
+  const [justAdded, setJustAdded] = useState(false);
+
+  useEffect(() => {
+    if (itemCount > prevItemCount.current) {
+      setJustAdded(true);
+      setTimeout(() => setJustAdded(false), 500);
+    }
+    prevItemCount.current = itemCount;
+  }, [itemCount]);
+
   return (
     <button
       onClick={onClick}
       className={classNames(
-        "relative flex items-center justify-center p-2 -m-2 cursor-pointer transition-transform duration-300 ease-in-out desktop:p-0 desktop:m-0",
-        "desktop:hover:scale-[105%]",
+        "relative flex items-center justify-center p-2 -m-2 cursor-pointer transition-transform ease-in-out desktop:p-0 desktop:m-0",
         {
           hidden: itemCount === 0,
+          "delay-300 duration-200 scale-[140%] desktop:scale-150": justAdded,
+          "duration-300 desktop:hover:scale-[105%]": !justAdded,
         },
         cssClasses
       )}

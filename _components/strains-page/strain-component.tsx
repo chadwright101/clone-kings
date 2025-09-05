@@ -3,7 +3,7 @@ import Image from "next/image";
 import { StrainProps } from "@/_types/general-types";
 import Link from "next/link";
 import StrainCartComponent from "@/_lib/utils/strain-cart-component";
-import StockAvailabilityBadges from "@/_components/ui/badges/StockAvailabilityBadges";
+import StockAvailabilityBadges from "@/_components/ui/badges/stock-availability-badges";
 
 interface StrainComponentProps {
   strainData: StrainProps;
@@ -14,7 +14,7 @@ const StrainComponent = ({ strainData }: StrainComponentProps) => {
     <li className="flex flex-col gap-5 items-start justify-center relative w-full border-b border-yellow/25 pb-10 min-[550px]:border-b-0 min-[550px]:pb-0">
       <Link
         href={`/strains/${strainData.title.toLowerCase().replace(/\s+/g, "-")}`}
-        className="relative overflow-hidden w-full aspect-square"
+        className="overflow-hidden w-full aspect-square"
       >
         <Image
           src={strainData.images[0]}
@@ -25,20 +25,24 @@ const StrainComponent = ({ strainData }: StrainComponentProps) => {
           sizes="(max-width: 800px) 100vw, (min-width: 800px) 50vw, (min-width: 1000px) 400px"
         />
       </Link>
-      <div className="min-[1000px]:absolute top-3 right-3">
-        <StockAvailabilityBadges inStock={strainData.inStock} />
-      </div>
+      <Link
+        href={`/strains/${strainData.title.toLowerCase().replace(/\s+/g, "-")}`}
+      >
+        <div className="min-[1000px]:absolute top-3 right-3">
+          <StockAvailabilityBadges inStock={strainData.inStock} />
+        </div>
+      </Link>
       <div className="flex flex-col text-white w-full">
         <h3 className="text-subheading">{strainData.title}</h3>
         <p className="text-paragraph">{strainData.supplier}</p>
         <p className="text-paragraph">R{strainData.price}</p>
       </div>
-      <StrainCartComponent 
+      <StrainCartComponent
         strainId={strainData.title.toLowerCase().replace(/\s+/g, "-")}
         strainName={strainData.title}
         strainPrice={strainData.price}
         strainImage={strainData.images[0]}
-        inStock={strainData.inStock} 
+        inStock={strainData.inStock}
       />
     </li>
   );

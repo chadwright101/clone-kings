@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import StrainSlider from "@/_components/strain-page/strain-slider";
 import StrainCartComponent from "@/_lib/utils/strain-cart-component";
-import StockAvailabilityBadges from "@/_components/ui/badges/StockAvailabilityBadges";
+import StockAvailabilityBadges from "@/_components/ui/badges/stock-availability-badges";
 
 import strainData from "@/_data/strains-data.json";
 

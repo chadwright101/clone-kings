@@ -10,6 +10,7 @@ const ButtonType = ({
   disabled = false,
   colorBlack = false,
   ariaLabel,
+  title,
 }: ButtonProps) => {
   const { pending } = useFormStatus();
 
@@ -21,6 +22,7 @@ const ButtonType = ({
       className={buttonStyles(cssClasses, disabled, pending, colorBlack)}
       disabled={disabled || pending}
       style={{ fontVariant: "small-caps" }}
+      title={title}
     >
       {pending && type === "submit" ? (
         <div className="py-[3px]">
