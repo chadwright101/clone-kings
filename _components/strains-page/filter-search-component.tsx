@@ -38,14 +38,15 @@ const FilterSearchComponent = ({
       if (!searchTerm.trim()) {
         onSearchChange?.(searchTerm, strains);
       } else {
-        const titleMatches = strains.filter(strain => 
+        const titleMatches = strains.filter((strain) =>
           strain.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        const descriptionMatches = strains.filter(strain => 
-          !strain.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          strain.description.some((desc: string) => 
-            desc.toLowerCase().includes(searchTerm.toLowerCase())
-          )
+        const descriptionMatches = strains.filter(
+          (strain) =>
+            !strain.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            strain.description.some((desc: string) =>
+              desc.toLowerCase().includes(searchTerm.toLowerCase())
+            )
         );
         const filteredResults = [...titleMatches, ...descriptionMatches];
         onSearchChange?.(searchTerm, filteredResults);
@@ -110,7 +111,7 @@ const FilterSearchComponent = ({
             />
             <div className="shrink-0 ml-2  w-6 h-6 pointer-events-none">
               {isSearching ? (
-                <div className="spinner" />
+                <div className="spinner-yellow" />
               ) : (
                 <svg
                   width="24"

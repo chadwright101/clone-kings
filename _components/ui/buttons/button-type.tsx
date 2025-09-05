@@ -1,6 +1,7 @@
 import { useFormStatus } from "react-dom";
 import { ButtonProps } from "@/_types/button-types";
 import { buttonStyles } from "@/_styles/button-styles";
+import classNames from "classnames";
 
 const ButtonType = ({
   children,
@@ -26,7 +27,12 @@ const ButtonType = ({
     >
       {pending && type === "submit" ? (
         <div className="py-[3px]">
-          <div className="spinner"></div>
+          <div
+            className={classNames({
+              "spinner-yellow": colorBlack,
+              "spinner-black": !colorBlack,
+            })}
+          ></div>
         </div>
       ) : (
         <>{children}</>

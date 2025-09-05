@@ -4,6 +4,11 @@ interface OrderEmailTemplateProps {
   name: string;
   email: string;
   phone: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  province: string;
+  postalCode: string;
   notes?: string;
   items: CartItem[];
   totalPrice: number;
@@ -13,6 +18,11 @@ export const orderEmailTemplate = ({
   name,
   email,
   phone,
+  addressLine1,
+  addressLine2,
+  city,
+  province,
+  postalCode,
   notes,
   items,
   totalPrice,
@@ -65,6 +75,9 @@ export const orderEmailTemplate = ({
           </p>
           <p style="font-size: 1rem; font-weight: 500; color: #353535;">
             Phone: <span style="font-weight: 200; font-style: italic;">${phone}</span>
+          </p>
+          <p style="font-size: 1rem; font-weight: 500; color: #353535;">
+            Address: <span style="font-weight: 200; font-style: italic;">${addressLine1}${addressLine2 ? `, ${addressLine2}` : ''}, ${city}, ${province}, ${postalCode}</span>
           </p>
           ${
             notes

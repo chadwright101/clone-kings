@@ -10,6 +10,7 @@ const CART_STORAGE_KEY = "clone-kings-cart";
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [showEmailSubmitted, setShowEmailSubmitted] = useState(false);
 
   useEffect(() => {
     const storedCart = localStorage.getItem(CART_STORAGE_KEY);
@@ -86,6 +87,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         clearCart,
         getTotalItems,
         getTotalPrice,
+        showEmailSubmitted,
+        setShowEmailSubmitted,
       }}
     >
       {children}

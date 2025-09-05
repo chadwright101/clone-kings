@@ -30,7 +30,7 @@ const ShowPhoneNumber = ({ buttonClasses, linkClasses }: showContactProps) => {
         )}
         aria-label="Show phone number"
       >
-        {showSpinnerPhone ? <div className="spinner"></div> : showPhone}
+        {showSpinnerPhone ? <div className="spinner-yellow"></div> : showPhone}
       </button>
     );
   } else {

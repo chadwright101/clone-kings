@@ -9,10 +9,12 @@ import classNames from "classnames";
 
 import navData from "@/_data/nav-data.json";
 import { CartButton } from "@/_components/ui/buttons/cart-button";
+import { useCart } from "@/_contexts/cart-context";
 
 export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const { setShowEmailSubmitted } = useCart();
 
   useEffect(() => {
     if (isOpen) {
@@ -43,7 +45,7 @@ export function MobileHeader() {
           </span>
         </Link>
         <div className="flex items-center gap-10">
-          <CartButton large onClick={() => router.push("/cart")} />
+          <CartButton onClick={() => router.push("/cart")} />
           <button
             onClick={() => setIsOpen(true)}
             className="ease-in-out duration-300 -m-3 p-3"
@@ -69,7 +71,14 @@ export function MobileHeader() {
         )}
       >
         <div className="flex w-full py-10 items-center justify-between px-7">
-          <CartButton large cssClasses="-translate-y-0.5" onClick={() => { router.push("/cart"); setIsOpen(false); }} />
+          <CartButton
+            large
+            cssClasses="-translate-y-0.5"
+            onClick={() => {
+              router.push("/cart");
+              setIsOpen(false);
+            }}
+          />
           <button onClick={() => setIsOpen(false)} aria-label="Close menu">
             <Image
               src="/icons/close.svg"
@@ -86,7 +95,10 @@ export function MobileHeader() {
                 <li key={id}>
                   <Link
                     href={url}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false);
+                      setShowEmailSubmitted(false);
+                    }}
                     className="text-[18px] text-white font-normal p-3 -m-3"
                   >
                     {title}

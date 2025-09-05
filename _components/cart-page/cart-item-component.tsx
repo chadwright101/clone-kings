@@ -148,6 +148,7 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
           </div>
         </div>
       </div>
+
       {typeof quantity === "number" && quantity >= 50 && (
         <p className="text-yellow italic">
           *Please contact us directly for any orders with over 50 clones from a

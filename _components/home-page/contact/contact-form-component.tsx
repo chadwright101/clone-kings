@@ -10,9 +10,9 @@ import ButtonType from "@/_components/ui/buttons/button-type";
 
 const ContactFormComponent = () => {
   const [submissionStartTime, setSubmissionStartTime] = useState(0);
-  const [validateRecaptcha, setValidateRecaptcha] = useState(false);
   const [showEmailSubmitted, setShowEmailSubmitted] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const startSubmissionTimer = () => {
@@ -26,21 +26,6 @@ const ContactFormComponent = () => {
       }
     }
   }, [showEmailSubmitted]);
-
-  const handleRecaptchaChange = (value: any) => {
-    if (value === null) {
-      setValidateRecaptcha(false);
-      console.log("Recaptcha expired");
-    } else {
-      const elapsedTime = new Date().getTime() - submissionStartTime;
-      if (elapsedTime < 3000) {
-        console.error("Form submitted too quickly. Possible bot activity.");
-        return;
-      } else {
-        setValidateRecaptcha(!!value);
-      }
-    }
-  };
 
   return (
     <div className="bg-yellow px-5 py-10 -mx-5 tablet:mx-0 tablet:py-5">
@@ -57,52 +42,60 @@ const ContactFormComponent = () => {
         <form
           className="flex flex-col gap-8"
           action={async (formData) => {
-            await sendEmail(formData);
-            setShowEmailSubmitted(true);
+            try {
+              setError(null);
+              const result = await sendEmail(formData);
+              
+              if (result.success) {
+                setShowEmailSubmitted(true);
+              } else {
+                setError(result.error || "Failed to send message. Please try again.");
+              }
+            } catch (err) {
+              setError("An unexpected error occurred. Please try again.");
+              console.error("Contact form error:", err);
+            }
           }}
         >
           <input type="hidden" name="_honey" className="hidden" />
           <label
             htmlFor="emailAddress"
-            className="grid gap-2 text-subheading text-black"
+            className="grid gap-2 text-paragraph font-medium text-black"
           >
             Email:
             <input
               type="email"
               id="emailAddress"
               name="email"
-              className="bg-white px-2 py-3 rounded-md font-light text-black/75 border-none"
-              placeholder="Type your email address here..."
+              className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
               autoComplete="email"
               required
             />
           </label>
           <label
             htmlFor="fullName"
-            className="grid gap-2 text-subheading text-black"
+            className="grid gap-2 text-paragraph font-medium text-black"
           >
             Name:
             <input
               type="text"
               id="fullName"
               name="name"
-              className="bg-white px-2 py-3 rounded-md font-light text-black/75 border-none"
-              placeholder="Type your full name here..."
+              className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
               autoComplete="name"
               required
             />
           </label>
           <label
             htmlFor="phoneNumber"
-            className="grid gap-2 text-subheading text-black"
+            className="grid gap-2 text-paragraph font-medium text-black"
           >
             Phone:
             <input
               type="tel"
               id="phoneNumber"
               name="phone"
-              className="bg-white px-2 py-3 rounded-md font-light text-black/75 border-none"
-              placeholder="Type your phone number here..."
+              className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
               autoComplete="phone"
             />
           </label>
@@ -110,7 +103,7 @@ const ContactFormComponent = () => {
           {!showMessage ? (
             <ButtonType
               type="button"
-              cssClasses="bg-black text-white text-subheading px-4 py-2 rounded-md w-full tablet:self-start"
+              cssClasses="bg-black text-white text-paragraph font-medium px-4 py-2 rounded-md w-full tablet:self-start"
               onClick={() => setShowMessage(true)}
               colorBlack
             >
@@ -120,32 +113,25 @@ const ContactFormComponent = () => {
             <>
               <label
                 htmlFor="message"
-                className="grid gap-2 text-subheading text-black"
+                className="grid gap-2 text-paragraph font-medium text-black"
               >
                 Message:
                 <textarea
                   id="message"
                   name="message"
-                  className="bg-white px-2 py-3 rounded-md font-light text-black/75 border-none"
+                  className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
                   rows={5}
-                  placeholder="Type your message here..."
                   required
                 ></textarea>
               </label>
-              <ButtonType
-                type="submit"
-                cssClasses={classNames({
-                  "opacity-75 desktop:cursor-not-allowed": !validateRecaptcha,
-                  "hover:desktop:opacity-90": validateRecaptcha,
-                })}
-                colorBlack
-                disabled={!validateRecaptcha}
-              >
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/50 rounded-md p-3">
+                  <p className="text-[14px] text-red-600">{error}</p>
+                </div>
+              )}
+              <ButtonType type="submit" colorBlack>
                 Submit
               </ButtonType>
-              {!validateRecaptcha && (
-                <Recaptcha onChange={handleRecaptchaChange} />
-              )}
             </>
           )}
         </form>

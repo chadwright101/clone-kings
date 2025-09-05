@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 
 import navData from "@/_data/nav-data.json";
 import { CartButton } from "@/_components/ui/buttons/cart-button";
+import { useCart } from "@/_contexts/cart-context";
 
 export function DesktopHeader() {
   const router = useRouter();
-  
+  const { setShowEmailSubmitted } = useCart();
+
   return (
     <div className="hidden pt-7 px-10 items-center justify-between desktop:flex">
       <Link
@@ -35,6 +37,7 @@ export function DesktopHeader() {
               <li key={id}>
                 <Link
                   href={url}
+                  onClick={() => setShowEmailSubmitted(false)}
                   className="text-white text-paragraph ease-in-out duration-300 hover:text-yellow"
                 >
                   {title}

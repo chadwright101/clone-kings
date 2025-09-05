@@ -6,10 +6,63 @@ import CartSummary from "@/_components/cart-page/cart-summary";
 import Link from "next/link";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import ButtonLink from "@/_components/ui/buttons/button-link";
+import { useEffect } from "react";
 
 export default function CartPage() {
-  const { items, getTotalItems } = useCart();
+  const {
+    items,
+    getTotalItems,
+    clearCart,
+    showEmailSubmitted,
+    setShowEmailSubmitted,
+  } = useCart();
   const totalItems = getTotalItems();
+
+  useEffect(() => {
+    if (showEmailSubmitted) {
+      const element = document.getElementById("order-completed");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [showEmailSubmitted]);
+
+  if (showEmailSubmitted) {
+    return (
+      <div
+        className="w-full px-5 min-h-[600px] flex flex-col justify-center items-center space-y-5"
+        id="order-completed"
+      >
+        <div className="text-center space-y-5">
+          <div className="flex justify-center">
+            <div className="bg-yellow rounded-full p-3">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                  stroke="#353535"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+          <h3 className="text-subheading text-white">Order Submitted!</h3>
+          <p className="text-paragraph text-white/80">
+            Thank you for your order. Please check your email for your order
+            confirmation and details.
+          </p>
+        </div>
+        <ButtonLink
+          href="/strains"
+          type="button"
+          onClick={() => setShowEmailSubmitted(false)}
+        >
+          Browse Strains
+        </ButtonLink>
+      </div>
+    );
+  }
 
   if (totalItems === 0) {
     return (
@@ -48,6 +101,9 @@ export default function CartPage() {
             {items.map((item) => (
               <CartItemComponent key={item.id} item={item} />
             ))}
+            <ButtonType type="button" onClick={clearCart}>
+              Clear Cart
+            </ButtonType>
           </div>
 
           <CartSummary />

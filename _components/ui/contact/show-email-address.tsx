@@ -29,7 +29,7 @@ const ShowEmailAddress = ({ buttonClasses, linkClasses }: showContactProps) => {
         )}
         aria-label="Show email address"
       >
-        {showSpinnerEmail ? <div className="spinner"></div> : showEmail}
+        {showSpinnerEmail ? <div className="spinner-yellow"></div> : showEmail}
       </button>
     );
   } else {

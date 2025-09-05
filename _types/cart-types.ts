@@ -14,4 +14,6 @@ export interface CartContextType {
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  showEmailSubmitted: boolean;
+  setShowEmailSubmitted: (value: boolean) => void;
 }

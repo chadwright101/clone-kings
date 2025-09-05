@@ -1,100 +1,54 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/_contexts/cart-context";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import classNames from "classnames";
 import { sendOrderEmail } from "@/_actions/send-order-email-action";
 
-export default function CartSummary() {
-  const { getTotalPrice, items, clearCart, getTotalItems } = useCart();
-  const [isPending, startTransition] = useTransition();
-  const [showSuccess, setShowSuccess] = useState(false);
+interface CartSummaryProps {}
+
+export default function CartSummary({}: CartSummaryProps) {
+  const { getTotalPrice, getTotalItems, items, clearCart, setShowEmailSubmitted } = useCart();
+  const [submissionStartTime, setSubmissionStartTime] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    notes: "",
-  });
 
   const totalPrice = getTotalPrice();
   const totalItems = getTotalItems();
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (formDataElement: FormData) => {
-    setError(null);
-
-    const orderData = {
-      ...formData,
-      items: items,
-      totalPrice: totalPrice,
+  useEffect(() => {
+    const startSubmissionTimer = () => {
+      setSubmissionStartTime(new Date().getTime());
     };
-
-    formDataElement.append("orderData", JSON.stringify(orderData));
-
-    startTransition(async () => {
-      const result = await sendOrderEmail(formDataElement);
-
-      if (result.success) {
-        setShowSuccess(true);
-        clearCart();
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          notes: "",
-        });
-
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 3000);
-      } else {
-        setError(result.error || "Failed to submit order. Please try again.");
-      }
-    });
-  };
-
-  if (showSuccess) {
-    return (
-      <div className="bg-black/50 border border-yellow rounded-lg p-8 sticky top-28">
-        <div className="text-center space-y-5">
-          <div className="flex justify-center">
-            <div className="bg-yellow rounded-full p-3">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                  stroke="#353535"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
-          <h3 className="text-subheading text-white">Order Submitted!</h3>
-          <p className="text-paragraph text-white/80">
-            Thank you for your order. We'll contact you soon.
-          </p>
-          <p className="text-[14px] text-white/60">
-            Redirecting to home page...
-          </p>
-        </div>
-      </div>
-    );
-  }
+    startSubmissionTimer();
+  }, []);
 
   return (
-    <div className="bg-black/50 border border-yellow rounded-lg p-5 desktop:p-8 sticky top-28">
-      <form action={handleSubmit} className="space-y-5">
+    <div className="bg-black/50 border border-yellow rounded-md p-5 desktop:p-8 sticky top-28">
+      <form
+        action={async (formData) => {
+          try {
+            setError(null);
+            formData.append("cartData", JSON.stringify(items));
+            formData.append("totalPrice", totalPrice.toString());
+            const result = await sendOrderEmail(formData);
+
+            if (result.success) {
+              setShowEmailSubmitted(true);
+              clearCart();
+            } else {
+              setError(
+                result.error || "Failed to submit order. Please try again."
+              );
+            }
+          } catch (err) {
+            setError("An unexpected error occurred. Please try again.");
+            console.error("Order submission error:", err);
+          }
+        }}
+        className="space-y-5"
+      >
+        <input type="hidden" name="_honey" className="hidden" />
         <h2 className="text-subheading text-white border-b border-yellow/25 pb-3">
           Order Summary
         </h2>
@@ -126,20 +80,35 @@ export default function CartSummary() {
 
           <div>
             <label
-              htmlFor="name"
+              htmlFor="given-name"
               className="block text-paragraph text-white/80 mb-2"
             >
-              Name *
+              First name: *
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="given-name"
+              name="given-name"
+              autoComplete="given-name"
               required
-              value={formData.name}
-              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
-              placeholder="Your name"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="family-name"
+              className="block text-paragraph text-white/80 mb-2"
+            >
+              Last name: *
+            </label>
+            <input
+              type="text"
+              id="family-name"
+              name="family-name"
+              autoComplete="family-name"
+              required
+              className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
             />
           </div>
 
@@ -148,36 +117,139 @@ export default function CartSummary() {
               htmlFor="email"
               className="block text-paragraph text-white/80 mb-2"
             >
-              Email *
+              Email: *
             </label>
             <input
               type="email"
               id="email"
               name="email"
+              autoComplete="email"
               required
-              value={formData.email}
-              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
-              placeholder="your@email.com"
             />
           </div>
 
           <div>
             <label
-              htmlFor="phone"
+              htmlFor="tel"
               className="block text-paragraph text-white/80 mb-2"
             >
-              Phone *
+              Phone: *
             </label>
             <input
               type="tel"
-              id="phone"
-              name="phone"
+              id="tel"
+              name="tel"
+              autoComplete="tel"
               required
-              value={formData.phone}
-              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
-              placeholder="Your phone number"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="address-line1"
+              className="block text-paragraph text-white/80 mb-1"
+            >
+              Street address line 1: *
+            </label>
+            <input
+              type="text"
+              id="address-line1"
+              name="address-line1"
+              autoComplete="address-line1"
+              className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="address-line2"
+              className="block text-paragraph text-white/80 mb-1"
+            >
+              Apartment, suite, unit, etc. (optional):
+            </label>
+            <input
+              type="text"
+              id="address-line2"
+              name="address-line2"
+              autoComplete="address-line2"
+              className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="address-level2"
+              className="block text-paragraph text-white/80 mb-1"
+            >
+              Town/City: *
+            </label>
+            <input
+              type="text"
+              id="address-level2"
+              name="address-level2"
+              autoComplete="address-level2"
+              className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="address-level1"
+              className="block text-paragraph text-white/80 mb-1"
+            >
+              Province: *
+            </label>
+            <div className="relative">
+              <select
+                id="address-level1"
+                name="address-level1"
+                autoComplete="address-level1"
+                className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors appearance-none"
+                required
+              >
+                <option value="">Select Province</option>
+                <option value="Eastern Cape">Eastern Cape</option>
+                <option value="Free State">Free State</option>
+                <option value="Gauteng">Gauteng</option>
+                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                <option value="Limpopo">Limpopo</option>
+                <option value="Mpumalanga">Mpumalanga</option>
+                <option value="Northern Cape">Northern Cape</option>
+                <option value="North West">North West</option>
+                <option value="Western Cape">Western Cape</option>
+              </select>
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <svg
+                  className="w-5 h-5 text-white/60"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="postal-code"
+              className="block text-paragraph text-white/80 mb-1"
+            >
+              Postcode: *
+            </label>
+            <input
+              type="text"
+              id="postal-code"
+              name="postal-code"
+              autoComplete="postal-code"
+              className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
+              required
             />
           </div>
 
@@ -186,16 +258,13 @@ export default function CartSummary() {
               htmlFor="notes"
               className="block text-paragraph text-white/80 mb-2"
             >
-              Order Notes (Optional)
+              Order Notes (Optional):
             </label>
             <textarea
               id="notes"
               name="notes"
               rows={3}
-              value={formData.notes}
-              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors resize-none"
-              placeholder="Any special instructions..."
             />
           </div>
         </div>
@@ -206,17 +275,45 @@ export default function CartSummary() {
           </div>
         )}
 
+        <div className="grid gap-2">
+          <h4>Payment</h4>
+          <p className="text-[14px]">
+            <span className="font-bold text-[14px]">
+              Payment is via EFT only.
+            </span>{" "}
+            Please use the order number that will be emailed to you as the
+            payment reference. Once stock availability has been confirmed, our
+            team will contact you to finalise your order.
+          </p>
+        </div>
+
+        <div className="grid gap-2">
+          <h4>Delivery</h4>
+          <p className="text-[14px]">
+            <span className="font-bold text-[14px]">
+              Delivery will take a minimum of 14 days
+            </span>{" "}
+            once your payment has cleared in our account.
+          </p>
+        </div>
+
         <ButtonType
           type="submit"
-          disabled={isPending || totalItems < 4}
-          cssClasses={classNames("w-full", {
-            "opacity-50 cursor-not-allowed": isPending,
-          })}
-          title="You must have at least 4 clones in your cart to submit an order"
+          cssClasses="w-full"
+          disabled={totalItems < 4}
+          title={
+            totalItems < 4
+              ? "You must have a minimum of 4 clones in your cart to submit an order"
+              : "Submit Order"
+          }
         >
-          {isPending ? "Submitting..." : "Submit Order"}
+          Submit Order
         </ButtonType>
       </form>
+      <p className="text-[14px] text-white/60 mt-4">
+        By placing your order, you agree that we’ll use your details only to
+        process your purchase — and we’ll never share them without your consent.
+      </p>
     </div>
   );
 }

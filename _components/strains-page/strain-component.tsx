@@ -32,11 +32,16 @@ const StrainComponent = ({ strainData }: StrainComponentProps) => {
           <StockAvailabilityBadges inStock={strainData.inStock} />
         </div>
       </Link>
-      <div className="flex flex-col text-white w-full">
-        <h3 className="text-subheading">{strainData.title}</h3>
-        <p className="text-paragraph">{strainData.supplier}</p>
-        <p className="text-paragraph">R{strainData.price}</p>
-      </div>
+      <Link
+        href={`/strains/${strainData.title.toLowerCase().replace(/\s+/g, "-")}`}
+        className="desktop:hover:opacity-80 ease-in-out duration-300"
+      >
+        <div className="flex flex-col text-white w-full">
+          <h3 className="text-subheading">{strainData.title}</h3>
+          <p className="text-paragraph">{strainData.supplier}</p>
+          <p className="text-paragraph">R{strainData.price}</p>
+        </div>
+      </Link>
       <StrainCartComponent
         strainId={strainData.title.toLowerCase().replace(/\s+/g, "-")}
         strainName={strainData.title}
