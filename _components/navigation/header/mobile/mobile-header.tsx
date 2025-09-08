@@ -79,7 +79,11 @@ export function MobileHeader() {
               setIsOpen(false);
             }}
           />
-          <button onClick={() => setIsOpen(false)} aria-label="Close menu">
+          <button
+            onClick={() => setIsOpen(false)}
+            aria-label="Close menu"
+            className="p-2 -m-2"
+          >
             <Image
               src="/icons/close.svg"
               alt="Close menu"

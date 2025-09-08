@@ -3,18 +3,51 @@
 import { useEffect, useState } from "react";
 import { useCart } from "@/_contexts/cart-context";
 import ButtonType from "@/_components/ui/buttons/button-type";
+import ErrorPopup from "@/_components/ui/error-popup";
 import classNames from "classnames";
-import { sendOrderEmail } from "@/_actions/send-order-email-action";
+import {
+  sendOrderEmailStaff,
+  sendOrderEmailCustomer,
+} from "@/_actions/send-order-emails";
+import { generateOrderNumber } from "@/_lib/utils/generate-order-number";
 
 interface CartSummaryProps {}
 
 export default function CartSummary({}: CartSummaryProps) {
-  const { getTotalPrice, getTotalItems, items, clearCart, setShowEmailSubmitted } = useCart();
+  const {
+    getTotalPrice,
+    getTotalItems,
+    items,
+    clearCart,
+    setShowEmailSubmitted,
+  } = useCart();
   const [submissionStartTime, setSubmissionStartTime] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    "given-name": "",
+    "family-name": "",
+    email: "",
+    tel: "",
+    "address-line1": "",
+    "address-line2": "",
+    "address-level2": "",
+    "address-level1": "",
+    "postal-code": "",
+    notes: "",
+  });
 
   const totalPrice = getTotalPrice();
   const totalItems = getTotalItems();
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   useEffect(() => {
     const startSubmissionTimer = () => {
@@ -26,23 +59,61 @@ export default function CartSummary({}: CartSummaryProps) {
   return (
     <div className="bg-black/50 border border-yellow rounded-md p-5 desktop:p-8 sticky top-28">
       <form
-        action={async (formData) => {
+        action={async (formDataObj) => {
           try {
             setError(null);
-            formData.append("cartData", JSON.stringify(items));
-            formData.append("totalPrice", totalPrice.toString());
-            const result = await sendOrderEmail(formData);
 
-            if (result.success) {
+            const orderNumber = generateOrderNumber();
+
+            formDataObj.append("cartData", JSON.stringify(items));
+            formDataObj.append("totalPrice", totalPrice.toString());
+            formDataObj.append("orderNumber", orderNumber);
+
+            const [staffResult, customerResult] = await Promise.all([
+              sendOrderEmailStaff(formDataObj),
+              sendOrderEmailCustomer(formDataObj),
+            ]);
+
+            if (staffResult.success && customerResult.success) {
               setShowEmailSubmitted(true);
               clearCart();
+              setFormData({
+                "given-name": "",
+                "family-name": "",
+                email: "",
+                tel: "",
+                "address-line1": "",
+                "address-line2": "",
+                "address-level2": "",
+                "address-level1": "",
+                "postal-code": "",
+                notes: "",
+              });
             } else {
+              const errors = [];
+              if (!staffResult.success) {
+                const staffError =
+                  staffResult.error ||
+                  "We encountered an issue processing your order";
+                errors.push(
+                  `Order processing failed: ${staffError}. Please check your details and try again.`
+                );
+              }
+              if (!customerResult.success) {
+                const customerError =
+                  customerResult.error ||
+                  "We couldn't send your confirmation email";
+                errors.push(`Email confirmation failed: ${customerError}.`);
+              }
               setError(
-                result.error || "Failed to submit order. Please try again."
+                errors.join(" ") +
+                  " If the problem persists, please reach out to our support team."
               );
             }
           } catch (err) {
-            setError("An unexpected error occurred. Please try again.");
+            setError(
+              "We're experiencing technical difficulties. Please try submitting your order again in a few moments. If the issue continues, contact our support team."
+            );
             console.error("Order submission error:", err);
           }
         }}
@@ -91,6 +162,8 @@ export default function CartSummary({}: CartSummaryProps) {
               name="given-name"
               autoComplete="given-name"
               required
+              value={formData["given-name"]}
+              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
             />
           </div>
@@ -108,6 +181,8 @@ export default function CartSummary({}: CartSummaryProps) {
               name="family-name"
               autoComplete="family-name"
               required
+              value={formData["family-name"]}
+              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
             />
           </div>
@@ -125,6 +200,8 @@ export default function CartSummary({}: CartSummaryProps) {
               name="email"
               autoComplete="email"
               required
+              value={formData.email}
+              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
             />
           </div>
@@ -142,6 +219,8 @@ export default function CartSummary({}: CartSummaryProps) {
               name="tel"
               autoComplete="tel"
               required
+              value={formData.tel}
+              onChange={handleInputChange}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
             />
           </div>
@@ -159,6 +238,8 @@ export default function CartSummary({}: CartSummaryProps) {
               autoComplete="address-line1"
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
               required
+              value={formData["address-line1"]}
+              onChange={handleInputChange}
             />
           </div>
           <div>
@@ -174,6 +255,8 @@ export default function CartSummary({}: CartSummaryProps) {
               name="address-line2"
               autoComplete="address-line2"
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
+              value={formData["address-line2"]}
+              onChange={handleInputChange}
             />
           </div>
           <div>
@@ -190,6 +273,8 @@ export default function CartSummary({}: CartSummaryProps) {
               autoComplete="address-level2"
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
               required
+              value={formData["address-level2"]}
+              onChange={handleInputChange}
             />
           </div>
           <div>
@@ -206,6 +291,8 @@ export default function CartSummary({}: CartSummaryProps) {
                 autoComplete="address-level1"
                 className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors appearance-none"
                 required
+                value={formData["address-level1"]}
+                onChange={handleInputChange}
               >
                 <option value="">Select Province</option>
                 <option value="Eastern Cape">Eastern Cape</option>
@@ -250,6 +337,8 @@ export default function CartSummary({}: CartSummaryProps) {
               autoComplete="postal-code"
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors"
               required
+              value={formData["postal-code"]}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -265,15 +354,11 @@ export default function CartSummary({}: CartSummaryProps) {
               name="notes"
               rows={3}
               className="w-full bg-black/50 border border-white/25 rounded-md px-4 py-3 text-white focus:outline-none focus:border-yellow transition-colors resize-none"
+              value={formData.notes}
+              onChange={handleInputChange}
             />
           </div>
         </div>
-
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/50 rounded-md p-3">
-            <p className="text-[14px] text-red-400">{error}</p>
-          </div>
-        )}
 
         <div className="grid gap-2">
           <h4>Payment</h4>
@@ -311,9 +396,11 @@ export default function CartSummary({}: CartSummaryProps) {
         </ButtonType>
       </form>
       <p className="text-[14px] text-white/60 mt-4">
-        By placing your order, you agree that we’ll use your details only to
-        process your purchase — and we’ll never share them without your consent.
+        By placing your order, you agree that we'll use your details only to
+        process your purchase — and we'll never share them without your consent.
       </p>
+
+      {error && <ErrorPopup message={error} onClose={() => setError(null)} />}
     </div>
   );
 }
