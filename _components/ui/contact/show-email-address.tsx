@@ -4,18 +4,33 @@ import Link from "next/link";
 import { useState } from "react";
 
 import classNames from "classnames";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { fetchEmailAddress } from "@/_actions/contact-actions";
 import { showContactProps } from "@/_types/general-types";
 
 const ShowEmailAddress = ({ buttonClasses, linkClasses }: showContactProps) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [showEmail, setShowEmail] = useState("Show email address");
   const [showSpinnerEmail, setShowSpinnerEmail] = useState(false);
 
   const handleShowEmailAddress = async () => {
     setShowSpinnerEmail(true);
-    const emailAddress = (await fetchEmailAddress()) || "Email not found";
-    setShowEmail(emailAddress);
+    
+    try {
+      let recaptchaToken: string | undefined;
+      
+      if (executeRecaptcha) {
+        recaptchaToken = await executeRecaptcha("fetch_email");
+      }
+      
+      const emailAddress = (await fetchEmailAddress(recaptchaToken)) || "Email not found";
+      setShowEmail(emailAddress);
+    } catch (error) {
+      console.error("Error fetching email:", error);
+      setShowEmail("Email not available");
+    }
+    
     setShowSpinnerEmail(false);
   };
 

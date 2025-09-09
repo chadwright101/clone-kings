@@ -5,6 +5,7 @@ import { useCart } from "@/_contexts/cart-context";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import ErrorPopup from "@/_components/ui/error-popup";
 import classNames from "classnames";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {
   sendOrderEmailStaff,
   sendOrderEmailCustomer,
@@ -14,6 +15,7 @@ import { generateOrderNumber } from "@/_lib/utils/generate-order-number";
 interface CartSummaryProps {}
 
 export default function CartSummary({}: CartSummaryProps) {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const {
     getTotalPrice,
     getTotalItems,
@@ -23,6 +25,7 @@ export default function CartSummary({}: CartSummaryProps) {
   } = useCart();
   const [submissionStartTime, setSubmissionStartTime] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     "given-name": "",
     "family-name": "",
@@ -62,6 +65,18 @@ export default function CartSummary({}: CartSummaryProps) {
         action={async (formDataObj) => {
           try {
             setError(null);
+            setIsSubmitting(true);
+
+            if (!executeRecaptcha) {
+              await new Promise(resolve => setTimeout(resolve, 1000));
+              if (!executeRecaptcha) {
+                setError("Security verification unavailable. Please refresh the page and try again.");
+                return;
+              }
+            }
+
+            const recaptchaToken = await executeRecaptcha("order_form");
+            formDataObj.append("recaptchaToken", recaptchaToken);
 
             const orderNumber = generateOrderNumber();
 
@@ -69,10 +84,21 @@ export default function CartSummary({}: CartSummaryProps) {
             formDataObj.append("totalPrice", totalPrice.toString());
             formDataObj.append("orderNumber", orderNumber);
 
-            const [staffResult, customerResult] = await Promise.all([
-              sendOrderEmailStaff(formDataObj),
-              sendOrderEmailCustomer(formDataObj),
-            ]);
+            const staffResult = await sendOrderEmailStaff(formDataObj);
+            
+            if (!staffResult.success) {
+              setError(staffResult.error || "Failed to process your order. Please try again.");
+              return;
+            }
+
+            const customerResult = await sendOrderEmailCustomer(formDataObj, true);
+            
+            if (!customerResult.success) {
+              setError(`Order submitted successfully, but there was an issue sending your confirmation email: ${customerResult.error}. Please save your order number: ${orderNumber}`);
+              setShowEmailSubmitted(true);
+              clearCart();
+              return;
+            }
 
             if (staffResult.success && customerResult.success) {
               setShowEmailSubmitted(true);
@@ -115,6 +141,8 @@ export default function CartSummary({}: CartSummaryProps) {
               "We're experiencing technical difficulties. Please try submitting your order again in a few moments. If the issue continues, contact our support team."
             );
             console.error("Order submission error:", err);
+          } finally {
+            setIsSubmitting(false);
           }
         }}
         className="space-y-5"
@@ -385,14 +413,16 @@ export default function CartSummary({}: CartSummaryProps) {
         <ButtonType
           type="submit"
           cssClasses="w-full"
-          disabled={totalItems < 4}
+          disabled={totalItems < 4 || isSubmitting}
           title={
             totalItems < 4
               ? "You must have a minimum of 4 clones in your cart to submit an order"
+              : isSubmitting
+              ? "Processing your order..."
               : "Submit Order"
           }
         >
-          Submit Order
+          {isSubmitting ? "Processing..." : "Submit Order"}
         </ButtonType>
       </form>
       <p className="text-[14px] text-white/60 mt-4">

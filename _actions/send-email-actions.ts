@@ -3,6 +3,7 @@
 import nodemailer from "nodemailer";
 import { emailTemplate } from "@/_lib/email-template";
 import DOMPurify from "isomorphic-dompurify";
+import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 
 interface EmailTemplateData {
   name: string;
@@ -19,58 +20,32 @@ interface MailOptions {
   html: string;
 }
 
-async function verifyRecaptcha(token: string): Promise<boolean> {
-  try {
-    const response = await fetch(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-      }
-    );
-
-    const data = await response.json();
-    return data.success;
-  } catch (error) {
-    console.error("reCAPTCHA verification error:", error);
-    return false;
-  }
-}
-
 export async function sendEmail(
   formData: FormData
 ): Promise<{ success: boolean; error?: string }> {
   const honey = formData.get("honey");
-  const recaptchaToken = formData.get("recaptchaToken")?.toString();
+  const recaptchaToken = formData.get("recaptchaToken") as string;
 
   try {
-    if (honey !== null) {
-      console.error("Invalid form submission due to non-empty honeypot field");
-      return { success: false, error: "Invalid form submission" };
-    }
+    if (honey === null) {
+      if (!recaptchaToken) {
+        return { success: false, error: "reCAPTCHA verification required" };
+      }
 
-    if (!recaptchaToken) {
-      console.error("Missing reCAPTCHA token");
-      return { success: false, error: "reCAPTCHA verification failed" };
-    }
+      const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
+      if (!recaptchaResult.success) {
+        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+      }
+      const name = DOMPurify.sanitize(formData.get("name")?.toString() || "");
+      const email = DOMPurify.sanitize(formData.get("email")?.toString() || "");
+      const phone = DOMPurify.sanitize(formData.get("phone")?.toString() || "");
+      const message = DOMPurify.sanitize(
+        formData.get("message")?.toString() || ""
+      );
 
-    const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-    if (!isRecaptchaValid) {
-      console.error("Invalid reCAPTCHA token");
-      return { success: false, error: "reCAPTCHA verification failed" };
-    }
-
-    const name = DOMPurify.sanitize(formData.get("name")?.toString() || "");
-    const email = DOMPurify.sanitize(formData.get("email")?.toString() || "");
-    const phone = DOMPurify.sanitize(formData.get("phone")?.toString() || "");
-    const message = DOMPurify.sanitize(
-      formData.get("message")?.toString() || ""
-    );
-
-    if (!name || !email || !message) {
-      return { success: false, error: "Required fields are missing" };
-    }
+      if (!name.trim() || !email.trim() || !message.trim()) {
+        return { success: false, error: "All required fields must be filled" };
+      }
 
     const emailHtmlContent = emailTemplate({
       name,
@@ -98,10 +73,14 @@ export async function sendEmail(
       html: emailHtmlContent,
     };
 
-    await transporter.sendMail(mailOptions);
-    return { success: true };
+      await transporter.sendMail(mailOptions);
+      return { success: true };
+    } else {
+      console.error("Invalid form submission due to non-empty honeypot field");
+      return { success: false, error: "Spam detected" };
+    }
   } catch (error) {
-    console.error("Email sending error:", error);
-    return { success: false, error: "Failed to send email. Please try again." };
+    console.error(error);
+    return { success: false, error: "Failed to send email" };
   }
 }

@@ -4,6 +4,7 @@ import nodemailer from "nodemailer";
 import { orderEmailTemplate } from "@/_lib/order-email-template";
 import DOMPurify from "isomorphic-dompurify";
 import { CartItem } from "@/_types/cart-types";
+import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 
 interface MailOptions {
   from: string;
@@ -14,9 +15,22 @@ interface MailOptions {
 }
 
 export async function sendOrderEmailStaff(
-  formData: FormData
+  formData: FormData,
+  skipRecaptcha: boolean = false
 ): Promise<{ success: boolean; error?: string }> {
+  const recaptchaToken = formData.get("recaptchaToken") as string;
+
   try {
+    if (!skipRecaptcha) {
+      if (!recaptchaToken) {
+        return { success: false, error: "reCAPTCHA verification required" };
+      }
+
+      const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
+      if (!recaptchaResult.success) {
+        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+      }
+    }
     const firstName = DOMPurify.sanitize(formData.get("given-name") as string);
     const lastName = DOMPurify.sanitize(formData.get("family-name") as string);
     const email = DOMPurify.sanitize(formData.get("email") as string);
@@ -103,9 +117,22 @@ export async function sendOrderEmailStaff(
 }
 
 export async function sendOrderEmailCustomer(
-  formData: FormData
+  formData: FormData,
+  skipRecaptcha: boolean = false
 ): Promise<{ success: boolean; error?: string }> {
+  const recaptchaToken = formData.get("recaptchaToken") as string;
+
   try {
+    if (!skipRecaptcha) {
+      if (!recaptchaToken) {
+        return { success: false, error: "reCAPTCHA verification required" };
+      }
+
+      const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
+      if (!recaptchaResult.success) {
+        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+      }
+    }
     const firstName = DOMPurify.sanitize(formData.get("given-name") as string);
     const lastName = DOMPurify.sanitize(formData.get("family-name") as string);
     const email = DOMPurify.sanitize(formData.get("email") as string);

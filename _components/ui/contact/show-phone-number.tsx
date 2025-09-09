@@ -4,19 +4,33 @@ import Link from "next/link";
 import { useState } from "react";
 
 import classNames from "classnames";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { fetchPhoneNumber } from "@/_actions/contact-actions";
-
 import { showContactProps } from "@/_types/general-types";
 
 const ShowPhoneNumber = ({ buttonClasses, linkClasses }: showContactProps) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [showPhone, setShowPhone] = useState("Show phone number");
   const [showSpinnerPhone, setShowSpinnerPhone] = useState(false);
 
   const handleShowPhoneNumbers = async () => {
     setShowSpinnerPhone(true);
-    const phoneNumber = (await fetchPhoneNumber()) || "Phone number not found";
-    setShowPhone(phoneNumber);
+    
+    try {
+      let recaptchaToken: string | undefined;
+      
+      if (executeRecaptcha) {
+        recaptchaToken = await executeRecaptcha("fetch_phone");
+      }
+      
+      const phoneNumber = (await fetchPhoneNumber(recaptchaToken)) || "Phone number not found";
+      setShowPhone(phoneNumber);
+    } catch (error) {
+      console.error("Error fetching phone:", error);
+      setShowPhone("Phone not available");
+    }
+    
     setShowSpinnerPhone(false);
   };
 
