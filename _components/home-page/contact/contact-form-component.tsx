@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-import classNames from "classnames";
-
-import Recaptcha from "@/_lib/recaptcha";
-import { sendEmail } from "@/_actions/send-email-actions";
 import ButtonType from "@/_components/ui/buttons/button-type";
 
+import { sendEmail } from "@/_actions/send-email-actions";
+
 const ContactFormComponent = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [submissionStartTime, setSubmissionStartTime] = useState(0);
   const [showEmailSubmitted, setShowEmailSubmitted] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
@@ -44,12 +44,26 @@ const ContactFormComponent = () => {
           action={async (formData) => {
             try {
               setError(null);
+
+              if (!executeRecaptcha) {
+                setError("reCAPTCHA not initialized. Please try again.");
+                return;
+              }
+
+              // Execute reCAPTCHA and get token
+              const token = await executeRecaptcha("contact_form");
+
+              // Add the token to the form data
+              formData.append("recaptchaToken", token);
+
               const result = await sendEmail(formData);
-              
+
               if (result.success) {
                 setShowEmailSubmitted(true);
               } else {
-                setError(result.error || "Failed to send message. Please try again.");
+                setError(
+                  result.error || "Failed to send message. Please try again."
+                );
               }
             } catch (err) {
               setError("An unexpected error occurred. Please try again.");
@@ -67,7 +81,7 @@ const ContactFormComponent = () => {
               type="email"
               id="emailAddress"
               name="email"
-              className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
+              className="bg-white px-4 py-3 rounded-md font-light text-black border-none"
               autoComplete="email"
               required
             />
@@ -81,7 +95,7 @@ const ContactFormComponent = () => {
               type="text"
               id="fullName"
               name="name"
-              className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
+              className="bg-white px-4 py-3 rounded-md font-light text-black border-none"
               autoComplete="name"
               required
             />
@@ -95,7 +109,7 @@ const ContactFormComponent = () => {
               type="tel"
               id="phoneNumber"
               name="phone"
-              className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
+              className="bg-white px-4 py-3 rounded-md font-light text-black border-none"
               autoComplete="phone"
             />
           </label>
@@ -119,7 +133,7 @@ const ContactFormComponent = () => {
                 <textarea
                   id="message"
                   name="message"
-                  className="bg-white px-4 py-3 rounded-md font-light text-black/75 border-none"
+                  className="bg-white px-4 py-3 rounded-md font-light text-black border-none"
                   rows={5}
                   required
                 ></textarea>
