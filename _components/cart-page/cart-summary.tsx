@@ -10,7 +10,6 @@ import {
   sendOrderEmailStaff,
   sendOrderEmailCustomer,
 } from "@/_actions/send-order-emails";
-import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 import { generateOrderNumber } from "@/_lib/utils/generate-order-number";
 
 interface CartSummaryProps {}
@@ -77,13 +76,6 @@ export default function CartSummary({}: CartSummaryProps) {
             }
 
             const recaptchaToken = await executeRecaptcha("order_form");
-            
-            const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
-            if (!recaptchaResult.success) {
-              setError(recaptchaResult.error || "Security verification failed. Please try again.");
-              return;
-            }
-
             formDataObj.append("recaptchaToken", recaptchaToken);
 
             const orderNumber = generateOrderNumber();
@@ -92,10 +84,21 @@ export default function CartSummary({}: CartSummaryProps) {
             formDataObj.append("totalPrice", totalPrice.toString());
             formDataObj.append("orderNumber", orderNumber);
 
-            const [staffResult, customerResult] = await Promise.all([
-              sendOrderEmailStaff(formDataObj, true),
-              sendOrderEmailCustomer(formDataObj, true),
-            ]);
+            const staffResult = await sendOrderEmailStaff(formDataObj);
+            
+            if (!staffResult.success) {
+              setError(staffResult.error || "Failed to process your order. Please try again.");
+              return;
+            }
+
+            const customerResult = await sendOrderEmailCustomer(formDataObj, true);
+            
+            if (!customerResult.success) {
+              setError(`Order submitted successfully, but there was an issue sending your confirmation email: ${customerResult.error}. Please save your order number: ${orderNumber}`);
+              setShowEmailSubmitted(true);
+              clearCart();
+              return;
+            }
 
             if (staffResult.success && customerResult.success) {
               setShowEmailSubmitted(true);
