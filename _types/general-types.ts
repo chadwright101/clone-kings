@@ -14,7 +14,7 @@ export interface StrainProps {
   price: number;
   inStock: boolean;
   variety?: string;
-  tac?: number;
+  tac?: string;
   height?: string;
   yield?: string;
   floweringTime?: string;

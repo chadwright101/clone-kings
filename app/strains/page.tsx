@@ -64,9 +64,17 @@ const Strains = () => {
         />
       </div>
       <ul className="grid gap-10 grid-cols-1 place-items-start tablet:gap-15 tablet:grid-cols-2 min-[1000px]:grid-cols-3">
-        {filteredStrains.map((strain, index) => (
-          <StrainComponent key={index} strainData={strain} />
-        ))}
+        {filteredStrains
+          .filter(
+            (item) =>
+              item.images[0] !== "" &&
+              item.title !== "" &&
+              item.price !== null &&
+              item.supplier !== ""
+          )
+          .map((strain, index) => (
+            <StrainComponent key={index} strainData={strain} />
+          ))}
       </ul>
     </div>
   );

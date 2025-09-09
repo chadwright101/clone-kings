@@ -68,7 +68,7 @@ const StrainPage = async ({ params }: StrainPageProps) => {
 
           <div className="desktop:flex gap-2 items-center">
             <h3 className="text-subheading mb-2 desktop:mb-0">TAC:</h3>
-            <p>{strain.tac}%</p>
+            <p>{strain.tac}</p>
           </div>
 
           <div className="desktop:flex gap-2 items-center">
