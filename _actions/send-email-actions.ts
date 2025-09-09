@@ -3,6 +3,7 @@
 import nodemailer from "nodemailer";
 import { emailTemplate } from "@/_lib/email-template";
 import DOMPurify from "isomorphic-dompurify";
+import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 
 interface EmailTemplateData {
   name: string;
@@ -19,17 +20,32 @@ interface MailOptions {
   html: string;
 }
 
-export async function sendEmail(formData: FormData): Promise<void> {
+export async function sendEmail(
+  formData: FormData
+): Promise<{ success: boolean; error?: string }> {
   const honey = formData.get("honey");
+  const recaptchaToken = formData.get("recaptchaToken") as string;
 
   try {
     if (honey === null) {
+      if (!recaptchaToken) {
+        return { success: false, error: "reCAPTCHA verification required" };
+      }
+
+      const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
+      if (!recaptchaResult.success) {
+        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+      }
       const name = DOMPurify.sanitize(formData.get("name")?.toString() || "");
       const email = DOMPurify.sanitize(formData.get("email")?.toString() || "");
       const phone = DOMPurify.sanitize(formData.get("phone")?.toString() || "");
       const message = DOMPurify.sanitize(
         formData.get("message")?.toString() || ""
       );
+
+      if (!name.trim() || !email.trim() || !message.trim()) {
+        return { success: false, error: "All required fields must be filled" };
+      }
 
       const emailHtmlContent = emailTemplate({
         name,
@@ -58,10 +74,13 @@ export async function sendEmail(formData: FormData): Promise<void> {
       };
 
       await transporter.sendMail(mailOptions);
+      return { success: true };
     } else {
       console.error("Invalid form submission due to non-empty honeypot field");
+      return { success: false, error: "Spam detected" };
     }
   } catch (error) {
     console.error(error);
+    return { success: false, error: "Failed to send email" };
   }
 }

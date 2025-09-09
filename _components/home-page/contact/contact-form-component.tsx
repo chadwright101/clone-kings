@@ -2,17 +2,18 @@
 
 import { useEffect, useState } from "react";
 
-import classNames from "classnames";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-import Recaptcha from "@/_lib/recaptcha";
 import { sendEmail } from "@/_actions/send-email-actions";
 import ButtonType from "@/_components/ui/buttons/button-type";
 
 const ContactFormComponent = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [submissionStartTime, setSubmissionStartTime] = useState(0);
   const [showEmailSubmitted, setShowEmailSubmitted] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const startSubmissionTimer = () => {
@@ -44,16 +45,35 @@ const ContactFormComponent = () => {
           action={async (formData) => {
             try {
               setError(null);
+              setIsSubmitting(true);
+
+              if (!executeRecaptcha) {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                if (!executeRecaptcha) {
+                  setError(
+                    "Security verification unavailable. Please refresh the page and try again."
+                  );
+                  return;
+                }
+              }
+
+              const recaptchaToken = await executeRecaptcha("contact_form");
+              formData.append("recaptchaToken", recaptchaToken);
+
               const result = await sendEmail(formData);
-              
+
               if (result.success) {
                 setShowEmailSubmitted(true);
               } else {
-                setError(result.error || "Failed to send message. Please try again.");
+                setError(
+                  result.error || "Failed to send message. Please try again."
+                );
               }
             } catch (err) {
               setError("An unexpected error occurred. Please try again.");
               console.error("Contact form error:", err);
+            } finally {
+              setIsSubmitting(false);
             }
           }}
         >
@@ -129,8 +149,8 @@ const ContactFormComponent = () => {
                   <p className="text-[14px] text-red-600">{error}</p>
                 </div>
               )}
-              <ButtonType type="submit" colorBlack>
-                Submit
+              <ButtonType type="submit" colorBlack disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit"}
               </ButtonType>
             </>
           )}
