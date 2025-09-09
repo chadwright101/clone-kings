@@ -10,7 +10,7 @@ interface ErrorPopupProps {
 export default function ErrorPopup({ message, onClose }: ErrorPopupProps) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    
+
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -23,14 +23,14 @@ export default function ErrorPopup({ message, onClose }: ErrorPopupProps) {
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
       onClick={handleOverlayClick}
     >
       <div className="bg-black border border-red-500 rounded-md p-6 max-w-md w-full relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-white/60 desktop:hover:text-white desktop:hover:cursor-pointer transition-colors"
         >
           <svg
             className="w-6 h-6"
@@ -47,7 +47,7 @@ export default function ErrorPopup({ message, onClose }: ErrorPopupProps) {
             />
           </svg>
         </button>
-        
+
         <div className="pr-8">
           <h3 className="text-subheading text-red-400 mb-3">Error</h3>
           <p className="text-paragraph text-white">{message}</p>

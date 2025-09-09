@@ -10,6 +10,7 @@ import {
   sendOrderEmailStaff,
   sendOrderEmailCustomer,
 } from "@/_actions/send-order-emails";
+import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 import { generateOrderNumber } from "@/_lib/utils/generate-order-number";
 
 interface CartSummaryProps {}
@@ -76,6 +77,13 @@ export default function CartSummary({}: CartSummaryProps) {
             }
 
             const recaptchaToken = await executeRecaptcha("order_form");
+            
+            const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
+            if (!recaptchaResult.success) {
+              setError(recaptchaResult.error || "Security verification failed. Please try again.");
+              return;
+            }
+
             formDataObj.append("recaptchaToken", recaptchaToken);
 
             const orderNumber = generateOrderNumber();
@@ -85,8 +93,8 @@ export default function CartSummary({}: CartSummaryProps) {
             formDataObj.append("orderNumber", orderNumber);
 
             const [staffResult, customerResult] = await Promise.all([
-              sendOrderEmailStaff(formDataObj),
-              sendOrderEmailCustomer(formDataObj),
+              sendOrderEmailStaff(formDataObj, true),
+              sendOrderEmailCustomer(formDataObj, true),
             ]);
 
             if (staffResult.success && customerResult.success) {
