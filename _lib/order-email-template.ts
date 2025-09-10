@@ -66,14 +66,23 @@ export const orderEmailTemplate = ({
   <body style="font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 1rem; color: #353535;">
     <table style="width: 100%; background-color: #FAB121;">
       <tr>
-        <td>
-          <div style="padding: 0.5rem 0; text-align: center;">
-            <img src="https://real-brides.s3.eu-south-2.amazonaws.com/clone-kings-logo-small.png" width="200" style="width:200px; max-width:200px; height:auto; display:inline-block;" alt="Clone Kings" />
-          </div>
-          <h1 style="padding: 0 1rem; color: #353535">${title}</h1>
-          <p style="padding: 0 1rem; margin-top: -0.5rem; color: #353535; font-weight: bold;">Order Number: ${orderNumber}</p>
+      <td width="60%" style="vertical-align: middle;">
+          <h1 style="padding: 0 1rem; color: #353535; margin: 0;">
+            ${title}
+          </h1>
+          <p
+            style="padding: 0 1rem; margin: 0.5rem 0 0 0; color: #353535; font-weight: bold;"
+          >
+            Order Number: ${orderNumber}
+          </p>
         </td>
-      </tr>
+        <td width="40%" style="text-align: right; padding: 1rem;">
+          <img
+            src="https://real-brides.s3.eu-south-2.amazonaws.com/clone-kings-logo-small.png"
+            style="height: 150px; width: auto;"
+            alt="Clone Kings"
+          />
+        </td>
     </table>
 
     ${
