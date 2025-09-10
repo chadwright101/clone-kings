@@ -64,7 +64,7 @@ export const orderEmailTemplate = ({
     <title>${title}</title>
   </head>
   <body style="font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 1rem; color: #353535;">
-    <table style="width: 100%; background-color: #FAB121;">
+    <table style="width: 100%; background-color: #FAB121; margin-bottom: 2rem;">
       <tr>
       <td width="60%" style="vertical-align: middle;">
           <h1 style="padding: 0 1rem; color: #353535; margin: 0;">
@@ -79,7 +79,7 @@ export const orderEmailTemplate = ({
         <td width="40%" style="text-align: right; padding: 1rem;">
           <img
             src="https://real-brides.s3.eu-south-2.amazonaws.com/clone-kings-logo-small.png"
-            style="height: 150px; width: auto;"
+            style="height: 100px; width: auto;"
             alt="Clone Kings"
           />
         </td>
@@ -103,6 +103,13 @@ export const orderEmailTemplate = ({
               <strong>Reference:</strong> ${orderNumber}<br />
               <strong>Important:</strong> Use your order number as the payment reference. Our team will contact you with banking details once stock availability is confirmed.
             </p>
+            <div style="border: 1px solid #e0e0e0; padding: 0.5rem; margin-top: 1rem; border-radius: 4px;">
+              <p style="font-size: 1rem; font-weight: 500; color: #353535; margin: 0;">
+                <strong>Bank:</strong> FNB<br />
+                <strong>Account number:</strong> 63173653883<br />
+                <strong>Branch code:</strong> 250655
+              </p>
+            </div>
           </div>
         </td>
       </tr>
