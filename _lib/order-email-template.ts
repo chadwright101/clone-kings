@@ -68,7 +68,7 @@ export const orderEmailTemplate = ({
       <tr>
         <td>
           <div style="padding: 0.5rem 0; text-align: center;">
-            <img src="/logo/clone-kings-logo-small.png" width="200" style="width:200px; max-width:200px; height:auto; display:inline-block;" alt="Clone Kings" />
+            <img src="https://real-brides.s3.eu-south-2.amazonaws.com/clone-kings-logo-small.png" width="200" style="width:200px; max-width:200px; height:auto; display:inline-block;" alt="Clone Kings" />
           </div>
           <h1 style="padding: 0 1rem; color: #353535">${title}</h1>
           <p style="padding: 0 1rem; margin-top: -0.5rem; color: #353535; font-weight: bold;">Order Number: ${orderNumber}</p>
