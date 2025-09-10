@@ -14,6 +14,7 @@ interface CartItemComponentProps {
 export default function CartItemComponent({ item }: CartItemComponentProps) {
   const { updateQuantity, removeFromCart } = useCart();
   const [quantity, setQuantity] = useState<number | string>(item.quantity);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const increaseQuantity = () => {
     const newQty = Math.min(item.quantity + 1, 50);
@@ -72,20 +73,42 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
               <h3 className="text-subheading text-white">{item.name}</h3>
               <p className="text-paragraph text-white/80">R{item.price} each</p>
             </div>
-            <button
-              onClick={() => removeFromCart(item.id)}
-              className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0"
-              aria-label="Remove item"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M2 2L14 14M14 2L2 14"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
+            {showConfirm ? (
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    removeFromCart(item.id);
+                    setShowConfirm(false);
+                  }}
+                  className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0 text-yellow"
+                  aria-label="Confirm remove item"
+                >
+                  Remove
+                </button>
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0 text-white"
+                  aria-label="Cancel remove item"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowConfirm(true)}
+                className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0"
+                aria-label="Remove item"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M2 2L14 14M14 2L2 14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
 
           <div className="flex items-center justify-between">

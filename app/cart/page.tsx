@@ -6,7 +6,7 @@ import CartSummary from "@/_components/cart-page/cart-summary";
 import Link from "next/link";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import ButtonLink from "@/_components/ui/buttons/button-link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function CartPage() {
   const {
@@ -17,6 +17,7 @@ export default function CartPage() {
     setShowEmailSubmitted,
   } = useCart();
   const totalItems = getTotalItems();
+  const [showConfirmClear, setShowConfirmClear] = useState(false);
 
   useEffect(() => {
     if (showEmailSubmitted) {
@@ -101,9 +102,35 @@ export default function CartPage() {
             {items.map((item) => (
               <CartItemComponent key={item.id} item={item} />
             ))}
-            <ButtonType type="button" onClick={clearCart}>
-              Clear Cart
-            </ButtonType>
+            {showConfirmClear ? (
+              <div className="grid gap-4">
+                <p>Are you sure you want to clear your cart?</p>
+                <div className="flex gap-4">
+                  <ButtonType
+                    type="button"
+                    onClick={() => {
+                      clearCart();
+                      setShowConfirmClear(false);
+                    }}
+                  >
+                    Confirm
+                  </ButtonType>
+                  <ButtonType
+                    type="button"
+                    onClick={() => setShowConfirmClear(false)}
+                  >
+                    Cancel
+                  </ButtonType>
+                </div>
+              </div>
+            ) : (
+              <ButtonType
+                type="button"
+                onClick={() => setShowConfirmClear(true)}
+              >
+                Clear Cart
+              </ButtonType>
+            )}
           </div>
 
           <CartSummary />

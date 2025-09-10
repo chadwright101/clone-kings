@@ -12,6 +12,7 @@ const ButtonType = ({
   colorBlack = false,
   ariaLabel,
   title,
+  yellowStroke = false,
 }: ButtonProps) => {
   const { pending } = useFormStatus();
 
@@ -20,7 +21,13 @@ const ButtonType = ({
       type={type}
       onClick={onClick}
       aria-label={ariaLabel}
-      className={buttonStyles(cssClasses, disabled, pending, colorBlack)}
+      className={buttonStyles(
+        cssClasses,
+        disabled,
+        pending,
+        colorBlack,
+        yellowStroke
+      )}
       disabled={disabled || pending}
       style={{ fontVariant: "small-caps" }}
       title={title}
