@@ -61,42 +61,68 @@ const StrainPage = async ({ params }: StrainPageProps) => {
           />
         </div>
         <div className="grid gap-5 text-paragraph pt-10 mt-10 border-t-4 border-yellow desktop:col-span-2 desktop:gap-x-10 desktop:gap-y-5 desktop:grid-cols-[480px_1fr] desktop:mt-0 desktop:pt-0 desktop:border-t-0">
-          <div className="desktop:flex gap-2 items-center">
-            <h3 className="text-subheading mb-2 desktop:mb-0">Variety:</h3>
-            <p>{strain.variety}</p>
-          </div>
+          {strain.variety && (
+            <div className="desktop:flex gap-2">
+              <h3 className="text-subheading mb-2 leading-[20px] desktop:mb-0">
+                Variety:
+              </h3>
+              <p>{strain.variety}</p>
+            </div>
+          )}
 
-          <div className="desktop:flex gap-2 items-center">
-            <h3 className="text-subheading mb-2 desktop:mb-0">TAC:</h3>
-            <p>{strain.tac}</p>
-          </div>
+          {strain.tac && (
+            <div className="desktop:flex gap-2">
+              <h3 className="text-subheading mb-2 leading-[20px] desktop:mb-0">
+                TAC:
+              </h3>
+              <p>{strain.tac}</p>
+            </div>
+          )}
 
-          <div className="desktop:flex gap-2 items-center">
-            <h3 className="text-subheading mb-2 desktop:mb-0">Height:</h3>
-            <p>{strain.height}</p>
-          </div>
+          {strain.height && (
+            <div className="desktop:flex gap-2">
+              <h3 className="text-subheading mb-2 leading-[20px] desktop:mb-0">
+                Height:
+              </h3>
+              <p>{strain.height}</p>
+            </div>
+          )}
 
-          <div className="desktop:flex gap-2 items-center">
-            <h3 className="text-subheading mb-2 desktop:mb-0">Yield:</h3>
-            <p>{strain.yield}</p>
-          </div>
+          {strain.yield && (
+            <div className="desktop:flex gap-2">
+              <h3 className="text-subheading mb-2 leading-[20px] desktop:mb-0">
+                Yield:
+              </h3>
+              <p>{strain.yield}</p>
+            </div>
+          )}
 
-          <div className="desktop:flex gap-2 items-center">
-            <h3 className="text-subheading mb-2 desktop:mb-0">
-              Flowering Time:
-            </h3>
-            <p>{strain.floweringTime}</p>
-          </div>
+          {strain.floweringTime && (
+            <div className="desktop:flex gap-2">
+              <h3 className="text-subheading mb-2 leading-[20px] desktop:mb-0">
+                Flowering Time:
+              </h3>
+              <p>{strain.floweringTime}</p>
+            </div>
+          )}
 
-          <div className="desktop:flex gap-2 items-center">
-            <h3 className="text-subheading mb-2 desktop:mb-0">Flavours:</h3>
-            <p>{strain.flavours}</p>
-          </div>
+          {strain.flavours && (
+            <div className="desktop:flex gap-2">
+              <h3 className="text-subheading mb-2 leading-[20px] desktop:mb-0">
+                Flavours:
+              </h3>
+              <p>{strain.flavours}</p>
+            </div>
+          )}
 
-          <div className="desktop:flex gap-2 items-center">
-            <h3 className="text-subheading mb-2 desktop:mb-0">Medicinal:</h3>
-            <p>{strain.medicinal}</p>
-          </div>
+          {strain.medicinal && (
+            <div className="desktop:flex gap-2">
+              <h3 className="text-subheading mb-2 leading-[20px] desktop:mb-0">
+                Medicinal:
+              </h3>
+              <p>{strain.medicinal}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
