@@ -13,7 +13,7 @@ interface OrderEmailTemplateProps {
   items: CartItem[];
   totalPrice: number;
   orderNumber: string;
-  recipientType: 'staff' | 'customer';
+  recipientType: "staff" | "customer";
 }
 
 export const orderEmailTemplate = ({
@@ -52,8 +52,10 @@ export const orderEmailTemplate = ({
     )
     .join("");
 
-  const isCustomer = recipientType === 'customer';
-  const title = isCustomer ? 'Clone Kings - Order Confirmation' : 'Clone Kings - New Order';
+  const isCustomer = recipientType === "customer";
+  const title = isCustomer
+    ? "Clone Kings - Order Confirmation"
+    : "Clone Kings - New Order";
 
   return `<html lang="en">
   <head>
@@ -65,18 +67,25 @@ export const orderEmailTemplate = ({
     <table style="width: 100%; background-color: #FAB121;">
       <tr>
         <td>
+          <div style="padding: 0.5rem 0; text-align: center;">
+            <img src="/logo/clone-kings-logo-small.png" width="200" style="width:200px; max-width:200px; height:auto; display:inline-block;" alt="Clone Kings" />
+          </div>
           <h1 style="padding: 0 1rem; color: #353535">${title}</h1>
           <p style="padding: 0 1rem; margin-top: -0.5rem; color: #353535; font-weight: bold;">Order Number: ${orderNumber}</p>
         </td>
       </tr>
     </table>
 
-    ${isCustomer ? `
+    ${
+      isCustomer
+        ? `
     <table style="width: 100%; padding: 1rem;">
       <tr>
         <td>
           <p style="font-size: 1rem; color: #353535; margin-bottom: 1.5rem;">
-            Thank you for your order, ${name.split(' ')[0]}! We've received your order and will be in touch soon to confirm availability and arrange payment.
+            Thank you for your order, ${
+              name.split(" ")[0]
+            }! We've received your order and will be in touch soon to confirm availability and arrange payment.
           </p>
           <h3 style="font-size: 1.25rem; color: #353535; margin-bottom: 1rem;">Payment Instructions</h3>
           <div style="background-color: #f9f9f9; border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px;">
@@ -89,7 +98,8 @@ export const orderEmailTemplate = ({
         </td>
       </tr>
     </table>
-    ` : `
+    `
+        : `
     <table style="width: 100%; padding: 1rem;">
       <tr>
         <td>
@@ -104,7 +114,9 @@ export const orderEmailTemplate = ({
             Phone: <span style="font-weight: 200; font-style: italic;">${phone}</span>
           </p>
           <p style="font-size: 1rem; font-weight: 500; color: #353535;">
-            Address: <span style="font-weight: 200; font-style: italic;">${addressLine1}${addressLine2 ? `, ${addressLine2}` : ''}, ${city}, ${province}, ${postalCode}</span>
+            Address: <span style="font-weight: 200; font-style: italic;">${addressLine1}${
+            addressLine2 ? `, ${addressLine2}` : ""
+          }, ${city}, ${province}, ${postalCode}</span>
           </p>
           ${
             notes
@@ -120,7 +132,8 @@ export const orderEmailTemplate = ({
         </td>
       </tr>
     </table>
-    `}
+    `
+    }
     <table style="width: 100%; padding: 1rem;">
       <tr>
         <td style="padding-top: 2rem;">
@@ -148,7 +161,9 @@ export const orderEmailTemplate = ({
           </table>
         </td>
       </tr>
-      ${isCustomer ? `
+      ${
+        isCustomer
+          ? `
       <tr>
         <td style="padding-top: 2rem;">
           <div style="background-color: #f9f9f9; border: 1px solid #e0e0e0; padding: 1rem; border-radius: 4px;">
@@ -165,7 +180,9 @@ export const orderEmailTemplate = ({
           </div>
         </td>
       </tr>
-      ` : ''}
+      `
+          : ""
+      }
     </table>
   </body>
 </html>

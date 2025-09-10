@@ -9,7 +9,7 @@ const { heroSlider } = sliderData;
 export default function HeroComponent() {
   return (
     <div className="max-w-[1280px] mx-auto space-y-[60px]">
-      <HeroSlider data={heroSlider} cssClasses="h-[738px] desktop:h-[600px]" />
+      <HeroSlider data={heroSlider} cssClasses="h-[650px] desktop:h-[600px]" />
       <section className="grid place-items-center relative desktop:place-items-stretch desktop:grid-cols-2 desktop:mx-10">
         <div className="from-60% via-70% via-black/60 to-100% to-black/75 bg-gradient-to-b absolute h-full w-full top-0 desktop:hidden" />
         <div className="w-full overflow-x-hidden flex justify-center desktop:items-center desktop:justify-end desktop:h-[313px] desktop:z-10 desktop:overflow-visible">

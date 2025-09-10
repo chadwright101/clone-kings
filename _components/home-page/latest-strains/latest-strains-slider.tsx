@@ -12,7 +12,7 @@ import { useState } from "react";
 import classNames from "classnames";
 
 interface SlideDataProps {
-  data: { title: string; images: string[] }[];
+  data: { title: string; images: string[]; price: number; supplier: string }[];
   cssClasses?: string;
 }
 
@@ -59,7 +59,13 @@ const LatestStrainsSlider = ({ cssClasses, data }: SlideDataProps) => {
         >
           {data &&
             data
-              .filter((item) => item.images[0] !== "")
+              .filter(
+                (item) =>
+                  item.images[0] !== "" &&
+                  item.title !== "" &&
+                  item.price !== null &&
+                  item.supplier !== ""
+              )
               .map(({ title, images }, index) => (
                 <SwiperSlide key={index} className="pb-8">
                   <Link
