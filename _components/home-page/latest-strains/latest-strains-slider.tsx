@@ -83,7 +83,7 @@ const LatestStrainsSlider = ({ cssClasses, data }: SlideDataProps) => {
                         width={800}
                         height={600}
                         className={classNames(
-                          "object-cover h-full w-full transition-transform duration-300 delay-150",
+                          "object-cover transition-transform duration-300 delay-150 desktop:w-full desktop:h-full",
                           {
                             "desktop:scale-105": hoveredIndex === index,
                           }

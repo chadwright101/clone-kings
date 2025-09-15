@@ -54,9 +54,9 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
 
   return (
     <div className="bg-black/50 border border-yellow/25 rounded-md p-5 grid gap-5">
-      <div className="flex flex-col gap-5 min-[375px]:flex-row">
+      <div className="flex flex-col gap-5 min-[400px]:flex-row">
         {item.image && (
-          <div className="relative w-full h-32 overflow-hidden rounded-md min-[375px]:w-32 min-[375px]:h-40 desktop:w-24 desktop:h-32">
+          <div className="relative w-full aspect-square overflow-hidden rounded-md min-[400px]:aspect-auto min-[400px]:w-32 min-[400px]:h-40 desktop:w-24 desktop:h-32">
             <Image
               src={item.image}
               alt={item.name}
@@ -68,13 +68,13 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
         )}
 
         <div className="flex-1 space-y-3">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start gap-x-5">
             <div>
               <h3 className="text-subheading text-white">{item.name}</h3>
               <p className="text-paragraph text-white/80">R{item.price} each</p>
             </div>
             {showConfirm ? (
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 min-[600px]:flex-row">
                 <button
                   onClick={() => {
                     removeFromCart(item.id);

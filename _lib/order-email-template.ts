@@ -152,7 +152,7 @@ export const orderEmailTemplate = ({
     }
     <table style="width: 100%; padding: 1rem;">
       <tr>
-        <td style="padding-top: 2rem;">
+        <td style="padding-top: 1rem;">
           <h3 style="font-size: 1.25rem; color: #353535; margin-bottom: 1rem;">Order Items</h3>
           <table style="width: 100%; border-collapse: collapse;">
             <thead>
