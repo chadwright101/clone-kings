@@ -77,7 +77,13 @@ const ContactFormComponent = () => {
             }
           }}
         >
-          <input type="hidden" name="_honey" className="hidden" />
+          <input
+            type="text"
+            name="_honey"
+            className="visually-hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
           <label
             htmlFor="emailAddress"
             className="grid gap-2 text-paragraph font-medium text-black"

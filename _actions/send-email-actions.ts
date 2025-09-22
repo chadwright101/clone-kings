@@ -23,18 +23,21 @@ interface MailOptions {
 export async function sendEmail(
   formData: FormData
 ): Promise<{ success: boolean; error?: string }> {
-  const honey = formData.get("honey");
+  const honey = formData.get("_honey");
   const recaptchaToken = formData.get("recaptchaToken") as string;
 
   try {
-    if (honey === null) {
+    if (!honey || honey.toString().trim() === "") {
       if (!recaptchaToken) {
         return { success: false, error: "reCAPTCHA verification required" };
       }
 
       const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
       if (!recaptchaResult.success) {
-        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+        return {
+          success: false,
+          error: recaptchaResult.error || "reCAPTCHA verification failed",
+        };
       }
       const name = DOMPurify.sanitize(formData.get("name")?.toString() || "");
       const email = DOMPurify.sanitize(formData.get("email")?.toString() || "");
