@@ -8,14 +8,27 @@ export default function AboutComponent() {
         <div className="grid gap-10 tablet:grid-cols-2 desktop:grid-cols-1 desktop:col-span-full">
           <div className="space-y-4">
             <p>
-              Lorem ipsum dolor sit amet consectetur. Viverra lacinia blandit
-              pulvinar a nunc purus elit. At eleifend in mi at.
+              At <span className="font-bold">Clone Kings</span>, we take pride
+              in carefully pheno-hunting top-tier genetics from around the
+              world, making them available as premium cannabis clones for sale
+              to South African growers who want to cultivate at home with
+              confidence.
             </p>
             <p>
-              Diam a id parturient fermentum amet leo. Sit neque sed tellus
-              maecenas erat morbi a. Justo laoreet amet nibh in vitae nunc. Eu
-              nec dignissim molestie semper in habitasse dolor cras massa.
-              Mattis quis nunc vulputate fames neque.
+              Every clone we offer is hand-selected for vigour, stability, and
+              exceptional traits — from high yields and rich terpene profiles to
+              resilience and consistency. Our mission is to empower growers of
+              all levels with reliable, healthy clones that give you a head
+              start on your cultivation journey.
+            </p>
+            <p>
+              Whether you're an experienced grower or just starting out and
+              searching for where to buy quality cannabis clones and seeds,{" "}
+              <span className="font-bold">Clone Kings</span> ensures you get
+              premium genetics that set the foundation for success. With a focus
+              on quality, integrity, and innovation, we aim to build a trusted
+              community where passionate cultivators in South Africa can access
+              world-class genetics and grow with confidence.
             </p>
           </div>
           <div className="grid gap-10 desktop:grid-cols-3">
@@ -47,10 +60,14 @@ export default function AboutComponent() {
           <div className="space-y-5 tablet:order-last desktop:order-first">
             <h3>Why Clone Kings?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Faucibus justo magna dui
-              arcu gravida. Amet etiam vestibulum sit viverra auctor viverra
-              molestie. Auctor at amet eu maecenas malesuada elementum. Risus
-              urna turpis eget id.
+              We’re dedicated to providing South African cannabis growers with a
+              simple and dependable way to access world-class genetics. By
+              offering hand-selected, rooted clones instead of unverified seeds
+              or cuttings, we remove the guesswork and help growers of all
+              experience levels achieve success. Our focus on quality,
+              integrity, and innovation means you can buy premium cannabis
+              clones with confidence and enjoy a smoother path to thriving
+              plants and exceptional harvests.
             </p>
           </div>
           <Image
@@ -67,18 +84,17 @@ export default function AboutComponent() {
             <h3>Why our strains are unique</h3>
             <div className="space-y-4">
               <p>
-                Lorem ipsum dolor sit amet consectetur. At egestas morbi urna
-                cursus blandit cursus tincidunt. Integer pellentesque mauris
-                egestas pellentesque gravida consectetur odio egestas aenean.
-                Porttitor amet pulvinar ut nisl quis ultricies risus duis
-                tempus. Ullamcorper facilisis enim pellentesque morbi adipiscing
-                massa enim tempor.
+                Every strain we offer is the result of a rigorous pheno-hunting
+                process designed to identify the very best cannabis traits. We
+                source rare and exceptional cannabis genetics, selecting
+                phenotypes that combine high yields, robust growth, and standout
+                terpene profiles while thriving in South African growing
+                conditions.
               </p>
               <p>
-                Cursus aliquam etiam vitae porttitor vitae cursus. Augue
-                placerat bibendum porttitor pulvinar posuere ut eros. Purus
-                lectus sed tincidunt sapien tristique. Nibh vel neque donec
-                augue sed.
+                The result is a range of exclusive cannabis clones that deliver
+                consistent performance and a truly premium cultivation
+                experience.
               </p>
             </div>
           </div>
