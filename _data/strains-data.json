@@ -2,8 +2,8 @@
   {
     "title": "Elvis",
     "images": [
-      "/images/strains/elvis-from-seedism-seedbank/elvis-from-seedism-seedbank-1.jpeg",
-      "/images/strains/elvis-from-seedism-seedbank/elvis-from-seedism-seedbank-2.jpeg"
+      "/images/strains/elvis-from-seedism-seedbank/elvis-from-seedism-seedbank-1.jpg",
+      "/images/strains/elvis-from-seedism-seedbank/elvis-from-seedism-seedbank-2.jpg"
     ],
     "description": [
       "Elvis is a prime selection from Seedism Seedbank in Amsterdam, leveraging insights from the Cannabis College. This AK47 hybrid is known for its potent effects and swift flowering period of 8-9 weeks. The genetic stability of AK47, combined with a quick flowering cycle, makes it a cornerstone in cannabis breeding efforts.",
@@ -22,7 +22,7 @@
   },
   {
     "title": "Purple Haze",
-    "images": [""],
+    "images": ["/images/strains/purple-haze/purple-haze-1.jpg"],
     "description": [
       "Inheriting the best features of its parents, Purple Haze became a vigorous and high-yielding resin producer. Its long, big flowers are beautiful and full of trichomes, darker than most Sativas, more dark green of the Afghan varieties than the lime green of their equatorial counterparts.",
       "This is a strain that provides uplifting sensations alongside heavy-hitting body effects. G13 was bred for maximum potency and is renowned for its medical utility, and it's not recommended for beginners!"
@@ -39,8 +39,13 @@
     "supplier": "G13 Labs Seeds"
   },
   {
-    "title": "Franco‘s Lemon Cheese",
-    "images": [""],
+    "title": "Franco's Lemon Cheese",
+    "images": [
+      "/images/strains/francos-lemon-cheese/francos-lemon-cheese-1.jpg",
+      "/images/strains/francos-lemon-cheese/francos-lemon-cheese-2.jpg",
+      "/images/strains/francos-lemon-cheese/francos-lemon-cheese-3.jpg",
+      "/images/strains/francos-lemon-cheese/francos-lemon-cheese-4.jpg"
+    ],
     "description": [
       "After the tragic loss of Franco Loja beginning of 2017 the world has been waiting for a strain dedicated to Franco. The strain that would represent Franco the best could only be his very last cross of two of his favorite plants: The multiple cup winning Super Lemon Haze and the famous Exodus Cheese.",
       "The plant grows tall with a strong main stem and long branches. The buds are round, medium sized and rock hard, covered in resin. The smell is very lemony with hints of Cheese in the background. When smoking the Cheese flavor is becoming more dominant on the exhale."
@@ -58,7 +63,13 @@
   },
   {
     "title": "Permanent Marker",
-    "images": [""],
+    "images": [
+      "/images/strains/permanent-marker/permanent-marker-1.jpg",
+      "/images/strains/permanent-marker/permanent-marker-2.jpg",
+      "/images/strains/permanent-marker/permanent-marker-3.jpg",
+      "/images/strains/permanent-marker/permanent-marker-4.webp",
+      "/images/strains/permanent-marker/permanent-marker-5.webp"
+    ],
     "description": [
       "Permanent Marker is a modern cannabis strain and is Leafly Strain of the Year 2023! Los Angeles indie brand Doja Exclusive released the Permanent Marker weed strain in 2022 on both coasts. Bred and grown by Seed Junky Genetics' JBeezy and selected by Doja Pak.",
       "The strain fuses several well-established cultivars: (Biscotti x Sherb Bx) x Jealousy. It can smell like a permanent marker. Others note its floral, soapy, candy, and gassy funk that fully translate into the taste. The potent strain smells amazing, and can support creativity or relaxation day and night."
@@ -76,7 +87,12 @@
   },
   {
     "title": "Fat Bastard",
-    "images": [""],
+    "images": [
+      "/images/strains/fat-bastard/fat-bastard-1.jpg",
+      "/images/strains/fat-bastard/fat-bastard-2.jpg",
+      "/images/strains/fat-bastard/fat-bastard-3.jpg",
+      "/images/strains/fat-bastard/fat-bastard-4.webp"
+    ],
     "description": [
       "If you're looking for a strain that will really deliver come harvest time, make space for Blimburn Seeds' Fat Bastard. Fat Bastard pleases on many levels, including absolutely insane THC levels (30-38%). This plant is very adaptable in the grow room.",
       "As a cross between Gold member and Monkey Spunk, the former brings Indica-dominant genetics and pungent aromas to the table, and the latter offers skunky, berry flavors and energizing effects. A few puffs will quickly elevate your spirits and give you an energy boost."
@@ -94,7 +110,12 @@
   },
   {
     "title": "Orange Velvet Underground RBX",
-    "images": [""],
+    "images": [
+      "/images/strains/orange-velvet-underground/orange-velvet-underground-1.jpg",
+      "/images/strains/orange-velvet-underground/orange-velvet-underground-2.jpg",
+      "/images/strains/orange-velvet-underground/orange-velvet-underground-3.jpg",
+      "/images/strains/orange-velvet-underground/orange-velvet-underground-4.jpg"
+    ],
     "description": [
       "Orange Velvet Underground is a beast in all phases, with baseball-sized nugs. Dark purple is her most common hue, but cold temps make her colors more vibrant and dynamic—almost blue.",
       "Large, medium-dense kolas and side branching, baseball-sized nugs. Easily controllable and trained due to her strong lateral branching and vigorous, stacked apex growth."
@@ -112,7 +133,12 @@
   },
   {
     "title": "La Bomba",
-    "images": [""],
+    "images": [
+      "/images/strains/la-bomba/la-bomba-1.jpg",
+      "/images/strains/la-bomba/la-bomba-2.jpg",
+      "/images/strains/la-bomba/la-bomba-3.jpg",
+      "/images/strains/la-bomba/la-bomba-4.webp"
+    ],
     "description": [
       "La Bomba combines two incredibly vigorous, heavy-yielding and potent parents. This clone tend towards the terpene profile of Wedding Cake, which is a creamy Kush profile that may range from gassy to sweet like a confection.",
       "Regardless of aroma, expect buds to be big and frosted with trichomes with roughly half of phenotypes fading purple. Both the parents are high-stretch, so the majority of the progeny from this cross will stretch 2x."
@@ -130,7 +156,7 @@
   },
   {
     "title": "Critical aka Critical Mass",
-    "images": [""],
+    "images": ["/images/strains/critical/critical-1.jpg"],
     "description": [
       "Our Critical strain is an Indica-dominant variety that stems from stoning parents Afghani and Skunk. She maintained a short size and rarely exceeds 100cm in height. It has short internode spacing, which will eventually fill up with buds.",
       "Its small height also makes it suitable for those looking to grow in small spaces, for the more discreet growers, making it the high-yielding specimen it is."
@@ -148,7 +174,11 @@
   },
   {
     "title": "White Truffle x Garlic Sherbet (unreleased)",
-    "images": [""],
+    "images": [
+      "/images/strains/white-truffles-x-garlic-sherbet/white-truffles-x-garlic-sherbet-1.jpg",
+      "/images/strains/white-truffles-x-garlic-sherbet/white-truffles-x-garlic-sherbet-2.jpg",
+      "/images/strains/white-truffles-x-garlic-sherbet/white-truffles-x-garlic-sherbet-3.jpg"
+    ],
     "description": [
       "White Truffles x Garlic Sherb is an unreleased and exceptionally rare strain bred by In-House Genetics, a brand known for its high-quality, exotic cultivars.",
       "This powerhouse hybrid combines the rich, earthy depth of White Truffles with the pungent, savory profile of Garlic Sherbet, resulting in a strain that's both potent and flavorful."
@@ -166,7 +196,7 @@
   },
   {
     "title": "Orangina",
-    "images": [""],
+    "images": ["/images/strains/orangina/orangina-1.jpg"],
     "description": [
       "Orangina by The Grateful Seeds, a variety in Limited Edition ideal for lovers of strong sweet orange terpenes, with excellent results in extractions. Orangina is the encounter between Orange Jam (Agent Orange x Space Jam) and Orange Cookies (GSC x Orange Juice).",
       "Orangina is a vigorous plant with beautiful colorations, growing in a shrubby shape with medium size and a large distance between nodes. It is ready to harvest in about 50-55 days, with great features to sieve the buds and obtain incredible extractions."
@@ -184,7 +214,7 @@
   },
   {
     "title": "Super Silver Haze",
-    "images": [""],
+    "images": ["/images/strains/super-silver-haze/super-silver-haze-1.jpg"],
     "description": [
       "The Super Silver Haze is one of the most famous Sativa strains in the world. Created by Arjan at the end of the 90's from a cross of Skunk x Northern Lights x Haze, it instantly won numerous 1st Place prizes at the High Times Cannabis Cup.",
       "The result is a beautiful Sativa-dominant plant with the yield and flower appeal of some of the prettiest Indica's. The taste is a complex mix of the Haze ancestors, the Skunk and the Northern Lights. The high is instant and strong, great for any occasion, party or brainstorming session."
@@ -202,7 +232,12 @@
   },
   {
     "title": "Kosher Kush Breath",
-    "images": [""],
+    "images": [
+      "/images/strains/kosher-kush-breath/kosher-kush-breath-1.jpg",
+      "/images/strains/kosher-kush-breath/kosher-kush-breath-2.jpg",
+      "/images/strains/kosher-kush-breath/kosher-kush-breath-3.jpg",
+      "/images/strains/kosher-kush-breath/kosher-kush-breath-4.png"
+    ],
     "description": [
       "Kosher Kush Breath is a hybrid strain that has been reported to help patients with menstrual symptoms, mood stabilization, and anti-inflammation. A great strain for helping you get through the stresses of the daily grind.",
       "If you need a little afternoon pick me up, or you need something to help when it is that time of the month, Kosher Kush Breath has got you covered."
@@ -220,7 +255,9 @@
   },
   {
     "title": "Blackberry Moonrocks",
-    "images": [""],
+    "images": [
+      "/images/strains/blackberry-moonrocks/blackberry-moonrocks-1.jpg"
+    ],
     "description": [
       "Blackberry Moonrocks follows in the footsteps of other legendary and unique strains of our Seedbank. It was developed from a selected extremely potent female Blue Moonrock and a male Blackberry Kush, which has a particularly pronounced terpene and cannabinoid profile.",
       "This strain is not recommended for faint-hearteds and beginners, as its gigantic THC content of 32% and the extensive cannabinoid profile ensure long-lasting and very intense effects. The effect is mainly Indica dominant, very strong and is complemented by inspiring mood-enhancing Sativa effects."
@@ -238,7 +275,7 @@
   },
   {
     "title": "Sugar Cake",
-    "images": [""],
+    "images": ["/images/strains/sugar-cake/sugar-cake-1.jpg"],
     "description": [
       "Sugar Cake by Black Farm Genetics is a cross of Divorce Cake x Jungle Cake. This 60% Indica 40% Sativa has a flowering time of 8-10 Weeks. This specific composition suggests that Sugar Cake leans more towards the relaxing and sedating effects associated with Indica strains.",
       "The presence of Sativa genetics in Sugar Cake's lineage suggests that it may also offer some uplifting and energizing effects, which can help to balance out its relaxing qualities and provide a more well-rounded experience for users."
@@ -256,7 +293,12 @@
   },
   {
     "title": "Bubblegum Sherbet",
-    "images": [""],
+    "images": [
+      "/images/strains/bubblegum-sherbet/bubblegum-sherbet-1.jpg",
+      "/images/strains/bubblegum-sherbet/bubblegum-sherbet-2.jpg",
+      "/images/strains/bubblegum-sherbet/bubblegum-sherbet-3.jpg",
+      "/images/strains/bubblegum-sherbet/bubblegum-sherbet-4.webp"
+    ],
     "description": [
       "Bubble Gum Sherb was developed from an extremely potent female, Bubble Gum x Sunset Sherbet, that has a particularly pronounced terpene and cannabinoid profile. Both parent plants were selected through a long process of searching for flavor and potency to finally obtain the properties we had envisioned.",
       "This strain is not recommended for the faint of heart or beginners as its extreme THC content of 30%-32% and the extensive cannabinoid profile ensure long-lasting and very intense effects. It gives us euphoric effects accompanied by body relaxation."
@@ -274,7 +316,12 @@
   },
   {
     "title": "Bruce Banger",
-    "images": [""],
+    "images": [
+      "/images/strains/bruce-banger/bruce-banger-1.jpg",
+      "/images/strains/bruce-banger/bruce-banger-2.jpg",
+      "/images/strains/bruce-banger/bruce-banger-3.jpg",
+      "/images/strains/bruce-banger/bruce-banger-4.jpg"
+    ],
     "description": [
       "Bruce Banger was created by crossing the original OG Kush with Strawberry Diesel. It is a sativa-dominant plant with the diesel/fuel character of the Strawberry parent yet with the power of Kush underlying the effect.",
       "It takes up to 10 weeks to complete flowering, sometimes a little more, and makes for a great day-time high with energy and creativity. Bruce Banger can be grown indoors, outdoors or in a greenhouse and is adaptable with respect to grow media."
@@ -292,7 +339,10 @@
   },
   {
     "title": "Pink Mango Gelato",
-    "images": [""],
+    "images": [
+      "/images/strains/pink-mango-gelato/pink-mango-gelato-1.jpg",
+      "/images/strains/pink-mango-gelato/pink-mango-gelato-2.jpg"
+    ],
     "description": [
       "Pink Mango Gelato is an Indica dominant hybrid, with its genetic parents being, White Widow x Somango & Pink Gelato. This medium-sized plant must not be underestimated, with THC levels of between 18 - 23% and a short flowering time of just 6 - 8 weeks.",
       "The strain has an incredibly balanced body and mental effects. The creeping body high takes shape in the arms, legs, eyes and the temple area, while the White Widow comes in shortly after with cerebrally energetic euphoria that compliments the couch-lock."
@@ -310,7 +360,12 @@
   },
   {
     "title": "Gas Face",
-    "images": [""],
+    "images": [
+      "/images/strains/gas-face/gas-face-1.jpg",
+      "/images/strains/gas-face/gas-face-2.jpg",
+      "/images/strains/gas-face/gas-face-3.jpg",
+      "/images/strains/gas-face/gas-face-4.webp"
+    ],
     "description": [
       "Gas Face will hit you in the face with her dank, pungent fuel aroma. Bred in the US by a very famous breeder, and from equally famous parent strains, it's no wonder that Gas Face is getting a lot of attention from both recreational and medical users.",
       "Gas Face is a very potent hybrid strain that produces around 25% THC and as high as 33%. Its dense, resinous flowers also contain a rich mix of terpenes, the most dominant being caryophyllene, limonene, and pinene."
@@ -328,7 +383,7 @@
   },
   {
     "title": "Beach Wedding",
-    "images": [""],
+    "images": ["/images/strains/beach-wedding/beach-wedding-1.webp"],
     "description": [
       "Beach Wedding combines two of the most elite strains in modern cannabis. With permission from SEEDJUNKY GENETICS, we have combined the undeniable monster that is Wedding Cake with our own elite Tropicana Cookies.",
       "This strain like most of our gear is created with extraction in mind and this girl will deliver in that department massively. Beach Wedding takes on a beautiful dark purple coloring and a delicious taste of cookie dough and orange."
@@ -346,7 +401,11 @@
   },
   {
     "title": "Infatuation",
-    "images": [""],
+    "images": [
+      "/images/strains/infatuation/infatuation-1.png",
+      "/images/strains/infatuation/infatuation-2.png",
+      "/images/strains/infatuation/infatuation-3.jpg"
+    ],
     "description": [
       "Infatuation is one of the captivating strains from the exclusive Blue Power 10 Year Anniversary Limited Edition Line. To create this top-notch hybrid, a Jealousy BX was crossed with Blue Power IX2.",
       "Thanks to this connection, Infatuation boasts a 30% Sativa and 70% Indica genetic. Cultivators can anticipate bountiful yields ranging from 500 to 800 grams per square meter. Prepare to be smitten by the enchanting allure of Infatuation's unique character and remarkable flavors."
@@ -364,7 +423,12 @@
   },
   {
     "title": "Lemon Cherry Belts",
-    "images": [""],
+    "images": [
+      "/images/strains/lemon-cherry-belts/lemon-cherry-belts-1.jpg",
+      "/images/strains/lemon-cherry-belts/lemon-cherry-belts-2.jpg",
+      "/images/strains/lemon-cherry-belts/lemon-cherry-belts-3.jpg",
+      "/images/strains/lemon-cherry-belts/lemon-cherry-belts-4.jpg"
+    ],
     "description": [
       "Lemon Cherry Belts is an mostly Indica from Lit Farms and can be cultivated indoors and outdoors. Where the plants will need a flowering time of approximately 65 days.",
       "This strain combines the lineage of Rainbow Belts X Lemon Cherry Gelato, creating a unique mostly Indica variety suitable for various growing conditions."
@@ -383,7 +447,7 @@
   {
     "title": "Jet Fuel Gelato",
     "images": [
-      "/images/strains/jet-fuel-gelato-from-compound-genetics/jet-fuel-gelato-from-compound-genetics-1.jpeg"
+      "/images/strains/jet-fuel-gelato-from-compound-genetics/jet-fuel-gelato-from-compound-genetics-1.jpg"
     ],
     "description": [
       "Jet Fuel Gelato is the child of two legendary strains: Jet Fuel and Gelato. Its effects tend to be euphoric and uplifting, leaving consumers both happy and still functional enough to get tasks completed.",
@@ -403,7 +467,7 @@
   {
     "title": "Peanut Butter and Jelly",
     "images": [
-      "/images/strains/peanut-butter-and-jelly-from-rockets-seeds/peanut-butter-and-jelly-from-rockets-seeds-1.jpeg"
+      "/images/strains/peanut-butter-and-jelly-from-rockets-seeds/peanut-butter-and-jelly-from-rockets-seeds-1.jpg"
     ],
     "description": [
       "Explore the delightful Peanut Butter and Jelly Strain a balanced hybrid that combines the best of its parent strains Peanut Butter Breath and Jelly Breath. Known for its harmonious effects and distinct flavor profile, this strain offers a THC content ranging from 19% to 23% with minimal CBD.",
@@ -422,7 +486,7 @@
   },
   {
     "title": "PINEAPPLE EXPRESS",
-    "images": [""],
+    "images": ["/images/strains/pineapple-express/pineapple-express-1.jpg"],
     "description": [
       "Experience tropical bliss with this potent hybrid, born from the union of Big Bud and Skunk genetics. The Pineapple Express is an Indica-dominant variety that has been one of our best-selling strains for years!",
       "With its short flowering time, bountiful harvests, and high THC levels it is a favourite among growers. Expect large, resinous, heavy, and compact flower heads with both aroma and taste strongly marked with lemon and pineapple notes."
@@ -459,7 +523,7 @@
   {
     "title": "Kosher Tangerine Kush",
     "images": [
-      "/images/strains/kosher-tangie-kush-by-amsterdam-genetics/kosher-tangie-kush-by-amsterdam-genetics-1.jpeg"
+      "/images/strains/kosher-tangie-kush-by-amsterdam-genetics/kosher-tangie-kush-by-amsterdam-genetics-1.jpg"
     ],
     "description": [
       "Kosher Tangie Kush is the product of a breeding program featuring parent strains Kosher Kush and Tangie. Kosher Kush is an old-school variety that is well-respected, and Tangie is a relatively new kid on the block that hosts a delicious, citrusy terpene profile.",
@@ -475,5 +539,110 @@
     "flavours": "Earthy, pungent citrus",
     "medicinal": "Long-lasting, calming, relaxed, happy, body-buzz",
     "supplier": "Amsterdam Genetics"
+  },
+  {
+    "title": "The Black Cherry Pie F6",
+    "images": [
+      "/images/strains/the-black-cherry-pie-f6/the-black-cherry-pie-f6-1.jpg",
+      "/images/strains/the-black-cherry-pie-f6/the-black-cherry-pie-f6-2.jpg",
+      "/images/strains/the-black-cherry-pie-f6/the-black-cherry-pie-f6-3.jpg"
+    ],
+    "description": [
+      "The Black Cherry Pie F6 is a rare and exotic strain known for its beautiful dark purple hues and rich cherry flavor profile. This particular phenotype has been stabilized through careful breeding to bring out its most desirable characteristics.",
+      "With its dense, trichome-covered buds and complex terpene profile, The Black Cherry Pie F6 offers a unique experience that combines the best of its parent genetics. Its striking appearance and potent effects make it a favorite among connoisseurs."
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Hybrid",
+    "tac": "",
+    "height": "",
+    "yield": "",
+    "floweringTime": "",
+    "flavours": "Cherry, berry, sweet",
+    "medicinal": "",
+    "supplier": ""
+  },
+  {
+    "title": "Granddaddy Purple",
+    "images": [
+      "/images/strains/granddaddy-purple/granddaddy-purple-1.jpg",
+      "/images/strains/granddaddy-purple/granddaddy-purple-2.jpg",
+      "/images/strains/granddaddy-purple/granddaddy-purple-3.jpg"
+    ],
+    "description": [
+      "Granddaddy Purple is a legendary Indica strain famous for its deep purple buds and sweet grape-like aroma. This classic strain has been a staple in the cannabis community for decades, known for its potent relaxing effects and beautiful appearance.",
+      "With its rich terpene profile featuring myrcene, caryophyllene, and pinene, Granddaddy Purple delivers a powerful body high that's perfect for evening use. Its striking purple coloration and dense, frosty nugs make it instantly recognizable."
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Indica",
+    "tac": "",
+    "height": "",
+    "yield": "",
+    "floweringTime": "",
+    "flavours": "Grape, berry, sweet",
+    "medicinal": "Relaxation, sleep aid, pain relief",
+    "supplier": ""
+  },
+  {
+    "title": "Garlic Sherb S1",
+    "images": ["/images/strains/garlic-sherb-s1/garlic-sherb-s1-1.jpg"],
+    "description": [
+      "Garlic Sherb S1 is a unique strain that combines the pungent garlic notes of GMO with the creamy sweetness of Sunset Sherbet. This S1 (selfed) version brings out the best traits of its parent strain in a stable, consistent phenotype.",
+      "Known for its distinctive aroma that blends savory garlic with sweet cream, this strain offers a complex flavor profile and potent effects. The buds are typically dense and covered in trichomes, with beautiful purple undertones."
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Hybrid",
+    "tac": "",
+    "height": "",
+    "yield": "",
+    "floweringTime": "",
+    "flavours": "Garlic, cream, savory, sweet",
+    "medicinal": "",
+    "supplier": ""
+  },
+  {
+    "title": "Kosher Tangerine Kush",
+    "images": [
+      "/images/strains/kosher-tangerine-kush/kosher-tangerine-kush-1.jpg",
+      "/images/strains/kosher-tangerine-kush/kosher-tangerine-kush-2.jpg"
+    ],
+    "description": [
+      "Kosher Tangerine Kush combines the legendary Kosher Kush genetics with the bright, citrusy profile of Tangerine. This hybrid offers a perfect balance of relaxing body effects and uplifting cerebral stimulation.",
+      "With its rich terpene profile featuring limonene and caryophyllene, this strain delivers a unique experience that's both calming and energizing. The flavors are a perfect blend of earthy kush notes and bright tangerine citrus."
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Hybrid",
+    "tac": "",
+    "height": "",
+    "yield": "",
+    "floweringTime": "",
+    "flavours": "Tangerine, citrus, earthy, kush",
+    "medicinal": "Stress relief, mood enhancement",
+    "supplier": ""
+  },
+  {
+    "title": "Masterpiece",
+    "images": [
+      "/images/strains/masterpiece/masterpiece-1.jpg",
+      "/images/strains/masterpiece/masterpiece-2.jpg",
+      "/images/strains/masterpiece/masterpiece-3.jpg"
+    ],
+    "description": [
+      "Masterpiece is a carefully crafted strain that lives up to its name, offering a perfect balance of potency, flavor, and appearance. This hybrid has been developed through selective breeding to create a truly exceptional cannabis experience.",
+      "With its complex terpene profile and beautiful bud structure, Masterpiece delivers a well-rounded high that's both mentally stimulating and physically relaxing. The name reflects the careful attention to detail that went into creating this remarkable strain."
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Hybrid",
+    "tac": "",
+    "height": "",
+    "yield": "",
+    "floweringTime": "",
+    "flavours": "",
+    "medicinal": "",
+    "supplier": ""
   }
 ]
