@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import StrainSlider from "@/_components/strain-page/strain-slider";
 import StrainCartComponent from "@/_lib/utils/strain-cart-component";
 import StockAvailabilityBadges from "@/_components/ui/badges/stock-availability-badges";
+import ButtonLink from "@/_components/ui/buttons/button-link";
 
 import strainData from "@/_data/strains-data.json";
 
@@ -23,6 +24,11 @@ const StrainPage = async ({ params }: StrainPageProps) => {
 
   return (
     <div className="max-w-[1280px] mx-auto px-5 desktop:px-10 py-15">
+      <div className="mb-10">
+        <ButtonLink href="/strains" cssClasses="place-self-start">
+          Back to Strains
+        </ButtonLink>
+      </div>
       <div className="space-y-5 desktop:grid grid-cols-[480px_1fr] desktop:gap-x-10 desktop:gap-y-5">
         <div className="flex w-full flex-col pb-5 border-b-4 border-yellow desktop:place-self-start">
           <h2 className="text-heading">{strain.title}</h2>
