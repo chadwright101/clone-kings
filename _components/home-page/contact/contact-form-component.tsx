@@ -29,16 +29,18 @@ const ContactFormComponent = () => {
   }, [showEmailSubmitted]);
 
   return (
-    <div className="bg-yellow px-5 py-10 -mx-5 tablet:mx-0 tablet:py-5">
+    <div className="bg-yellow rounded-md px-5 py-10 -mx-5 tablet:mx-0 tablet:py-5">
       {!showEmailSubmitted && (
         <p className="mb-8 text-black italic font-light">
           Fill out the form below and our team will get back to you ASAP...
         </p>
       )}
       {showEmailSubmitted ? (
-        <p className="text-[20px] font-bold text-black pb-5 desktop:h-[450px]">
-          Your email has been sent, we will be in touch soon.
-        </p>
+        <div className="size-full flex justify-center items-center desktop:h-[450px]">
+          <p className="text-[20px] font-bold text-black pb-5">
+            Your email has been sent, we will be in touch soon.
+          </p>
+        </div>
       ) : (
         <form
           className="flex flex-col gap-8"

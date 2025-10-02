@@ -45,6 +45,98 @@ export default function CartSummary() {
   const DELIVERY_FEE = 180;
   const totalWithDelivery = totalPrice + DELIVERY_FEE;
 
+  const handleFormSubmit = async (formDataObj: FormData) => {
+    try {
+      setError(null);
+      setIsSubmitting(true);
+
+      if (!executeRecaptcha) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (!executeRecaptcha) {
+          setError(
+            "Security verification unavailable. Please refresh the page and try again."
+          );
+          return;
+        }
+      }
+
+      const recaptchaToken = await executeRecaptcha("order_form");
+      formDataObj.append("recaptchaToken", recaptchaToken);
+
+      const orderNumber = generateOrderNumber();
+
+      formDataObj.append("cartData", JSON.stringify(items));
+      formDataObj.append("totalPrice", totalPrice.toString());
+      formDataObj.append("deliveryFee", DELIVERY_FEE.toString());
+      formDataObj.append("totalWithDelivery", totalWithDelivery.toString());
+      formDataObj.append("orderNumber", orderNumber);
+
+      const staffResult = await sendOrderEmailStaff(formDataObj);
+
+      if (!staffResult.success) {
+        setError(
+          staffResult.error || "Failed to process your order. Please try again."
+        );
+        return;
+      }
+
+      const customerResult = await sendOrderEmailCustomer(formDataObj, true);
+
+      if (!customerResult.success) {
+        setError(
+          `Order submitted successfully, but there was an issue sending your confirmation email: ${customerResult.error}. Please save your order number: ${orderNumber}`
+        );
+        setShowEmailSubmitted(true);
+        clearCart();
+        return;
+      }
+
+      if (staffResult.success && customerResult.success) {
+        setShowEmailSubmitted(true);
+        clearCart();
+        setFormData({
+          "given-name": "",
+          "family-name": "",
+          email: "",
+          tel: "",
+          "address-line1": "",
+          "address-line2": "",
+          "address-level2": "",
+          "address-level1": "",
+          "postal-code": "",
+          country: "South Africa",
+          notes: "",
+        });
+      } else {
+        const errors = [];
+        if (!staffResult.success) {
+          const staffError =
+            staffResult.error ||
+            "We encountered an issue processing your order";
+          errors.push(
+            `Order processing failed: ${staffError}. Please check your details and try again.`
+          );
+        }
+        if (!customerResult.success) {
+          const customerError =
+            customerResult.error || "We couldn't send your confirmation email";
+          errors.push(`Email confirmation failed: ${customerError}.`);
+        }
+        setError(
+          errors.join(" ") +
+            " If the problem persists, please reach out to our support team."
+        );
+      }
+    } catch (err) {
+      setError(
+        "We're experiencing technical difficulties. Please try submitting your order again in a few moments. If the issue continues, contact our support team."
+      );
+      console.error("Order submission error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -74,108 +166,7 @@ export default function CartSummary() {
 
   return (
     <div className="bg-black/50 border border-yellow rounded-md p-5 desktop:p-8 sticky top-28">
-      <form
-        action={async (formDataObj) => {
-          try {
-            setError(null);
-            setIsSubmitting(true);
-
-            if (!executeRecaptcha) {
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              if (!executeRecaptcha) {
-                setError(
-                  "Security verification unavailable. Please refresh the page and try again."
-                );
-                return;
-              }
-            }
-
-            const recaptchaToken = await executeRecaptcha("order_form");
-            formDataObj.append("recaptchaToken", recaptchaToken);
-
-            const orderNumber = generateOrderNumber();
-
-            formDataObj.append("cartData", JSON.stringify(items));
-            formDataObj.append("totalPrice", totalPrice.toString());
-            formDataObj.append("deliveryFee", DELIVERY_FEE.toString());
-            formDataObj.append(
-              "totalWithDelivery",
-              totalWithDelivery.toString()
-            );
-            formDataObj.append("orderNumber", orderNumber);
-
-            const staffResult = await sendOrderEmailStaff(formDataObj);
-
-            if (!staffResult.success) {
-              setError(
-                staffResult.error ||
-                  "Failed to process your order. Please try again."
-              );
-              return;
-            }
-
-            const customerResult = await sendOrderEmailCustomer(
-              formDataObj,
-              true
-            );
-
-            if (!customerResult.success) {
-              setError(
-                `Order submitted successfully, but there was an issue sending your confirmation email: ${customerResult.error}. Please save your order number: ${orderNumber}`
-              );
-              setShowEmailSubmitted(true);
-              clearCart();
-              return;
-            }
-
-            if (staffResult.success && customerResult.success) {
-              setShowEmailSubmitted(true);
-              clearCart();
-              setFormData({
-                "given-name": "",
-                "family-name": "",
-                email: "",
-                tel: "",
-                "address-line1": "",
-                "address-line2": "",
-                "address-level2": "",
-                "address-level1": "",
-                "postal-code": "",
-                country: "South Africa",
-                notes: "",
-              });
-            } else {
-              const errors = [];
-              if (!staffResult.success) {
-                const staffError =
-                  staffResult.error ||
-                  "We encountered an issue processing your order";
-                errors.push(
-                  `Order processing failed: ${staffError}. Please check your details and try again.`
-                );
-              }
-              if (!customerResult.success) {
-                const customerError =
-                  customerResult.error ||
-                  "We couldn't send your confirmation email";
-                errors.push(`Email confirmation failed: ${customerError}.`);
-              }
-              setError(
-                errors.join(" ") +
-                  " If the problem persists, please reach out to our support team."
-              );
-            }
-          } catch (err) {
-            setError(
-              "We're experiencing technical difficulties. Please try submitting your order again in a few moments. If the issue continues, contact our support team."
-            );
-            console.error("Order submission error:", err);
-          } finally {
-            setIsSubmitting(false);
-          }
-        }}
-        className="space-y-5"
-      >
+      <form action={handleFormSubmit} className="space-y-5">
         <input type="hidden" name="_honey" className="hidden" />
         <h2 className="text-subheading text-white border-b border-yellow/25 pb-3">
           Order Summary
@@ -292,7 +283,7 @@ export default function CartSummary() {
             type="button"
             onClick={toggleDetails}
             className={classNames(
-              "w-full flex items-center justify-between p-2 text-left desktop:hover:cursor-pointer desktop:hover:opacity-80 transition-colors",
+              "w-full flex items-center justify-between p-2 rounded-md text-left desktop:hover:cursor-pointer desktop:hover:opacity-80 transition-colors",
               {
                 "bg-yellow": !isDetailsOpen,
               }

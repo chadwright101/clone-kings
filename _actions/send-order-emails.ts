@@ -211,7 +211,7 @@ export async function sendOrderEmailCustomer(
       from: `Clone Kings <${process.env.SMTP_USER}>`,
       to: email,
       subject: `Clone Kings order confirmation - ${orderNumber}`,
-      replyTo: process.env.SMTP_SEND_TO as string,
+      replyTo: "sales@clonekings.co.za",
       html: emailHtmlContent,
     };
 
