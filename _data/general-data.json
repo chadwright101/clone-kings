@@ -1,13 +1,9 @@
 {
   "heroSlider": [
-    "/images/placeholders/image2.png",
-    "/images/placeholders/image4.jpg",
-    "/images/placeholders/image5.jpg",
-    "/images/placeholders/image1.png",
-    "/images/placeholders/image6.jpg",
-    "/images/placeholders/image3.png",
-    "/images/placeholders/image7.jpg",
-    "/images/placeholders/image8.jpg"
+    "/images/hero/hero-2.jpg",
+    "/images/hero/hero-1.jpg",
+    "/images/hero/hero-3.jpg",
+    "/images/hero/hero-4.jpg"
   ],
   "contact": {
     "email": "sales@clonekings.co.za",

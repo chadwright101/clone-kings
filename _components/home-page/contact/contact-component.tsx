@@ -42,40 +42,18 @@ const ContactComponent = () => {
         </div>
         <div className="tablet:grid grid-cols-2 gap-10 desktop:grid-cols-1">
           <ContactFormComponent />
-          <div className="grid gap-10 desktop:hidden">
-            <div>
-              <Image
-                src="/images/placeholders/image2.png"
-                alt="Clone Kings"
-                width={750}
-                height={450}
-                className="hidden tablet:block w-full h-full object-cover desktop:hidden aspect-video"
-                sizes=""
-              />
-            </div>
-            <div>
-              <Image
-                src="/images/placeholders/image3.png"
-                alt="Clone Kings"
-                width={750}
-                height={450}
-                className="hidden tablet:block w-full h-full object-cover desktop:hidden aspect-video"
-                sizes=""
-              />
-            </div>
-          </div>
+          <Image
+            src="/images/clone-kings-pic-7.jpg"
+            alt="Clone Kings"
+            width={750}
+            height={450}
+            className="hidden tablet:block w-full h-full object-cover desktop:hidden"
+          />
         </div>
       </div>
-      <div className="hidden desktop:grid gap-10">
+      <div className="hidden desktop:block">
         <Image
-          src="/images/placeholders/image2.png"
-          alt="Clone Kings"
-          width={580}
-          height={400}
-          className="w-full h-full object-cover aspect-video"
-        />
-        <Image
-          src="/images/placeholders/image3.png"
+          src="/images/clone-kings-pic-7.jpg"
           alt="Clone Kings"
           width={580}
           height={400}

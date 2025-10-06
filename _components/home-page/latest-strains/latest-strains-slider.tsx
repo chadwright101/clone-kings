@@ -1,6 +1,6 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import "swiper/css";
@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
 
 interface SlideDataProps {
@@ -18,11 +18,22 @@ interface SlideDataProps {
 
 const LatestStrainsSlider = ({ cssClasses, data }: SlideDataProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const swiperRef = useRef<SwiperRef>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  useEffect(() => {
+    if (swiperRef.current?.swiper) {
+      setIsBeginning(swiperRef.current.swiper.isBeginning);
+      setIsEnd(swiperRef.current.swiper.isEnd);
+    }
+  }, []);
 
   return (
     <div className={`relative ${cssClasses}`}>
       <div className="desktop:w-[1056px] mx-auto overflow-hidden">
         <Swiper
+          ref={swiperRef}
           autoplay={{
             delay: 6000,
             disableOnInteraction: true,
@@ -37,7 +48,10 @@ const LatestStrainsSlider = ({ cssClasses, data }: SlideDataProps) => {
             nextEl: ".swiper-button-next-custom",
             prevEl: ".swiper-button-prev-custom",
           }}
-          loop
+          onSlideChange={(swiper) => {
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
           breakpoints={{
             0: {
               slidesPerView: 1,
@@ -98,7 +112,12 @@ const LatestStrainsSlider = ({ cssClasses, data }: SlideDataProps) => {
               ))}
         </Swiper>
       </div>
-      <button className="hidden swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-full z-10 w-8 h-8 desktop:flex items-center justify-center desktop:hover:cursor-pointer desktop:hover:scale-[110%] ease-in-out duration-300">
+      <button
+        className={classNames(
+          "hidden swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-full z-10 w-8 h-8 desktop:flex items-center justify-center desktop:hover:cursor-pointer desktop:hover:scale-[110%] ease-in-out duration-300",
+          { "opacity-50 pointer-events-none": isBeginning }
+        )}
+      >
         <svg
           width="32"
           height="32"
@@ -130,7 +149,12 @@ const LatestStrainsSlider = ({ cssClasses, data }: SlideDataProps) => {
         </svg>
       </button>
 
-      <button className="hidden swiper-button-next-custom absolute right-0 top-1/2 -translate-y-full z-10 w-8 h-8 desktop:flex items-center justify-center desktop:hover:cursor-pointer desktop:hover:scale-[110%] ease-in-out duration-300">
+      <button
+        className={classNames(
+          "hidden swiper-button-next-custom absolute right-0 top-1/2 -translate-y-full z-10 w-8 h-8 desktop:flex items-center justify-center desktop:hover:cursor-pointer desktop:hover:scale-[110%] ease-in-out duration-300",
+          { "opacity-50 pointer-events-none": isEnd }
+        )}
+      >
         <svg
           width="32"
           height="32"

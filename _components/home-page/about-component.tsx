@@ -33,7 +33,14 @@ export default function AboutComponent() {
           </div>
           <div className="grid gap-10 desktop:grid-cols-3">
             <Image
-              src="/images/placeholders/image6.jpg"
+              src="/images/clone-kings-pic-3.jpg"
+              alt="About Clone Kings"
+              width={380}
+              height={300}
+              className="hidden desktop:block object-cover desktop:aspect-[4/3.5]"
+            />
+            <Image
+              src="/images/clone-kings-pic-2.jpg"
               alt="About Clone Kings"
               width={800}
               height={600}
@@ -41,14 +48,7 @@ export default function AboutComponent() {
               sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
             />
             <Image
-              src="/images/placeholders/image7.jpg"
-              alt="About Clone Kings"
-              width={380}
-              height={300}
-              className="hidden desktop:block object-cover desktop:aspect-[4/3.5]"
-            />
-            <Image
-              src="/images/placeholders/image8.jpg"
+              src="/images/clone-kings-pic-4.png"
               alt="About Clone Kings"
               width={380}
               height={300}
@@ -71,7 +71,7 @@ export default function AboutComponent() {
             </p>
           </div>
           <Image
-            src="/images/placeholders/image4.jpg"
+            src="/images/clone-kings-pic-5.jpg"
             alt="About Clone Kings"
             width={800}
             height={600}
@@ -99,7 +99,7 @@ export default function AboutComponent() {
             </div>
           </div>
           <Image
-            src="/images/placeholders/image5.jpg"
+            src="/images/clone-kings-pic-1.jpg"
             alt="About Clone Kings"
             width={800}
             height={600}
