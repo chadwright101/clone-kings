@@ -1,5 +1,75 @@
 [
   {
+    "title": "UK Cheese",
+    "images": [
+      "/images/strains/uk-cheese/uk-cheese-2.webp",
+      "/images/strains/uk-cheese/uk-cheese-1.webp",
+      "/images/strains/uk-cheese/uk-cheese-4.webp"
+    ],
+    "description": [
+      "Lineage Genetics: SENSEI SEEDS SKUNK # 1 X AFGHANI # 1",
+      "UK Cheese strain is the most popular strain to come out of the British Isles. A community of growers based around the Luton region in the area north of London, originally started growing this strain in the mid-1990s. UK Cheese is an especially pungent phenotype of the Sensi Seeds strain Skunk #1. This pheno has an average THC content of 17%-20% with less than 1% CBD. The terpenes are mostly myrcene which gives Cheese its extraordinary musky smell. Growers in the UK shared this strain all over the region throughout the years. Eventually it was exported to the EU continent where it quickly gained popularity in Amsterdam. It then eventually made its way to the United States in the late 90’s.",
+      "History: It was originally a Sensi Seeds Skunk #1 phenotype that exhibited an extraordinary smell of vintage Cheese. Maintained in clone form for many years by anyone lucky enough to get their hands on it eventually it was hybridized with Afghani #1 and seeds were produced. It quickly became one of the Top Ten strains sold in all the coffee-shops in Amsterdam and won numerous awards in the High Times Cannabis Cup. UK Cheese produces a well-balanced effect, a physical and cerebral mixture.",
+      "Flavour & Aroma: UK Cheese strain is famous for its pungent and funky cheesy smell like aged cheddar cheese that has been hanging around a cave full of skunks. There are also some fruity and spicy earthy notes. The taste is almost identical to its smell and leaves a spicy and tangy cheese flavour on the palate. The scent of fresh buds and the odour from the smoke is very strong.",
+      "UK Cheese Effects: The high produced by UK Cheese is fast-acting and begins as an energetic and carefree feeling. UK Cheese is evenly balanced with 50/50 indica to sativa. This makes cheese perfect for medical users who want a chilled relaxing but not sleepy experience. Cheese is popular for its effectiveness at fighting depression, migraines, and stress.",
+      "Growing UK Cheese: With an 8–9-week indoor flowering time and lush heavy harvests UK Cheese seeds grow bushy and produces fat colas completely reeking of skunk and funk. Cheese thrives indoors but can also do well outdoors with low humidity and warm temperatures. The average outdoor yield is 16oz/plant and they should finish by mid-October. UK Cheese does very well using a screen of green (SCROG) method and is normally resistant to common moulds and mildew issues. The buds are light green coloured with orange hairs and a sticky coating of resin."
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Hybrid | Indica Dominant",
+    "tac": "18%",
+    "height": "Medium",
+    "yield": "Medium – High",
+    "floweringTime": "8 – 9 Weeks",
+    "flavours": "Cheese, Earthy, Pungent, Sweet",
+    "medicinal": "Anxiety, Arthritis, Depression, Migraines, Stress",
+    "supplier": "Sensei Seeds"
+  },
+  {
+    "title": "Slubert",
+    "images": [
+      "/images/strains/slubert/slubert-2.webp",
+      "/images/strains/slubert/slubert-1.webp"
+    ],
+    "description": [
+      "Slurbert or \"Slurrbert\" is a well-balanced hybrid strain (50% Indica/50% Sativa) created by crossing Slurricane with Sunset Sherbert, both very famous strains. In America, its taste and aroma are popular among hybrid cannabis lovers. It has a strong citrus flavour mixed with fruity notes followed by refreshing herbal and earthy scents. The ultimate strain that shouldn't be missed: \"Slurbert Marijuana Strain\", the source of inspiration for the ultimate mood creator!"
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Balanced Hybrid |50 % Sativa 50 % Indica",
+    "tac": "26%",
+    "height": "Medium",
+    "yield": "Large",
+    "floweringTime": "8 Weeks",
+    "flavours": "Orange, Lemon, Sweet",
+    "medicinal": "Insomnia, Stress and Depression",
+    "supplier": "InHouse Genetics"
+  },
+  {
+    "title": "Samo 78",
+    "images": [
+      "/images/strains/samo-78/samo-78-2.webp",
+      "/images/strains/samo-78/samo-78-1.webp",
+      "/images/strains/samo-78/samo-78-3.webp",
+      "/images/strains/samo-78/samo-78-4.webp"
+    ],
+    "description": [
+      "Samo 78 is the result of Pancake Ice and Ethos Haze IBl strain and embodies the best of both.",
+      "Pancake Ice is a 70/30 sativa dominant hybrid strain created through a combination of Chemdog x Mandarin Cookies. It seems that for this cross, the bank opted for the Original Crescendo phenotype, giving it a rather rare find and highly sought after for its unique aroma. Her buds smell sweet and fruity with hints of sugary syrup and a touch of pepper, with an earthy herbal undertone that is accentuated by spicy diesel and syrupy sweet fruits. As a result of the crossbreeding, this plant has large, fat, hand-shaped buds that are bright neon green in colour with fine orange hairs and a layer of tiny golden amber crystal trichomes.",
+      "Ethos Haze IBL surprised us a few months ago with its enormous production and performance both indoors and outdoors. This sativa-dominant hybrid strain comes from selected blends of true old-school titans within the industry, such as Super Lemon Haze and Jack Herer. It seems that the growers of this variety define it as a plant extremely vigorous and tall, with fairly long internodes, very large flowers and long, thin leaf blades."
+    ],
+    "price": 150,
+    "inStock": true,
+    "variety": "Sativa Dominant Hybrid | 70 % Sativa 30 % Indica",
+    "tac": "30%",
+    "height": "Medium",
+    "yield": "Extra Large",
+    "floweringTime": "10 Weeks",
+    "flavours": "Lemon, Gasoline and Spices",
+    "medicinal": "Pain, Stress and Anxiety",
+    "supplier": "Ethos Genetics"
+  },
+  {
     "title": "Elvis",
     "images": [
       "/images/strains/elvis-from-seedism-seedbank/elvis-from-seedism-seedbank-1.jpg",
@@ -13,7 +83,7 @@
     "inStock": true,
     "variety": "Sativa dominant plant with Indica growth patterns",
     "tac": "21-24%",
-    "height": "medium height",
+    "height": "Medium height",
     "yield": "High yielding strain",
     "floweringTime": "8-9 weeks",
     "flavours": "Sweet and spicy mango chutney, sweet, skunky notes",
@@ -575,14 +645,14 @@
     ],
     "price": 150,
     "inStock": true,
-    "variety": "Indica",
-    "tac": "",
-    "height": "",
-    "yield": "",
-    "floweringTime": "",
-    "flavours": "Grape, berry, sweet",
-    "medicinal": "Relaxation, sleep aid, pain relief",
-    "supplier": ""
+    "variety": "Hybrid | 80 % Indica 20 % Sativa",
+    "tac": "23%",
+    "height": "Medium",
+    "yield": "High",
+    "floweringTime": "8-9 Weeks",
+    "flavours": "Cheese, Earthy, Pungent, Sweet",
+    "medicinal": "Anxiety, Arthritis, Depression, Migraines, Stress",
+    "supplier": "Seedsurpreme"
   },
   {
     "title": "Garlic Sherb S1",
@@ -636,13 +706,13 @@
     ],
     "price": 150,
     "inStock": true,
-    "variety": "Hybrid",
-    "tac": "",
-    "height": "",
-    "yield": "",
-    "floweringTime": "",
-    "flavours": "",
+    "variety": "Hybrid | Indica Dominant",
+    "tac": "30% +",
+    "height": "Medium",
+    "yield": "Medium",
+    "floweringTime": "8 – 9 Weeks",
+    "flavours": "Pine, Sweet and Earthy",
     "medicinal": "",
-    "supplier": ""
+    "supplier": "In House Genetics"
   }
 ]
