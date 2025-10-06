@@ -13,7 +13,7 @@ const LatestStrainsSection = () => {
           cssClasses="overflow-hidden"
         />
         <ButtonLink href="/strains" cssClasses="desktop:place-self-center">
-          View More
+          View All Strains
         </ButtonLink>
       </div>
     </section>
