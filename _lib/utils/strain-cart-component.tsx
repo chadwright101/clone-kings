@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import classNames from "classnames";
 import ButtonType from "@/_components/ui/buttons/button-type";
 import { useCart } from "@/_contexts/cart-context";
@@ -23,9 +24,12 @@ const StrainCartComponent = ({
   inStock,
   cssClasses,
 }: StrainCartComponentProps) => {
+  const router = useRouter();
   const [quantity, setQuantity] = useState<number | string>(1);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showViewCart, setShowViewCart] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [buttonState, setButtonState] = useState<"add" | "added" | "view">(
+    "add"
+  );
   const { addToCart } = useCart();
 
   const increaseQuantity = () =>
@@ -60,6 +64,11 @@ const StrainCartComponent = ({
   };
 
   const handleAddToCart = () => {
+    if (buttonState === "view") {
+      router.push("/cart");
+      return;
+    }
+
     const qty = typeof quantity === "string" ? 1 : quantity;
     addToCart(
       {
@@ -71,9 +80,14 @@ const StrainCartComponent = ({
       qty
     );
 
-    setShowSuccess(true);
-    setShowViewCart(true);
-    setTimeout(() => setShowSuccess(false), 2000);
+    setIsLoading(true);
+    setButtonState("added");
+    setTimeout(() => {
+      setIsLoading(false);
+      setTimeout(() => {
+        setButtonState("view");
+      }, 2000);
+    }, 1000);
     setQuantity(1);
   };
 
@@ -161,9 +175,17 @@ const StrainCartComponent = ({
           title={
             !inStock ? "This product is currently out of stock" : undefined
           }
+          colorBlack={buttonState === "view"}
+          yellowStroke={buttonState === "view"}
           onClick={handleAddToCart}
         >
-          {showSuccess ? "Added!" : "Add To Cart"}
+          {isLoading
+            ? "Adding..."
+            : buttonState === "added"
+            ? "Added!"
+            : buttonState === "view"
+            ? "View Cart"
+            : "Add To Cart"}
         </ButtonType>
       </div>
       {typeof quantity === "number" && quantity >= 50 && (

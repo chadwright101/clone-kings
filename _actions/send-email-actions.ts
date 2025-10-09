@@ -23,18 +23,21 @@ interface MailOptions {
 export async function sendEmail(
   formData: FormData
 ): Promise<{ success: boolean; error?: string }> {
-  const honey = formData.get("honey");
+  const honey = formData.get("_honey");
   const recaptchaToken = formData.get("recaptchaToken") as string;
 
   try {
-    if (honey === null) {
+    if (!honey || honey.toString().trim() === "") {
       if (!recaptchaToken) {
         return { success: false, error: "reCAPTCHA verification required" };
       }
 
       const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
       if (!recaptchaResult.success) {
-        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+        return {
+          success: false,
+          error: recaptchaResult.error || "reCAPTCHA verification failed",
+        };
       }
       const name = DOMPurify.sanitize(formData.get("name")?.toString() || "");
       const email = DOMPurify.sanitize(formData.get("email")?.toString() || "");
@@ -47,31 +50,31 @@ export async function sendEmail(
         return { success: false, error: "All required fields must be filled" };
       }
 
-    const emailHtmlContent = emailTemplate({
-      name,
-      email,
-      phone,
-      message,
-    } as EmailTemplateData);
+      const emailHtmlContent = emailTemplate({
+        name,
+        email,
+        phone,
+        message,
+      } as EmailTemplateData);
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST as string,
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER as string,
-        pass: process.env.SMTP_PASS as string,
-      },
-      requireTLS: true,
-    });
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST as string,
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER as string,
+          pass: process.env.SMTP_PASS as string,
+        },
+        requireTLS: true,
+      });
 
-    const mailOptions: MailOptions = {
-      from: process.env.SMTP_USER as string,
-      to: process.env.SMTP_SEND_TO as string,
-      subject: "Website form submission - Clone Kings",
-      replyTo: email,
-      html: emailHtmlContent,
-    };
+      const mailOptions: MailOptions = {
+        from: `Clone Kings <${process.env.SMTP_USER}>`,
+        to: process.env.SMTP_SEND_TO as string,
+        subject: "Website form submission - Clone Kings",
+        replyTo: email,
+        html: emailHtmlContent,
+      };
 
       await transporter.sendMail(mailOptions);
       return { success: true };

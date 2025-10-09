@@ -21,7 +21,7 @@ const StrainComponent = ({ strainData }: StrainComponentProps) => {
           alt={strainData.title}
           width={550}
           height={550}
-          className="object-cover desktop:hover:scale-105 delay-75 ease-in-out duration-300 h-full w-full"
+          className="object-cover bg-white desktop:hover:scale-105 delay-75 ease-in-out duration-300 h-full w-full"
           sizes="(max-width: 800px) 100vw, (min-width: 800px) 50vw, (min-width: 1000px) 400px"
         />
       </Link>

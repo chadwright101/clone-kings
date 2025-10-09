@@ -8,4 +8,5 @@ export interface ButtonProps {
   type?: "submit" | "reset" | "button";
   colorBlack?: boolean;
   title?: string;
+  yellowStroke?: boolean;
 }

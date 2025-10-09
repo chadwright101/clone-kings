@@ -14,6 +14,7 @@ interface CartItemComponentProps {
 export default function CartItemComponent({ item }: CartItemComponentProps) {
   const { updateQuantity, removeFromCart } = useCart();
   const [quantity, setQuantity] = useState<number | string>(item.quantity);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const increaseQuantity = () => {
     const newQty = Math.min(item.quantity + 1, 50);
@@ -53,9 +54,9 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
 
   return (
     <div className="bg-black/50 border border-yellow/25 rounded-md p-5 grid gap-5">
-      <div className="flex flex-col gap-5 min-[375px]:flex-row">
+      <div className="flex flex-col gap-5 min-[400px]:flex-row">
         {item.image && (
-          <div className="relative w-full h-32 overflow-hidden rounded-md min-[375px]:w-32 min-[375px]:h-40 desktop:w-24 desktop:h-32">
+          <div className="relative w-full aspect-square overflow-hidden rounded-md min-[400px]:aspect-auto min-[400px]:w-32 min-[400px]:h-40 desktop:w-24 desktop:h-32">
             <Image
               src={item.image}
               alt={item.name}
@@ -67,25 +68,47 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
         )}
 
         <div className="flex-1 space-y-3">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start gap-x-5">
             <div>
               <h3 className="text-subheading text-white">{item.name}</h3>
               <p className="text-paragraph text-white/80">R{item.price} each</p>
             </div>
-            <button
-              onClick={() => removeFromCart(item.id)}
-              className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0"
-              aria-label="Remove item"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M2 2L14 14M14 2L2 14"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
+            {showConfirm ? (
+              <div className="flex flex-col gap-2 min-[600px]:flex-row">
+                <button
+                  onClick={() => {
+                    removeFromCart(item.id);
+                    setShowConfirm(false);
+                  }}
+                  className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0 text-yellow"
+                  aria-label="Confirm remove item"
+                >
+                  Remove
+                </button>
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0 text-white"
+                  aria-label="Cancel remove item"
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowConfirm(true)}
+                className="ease-in-out duration-300 p-2 -m-2 desktop:cursor-pointer desktop:hover:opacity-80 desktop:p-0 desktop:m-0"
+                aria-label="Remove item"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M2 2L14 14M14 2L2 14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
 
           <div className="flex items-center justify-between">

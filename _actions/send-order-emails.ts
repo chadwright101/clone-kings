@@ -28,7 +28,10 @@ export async function sendOrderEmailStaff(
 
       const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
       if (!recaptchaResult.success) {
-        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+        return {
+          success: false,
+          error: recaptchaResult.error || "reCAPTCHA verification failed",
+        };
       }
     }
     const firstName = DOMPurify.sanitize(formData.get("given-name") as string);
@@ -100,7 +103,7 @@ export async function sendOrderEmailStaff(
     });
 
     const mailOptions: MailOptions = {
-      from: process.env.SMTP_USER as string,
+      from: `Clone Kings <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_SEND_TO as string,
       subject: `New Order - ${orderNumber} (Clone Kings)`,
       replyTo: email,
@@ -130,7 +133,10 @@ export async function sendOrderEmailCustomer(
 
       const recaptchaResult = await verifyRecaptchaToken(recaptchaToken);
       if (!recaptchaResult.success) {
-        return { success: false, error: recaptchaResult.error || "reCAPTCHA verification failed" };
+        return {
+          success: false,
+          error: recaptchaResult.error || "reCAPTCHA verification failed",
+        };
       }
     }
     const firstName = DOMPurify.sanitize(formData.get("given-name") as string);
@@ -202,10 +208,10 @@ export async function sendOrderEmailCustomer(
     });
 
     const mailOptions: MailOptions = {
-      from: process.env.SMTP_USER as string,
+      from: `Clone Kings <${process.env.SMTP_USER}>`,
       to: email,
       subject: `Clone Kings order confirmation - ${orderNumber}`,
-      replyTo: process.env.SMTP_SEND_TO as string,
+      replyTo: "sales@clonekings.co.za",
       html: emailHtmlContent,
     };
 

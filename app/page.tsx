@@ -5,7 +5,7 @@ import LatestStrainsSection from "@/_components/home-page/latest-strains/latest-
 
 export default function Home() {
   return (
-    <div className="space-y-10 desktop:space-y-15 desktop:mb-15">
+    <div className="space-y-10 desktop:space-y-15 tablet:mb-15">
       <HeroComponent />
       <div className="-translate-y-16" id="about" />
       <AboutComponent />
