@@ -13,24 +13,6 @@ const spectralSerif = Spectral({
   weight: ["300", "400", "500", "600"],
 });
 
-/* export const metadata: Metadata = {
-  metadataBase: new URL("https://www.clonekings.co.za/"),
-  title: "Clone Kings",
-  description: "",
-  keywords: "",
-  openGraph: {
-    description: "",
-    type: "website",
-    locale: "en_ZA",
-    siteName: "Clone Kings",
-    images: [
-      {
-        url: "/open-graph-image.webp",
-      },
-    ],
-  },
-}; */
-
 export default function RootLayout({
   children,
 }: Readonly<{

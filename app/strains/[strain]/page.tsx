@@ -1,14 +1,40 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import StrainSlider from "@/_components/strain-page/strain-slider";
 import StrainCartComponent from "@/_lib/utils/strain-cart-component";
 import StockAvailabilityBadges from "@/_components/ui/badges/stock-availability-badges";
 import ButtonLink from "@/_components/ui/buttons/button-link";
+import { createStrainMetadata } from "@/_lib/metadata";
 
 import strainData from "@/_data/strains-data.json";
 
 interface StrainPageProps {
   params: Promise<{ strain: string }>;
+}
+
+export async function generateStaticParams() {
+  return strainData.map((strain) => ({
+    strain: strain.title.toLowerCase().replace(/\s+/g, "-"),
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: StrainPageProps): Promise<Metadata> {
+  const { strain: strainSlug } = await params;
+  const strain = strainData.find(
+    (strain) => strain.title.toLowerCase().replace(/\s+/g, "-") === strainSlug
+  );
+
+  if (!strain) {
+    return {
+      title: "Strain Not Found | Clone Kings",
+      description: "The requested cannabis strain could not be found.",
+    };
+  }
+
+  return createStrainMetadata(strain);
 }
 
 const StrainPage = async ({ params }: StrainPageProps) => {
