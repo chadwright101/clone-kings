@@ -14,7 +14,9 @@ import { useCart } from "@/_contexts/cart-context";
 export function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const { setShowEmailSubmitted } = useCart();
+  const { setShowEmailSubmitted, getTotalItems } = useCart();
+
+  const totalItems = getTotalItems();
 
   useEffect(() => {
     if (isOpen) {
@@ -70,7 +72,12 @@ export function MobileHeader() {
           }
         )}
       >
-        <div className="flex w-full py-10 items-center justify-between px-7">
+        <div
+          className={classNames("flex w-full py-10 items-center px-7", {
+            "justify-between": totalItems > 0,
+            "justify-end": totalItems === 0,
+          })}
+        >
           <CartButton
             large
             cssClasses="-translate-y-0.5"
