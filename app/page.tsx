@@ -29,11 +29,12 @@ export default function Home() {
   return (
     <div className="space-y-10 desktop:space-y-15 tablet:mb-15">
       <HeroComponent />
-      <div className="-translate-y-16" id="about" />
-      <AboutComponent />
+      <AboutComponent id="about" cssClasses="scroll-mt-16" />
       <LatestStrainsSection />
-      <div className="-translate-y-24 desktop:-translate-y-32" id="contact" />
-      <ContactComponent />
+      <ContactComponent
+        id="contact"
+        cssClasses="scroll-mt-24 desktop:scroll-mt-32"
+      />
     </div>
   );
 }

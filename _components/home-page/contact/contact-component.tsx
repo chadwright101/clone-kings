@@ -5,10 +5,16 @@ import ShowPhoneNumber from "@/_components/ui/contact/show-phone-number";
 import Image from "next/image";
 import Link from "next/link";
 import ContactFormComponent from "./contact-form-component";
+import classNames from "classnames";
 
-const ContactComponent = () => {
+interface ContactComponentProps {
+  cssClasses?: string;
+  id?: string;
+}
+
+const ContactComponent = ({ cssClasses, id }: ContactComponentProps) => {
   return (
-    <section className="max-w-[1280px] mx-auto px-5 desktop:px-10 tablet:grid tablet:gap-10 desktop:grid-cols-2">
+    <section id={id} className={classNames("max-w-[1280px] mx-auto px-5 desktop:px-10 tablet:grid tablet:gap-10 desktop:grid-cols-2", cssClasses)}>
       <div className="grid gap-10">
         <div className="grid gap-8 place-self-start w-full tablet:grid-cols-2 tablet:gap-10 desktop:grid-cols-[1fr_1.5fr]">
           <h2 className="text-heading text-white tablet:col-span-2">Contact</h2>

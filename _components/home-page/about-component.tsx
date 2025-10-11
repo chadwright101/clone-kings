@@ -1,8 +1,20 @@
+import classNames from "classnames";
 import Image from "next/image";
 
-export default function AboutComponent() {
+interface AboutComponentProps {
+  cssClasses?: string;
+  id?: string;
+}
+
+export default function AboutComponent({
+  cssClasses,
+  id,
+}: AboutComponentProps) {
   return (
-    <main className="max-w-[1280px] mx-auto desktop:pt-15">
+    <main
+      id={id}
+      className={classNames("max-w-[1280px] mx-auto desktop:pt-15", cssClasses)}
+    >
       <div className="mx-5 border-t-4 border-yellow py-10 grid gap-10 desktop:mx-10 desktop:border-none desktop:py-0 desktop:grid-cols-2">
         <h3 className="text-heading col-span-full">About</h3>
         <div className="grid gap-10 tablet:grid-cols-2 desktop:grid-cols-1 desktop:col-span-full">
@@ -70,14 +82,16 @@ export default function AboutComponent() {
               plants and exceptional harvests.
             </p>
           </div>
-          <Image
-            src="/images/clone-kings-pic-5.jpg"
-            alt="About Clone Kings"
-            width={800}
-            height={600}
-            className="object-cover h-full aspect-[4/2.5] tablet:aspect-[4/2.5]"
-            sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
-          />
+          <div>
+            <Image
+              src="/images/clone-kings-pic-5.jpg"
+              alt="About Clone Kings"
+              width={800}
+              height={600}
+              className="object-cover h-full aspect-[4/2.5] tablet:aspect-[4/2.5]"
+              sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
+            />
+          </div>
         </div>
         <div className="grid gap-10 tablet:grid-cols-2 desktop:grid-cols-1">
           <div className="space-y-5">
@@ -98,14 +112,16 @@ export default function AboutComponent() {
               </p>
             </div>
           </div>
-          <Image
-            src="/images/clone-kings-pic-1.jpg"
-            alt="About Clone Kings"
-            width={800}
-            height={600}
-            className="hidden tablet:block h-full object-cover aspect-[4/2.5] tablet:aspect-[4/2] desktop:aspect-[4/1.75]"
-            sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
-          />
+          <div className="hidden tablet:block">
+            <Image
+              src="/images/clone-kings-pic-1.jpg"
+              alt="About Clone Kings"
+              width={800}
+              height={600}
+              className="h-full object-cover aspect-[4/2.5] tablet:aspect-[4/2] desktop:aspect-[4/1.75]"
+              sizes="(max-width:800px) 100vw, (max-width:1280px) 50vw, 640px"
+            />
+          </div>
         </div>
       </div>
     </main>
