@@ -7,13 +7,35 @@ import StockAvailabilityBadges from "@/_components/ui/badges/stock-availability-
 
 interface StrainComponentProps {
   strainData: StrainProps;
+  currentPage?: number;
+  filter?: string;
+  searchTerm?: string;
 }
 
-const StrainComponent = ({ strainData }: StrainComponentProps) => {
+const StrainComponent = ({
+  strainData,
+  currentPage = 1,
+  filter = "Latest",
+  searchTerm = "",
+}: StrainComponentProps) => {
+  const strainSlug = strainData.title.toLowerCase().replace(/\s+/g, "-");
+
+  const buildStrainUrl = () => {
+    const params = new URLSearchParams();
+    params.set("page", currentPage.toString());
+    params.set("filter", filter);
+    if (searchTerm) {
+      params.set("search", searchTerm);
+    }
+    return `/strains/${strainSlug}?${params.toString()}`;
+  };
   return (
-    <li className="flex flex-col gap-5 items-start justify-center relative w-full border-b border-yellow/25 pb-10 min-[550px]:border-b-0 min-[550px]:pb-0">
+    <li
+      id={`strain-${strainSlug}`}
+      className="flex flex-col gap-5 items-start justify-center relative w-full border-b border-yellow/25 pb-10 min-[550px]:border-b-0 min-[550px]:pb-0"
+    >
       <Link
-        href={`/strains/${strainData.title.toLowerCase().replace(/\s+/g, "-")}`}
+        href={buildStrainUrl()}
         className="overflow-hidden w-full aspect-square"
       >
         <Image
@@ -25,15 +47,13 @@ const StrainComponent = ({ strainData }: StrainComponentProps) => {
           sizes="(max-width: 800px) 100vw, (min-width: 800px) 50vw, (min-width: 1000px) 400px"
         />
       </Link>
-      <Link
-        href={`/strains/${strainData.title.toLowerCase().replace(/\s+/g, "-")}`}
-      >
+      <Link href={buildStrainUrl()}>
         <div className="min-[1000px]:absolute top-3 right-3">
           <StockAvailabilityBadges inStock={strainData.inStock} />
         </div>
       </Link>
       <Link
-        href={`/strains/${strainData.title.toLowerCase().replace(/\s+/g, "-")}`}
+        href={buildStrainUrl()}
         className="desktop:hover:opacity-80 ease-in-out duration-300"
       >
         <div className="flex flex-col text-white w-full">

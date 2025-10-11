@@ -11,6 +11,7 @@ import strainData from "@/_data/strains-data.json";
 
 interface StrainPageProps {
   params: Promise<{ strain: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateStaticParams() {
@@ -37,8 +38,9 @@ export async function generateMetadata({
   return createStrainMetadata(strain);
 }
 
-const StrainPage = async ({ params }: StrainPageProps) => {
+const StrainPage = async ({ params, searchParams }: StrainPageProps) => {
   const { strain: strainSlug } = await params;
+  const searchParam = await searchParams;
 
   const strain = strainData.find(
     (strain) => strain.title.toLowerCase().replace(/\s+/g, "-") === strainSlug
@@ -48,10 +50,29 @@ const StrainPage = async ({ params }: StrainPageProps) => {
     notFound();
   }
 
+  const buildBackUrl = () => {
+    const params = new URLSearchParams();
+
+    if (searchParam.page) {
+      params.set("page", searchParam.page as string);
+    }
+    if (searchParam.filter) {
+      params.set("filter", searchParam.filter as string);
+    }
+    if (searchParam.search) {
+      params.set("search", searchParam.search as string);
+    }
+
+    params.set("returnStrain", strainSlug);
+
+    const queryString = params.toString();
+    return queryString ? `/strains?${queryString}` : "/strains";
+  };
+
   return (
     <div className="max-w-[1280px] mx-auto px-5 desktop:px-10 py-15">
       <div className="mb-10">
-        <ButtonLink href="/strains" cssClasses="place-self-start">
+        <ButtonLink href={buildBackUrl()} cssClasses="place-self-start">
           Back to Strains
         </ButtonLink>
       </div>
