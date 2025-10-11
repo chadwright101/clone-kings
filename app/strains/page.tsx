@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import FilterSearchComponent from "@/_components/strains-page/filter-search-component";
 import StrainComponent from "@/_components/strains-page/strain-component";
 import PaginationComponent from "@/_components/strains-page/pagination-component";
@@ -8,10 +9,61 @@ import PaginationComponent from "@/_components/strains-page/pagination-component
 import strainData from "@/_data/strains-data.json";
 
 const Strains = () => {
+  const searchParams = useSearchParams();
   const [filter, setFilter] = useState("Latest");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isInitialized, setIsInitialized] = useState(false);
   const itemsPerPage = 9;
+
+  useEffect(() => {
+    const pageParam = searchParams.get("page");
+    const filterParam = searchParams.get("filter");
+    const searchParam = searchParams.get("search");
+
+    console.log(
+      "URL params - page:",
+      pageParam,
+      "filter:",
+      filterParam,
+      "search:",
+      searchParam
+    );
+
+    if (pageParam) {
+      const page = parseInt(pageParam, 10);
+      if (!isNaN(page) && page > 0) {
+        console.log("Setting current page to:", page);
+        setCurrentPage(page);
+      }
+    }
+
+    if (filterParam) {
+      console.log("Setting filter to:", filterParam);
+      setFilter(filterParam);
+    }
+
+    if (searchParam) {
+      console.log("Setting search to:", searchParam);
+      setSearchTerm(searchParam);
+    }
+
+    setTimeout(() => setIsInitialized(true), 100);
+  }, [searchParams]);
+
+  const handleFilterChange = (newFilter: string) => {
+    if (isInitialized && newFilter !== filter) {
+      setFilter(newFilter);
+      setCurrentPage(1);
+    }
+  };
+
+  const handleSearchChange = (newSearch: string) => {
+    if (isInitialized && newSearch !== searchTerm) {
+      setSearchTerm(newSearch);
+      setCurrentPage(1);
+    }
+  };
 
   const filteredStrains = useMemo(() => {
     let filtered = [...strainData];
@@ -54,7 +106,7 @@ const Strains = () => {
         break;
     }
 
-      return filtered;
+    return filtered;
   }, [filter, searchTerm]);
 
   const validStrains = useMemo(() => {
@@ -69,28 +121,74 @@ const Strains = () => {
 
   const totalPages = Math.ceil(validStrains.length / itemsPerPage);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filter, searchTerm]);
-
   const currentStrains = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return validStrains.slice(startIndex, endIndex);
   }, [validStrains, currentPage, itemsPerPage]);
 
+  useEffect(() => {
+    if (!isInitialized) return;
+
+    const returnStrain = searchParams.get("returnStrain");
+    if (returnStrain) {
+      console.log("Return strain found:", returnStrain);
+      console.log("Current page:", currentPage);
+      console.log("Current filter:", filter);
+      console.log("Current search:", searchTerm);
+      console.log(
+        "Strains on current page:",
+        currentStrains.map((s) => s.title)
+      );
+
+      setTimeout(() => {
+        const element = document.getElementById(`strain-${returnStrain}`);
+        console.log("Looking for element:", `strain-${returnStrain}`);
+        console.log("Element found:", !!element);
+
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          const newUrl = new URL(window.location.href);
+          newUrl.searchParams.delete("returnStrain");
+          window.history.replaceState({}, "", newUrl.toString());
+        } else {
+          console.log(
+            "Element not found, available strains:",
+            Array.from(document.querySelectorAll('[id^="strain-"]')).map(
+              (el) => el.id
+            )
+          );
+        }
+      }, 500);
+    }
+  }, [
+    searchParams,
+    currentPage,
+    filter,
+    searchTerm,
+    isInitialized,
+    currentStrains,
+  ]);
+
   return (
     <div className="max-w-[1280px] grid gap-15 py-15 mx-auto px-5 desktop:px-10">
       <div className="grid gap-10">
         <h2>Strains</h2>
         <FilterSearchComponent
-          onFilterChange={setFilter}
-          onSearchChange={setSearchTerm}
+          onFilterChange={handleFilterChange}
+          onSearchChange={handleSearchChange}
+          strains={validStrains}
         />
       </div>
       <ul className="grid gap-10 grid-cols-1 place-items-start tablet:gap-15 tablet:grid-cols-2 min-[1000px]:grid-cols-3">
         {currentStrains.map((strain, index) => (
-          <StrainComponent key={index} strainData={strain} />
+          <StrainComponent
+            key={index}
+            strainData={strain}
+            currentPage={currentPage}
+            filter={filter}
+            searchTerm={searchTerm}
+          />
         ))}
       </ul>
       <PaginationComponent

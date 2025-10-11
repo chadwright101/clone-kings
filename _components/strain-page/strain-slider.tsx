@@ -15,7 +15,7 @@ interface Props {
 
 const StrainSlider = ({ cssClasses, data }: Props) => {
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <Swiper
         autoplay={{
           delay: 6000,
