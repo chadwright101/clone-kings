@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import FilterSearchComponent from "@/_components/strains-page/filter-search-component";
 import StrainComponent from "@/_components/strains-page/strain-component";
@@ -8,7 +8,28 @@ import PaginationComponent from "@/_components/strains-page/pagination-component
 
 import strainData from "@/_data/strains-data.json";
 
-const Strains = () => {
+const StrainsPageLoading = () => (
+  <div className="max-w-[1280px] grid gap-15 py-15 mx-auto px-5 desktop:px-10">
+    <div className="grid gap-10">
+      <h2>Strains</h2>
+      <div className="animate-pulse">
+        <div className="h-10 bg-yellow/25 rounded mb-4"></div>
+        <div className="h-10 bg-yellow/25 rounded"></div>
+      </div>
+    </div>
+    <div className="grid gap-10 grid-cols-1 tablet:grid-cols-2 min-[1000px]:grid-cols-3">
+      {[...Array(9)].map((_, i) => (
+        <div key={i} className="animate-pulse">
+          <div className="h-64 bg-yellow/25 rounded mb-4"></div>
+          <div className="h-4 bg-yellow/25 rounded mb-2"></div>
+          <div className="h-4 bg-yellow/25 rounded w-3/4"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const StrainsContent = () => {
   const searchParams = useSearchParams();
   const [filter, setFilter] = useState("Latest");
   const [searchTerm, setSearchTerm] = useState("");
@@ -199,5 +220,11 @@ const Strains = () => {
     </div>
   );
 };
+
+const Strains = () => (
+  <Suspense fallback={<StrainsPageLoading />}>
+    <StrainsContent />
+  </Suspense>
+);
 
 export default Strains;
