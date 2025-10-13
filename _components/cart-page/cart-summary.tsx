@@ -486,8 +486,7 @@ export default function CartSummary() {
                 Payment is via EFT only.
               </span>{" "}
               Please use the order number that will be emailed to you as the
-              payment reference. Once stock availability has been confirmed, our
-              team will contact you to finalise your order.
+              payment reference.
             </p>
           </div>
 
