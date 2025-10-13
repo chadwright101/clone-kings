@@ -59,6 +59,8 @@ export async function sendOrderEmailStaff(
 
     const rawCartData = formData.get("cartData");
     const rawTotalPrice = formData.get("totalPrice");
+    const rawDeliveryFee = formData.get("deliveryFee");
+    const rawTotalWithDelivery = formData.get("totalWithDelivery");
     const rawOrderNumber = formData.get("orderNumber");
 
     if (!rawCartData || !rawTotalPrice || !rawOrderNumber) {
@@ -67,6 +69,8 @@ export async function sendOrderEmailStaff(
 
     const cartItems = JSON.parse(rawCartData as string) as CartItem[];
     const totalPrice = parseFloat(rawTotalPrice as string);
+    const deliveryFee = parseFloat(rawDeliveryFee as string);
+    const totalWithDelivery = parseFloat(rawTotalWithDelivery as string);
     const orderNumber = rawOrderNumber as string;
 
     const sanitizedItems = cartItems.map((item) => ({
@@ -87,6 +91,8 @@ export async function sendOrderEmailStaff(
       notes,
       items: sanitizedItems,
       totalPrice,
+      deliveryFee,
+      totalWithDelivery,
       orderNumber,
       recipientType: "staff",
     });
@@ -164,6 +170,8 @@ export async function sendOrderEmailCustomer(
 
     const rawCartData = formData.get("cartData");
     const rawTotalPrice = formData.get("totalPrice");
+    const rawDeliveryFee = formData.get("deliveryFee");
+    const rawTotalWithDelivery = formData.get("totalWithDelivery");
     const rawOrderNumber = formData.get("orderNumber");
 
     if (!rawCartData || !rawTotalPrice || !rawOrderNumber) {
@@ -172,6 +180,8 @@ export async function sendOrderEmailCustomer(
 
     const cartItems = JSON.parse(rawCartData as string) as CartItem[];
     const totalPrice = parseFloat(rawTotalPrice as string);
+    const deliveryFee = parseFloat(rawDeliveryFee as string);
+    const totalWithDelivery = parseFloat(rawTotalWithDelivery as string);
     const orderNumber = rawOrderNumber as string;
 
     const sanitizedItems = cartItems.map((item) => ({
@@ -192,6 +202,8 @@ export async function sendOrderEmailCustomer(
       notes,
       items: sanitizedItems,
       totalPrice,
+      deliveryFee,
+      totalWithDelivery,
       orderNumber,
       recipientType: "customer",
     });

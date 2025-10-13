@@ -12,6 +12,8 @@ interface OrderEmailTemplateProps {
   notes?: string;
   items: CartItem[];
   totalPrice: number;
+  deliveryFee: number;
+  totalWithDelivery: number;
   orderNumber: string;
   recipientType: "staff" | "customer";
 }
@@ -28,6 +30,8 @@ export const orderEmailTemplate = ({
   notes,
   items,
   totalPrice,
+  deliveryFee,
+  totalWithDelivery,
   orderNumber,
   recipientType,
 }: OrderEmailTemplateProps) => {
@@ -101,7 +105,7 @@ export const orderEmailTemplate = ({
             <p style="font-size: 1rem; font-weight: 500; color: #353535; margin: 0;">
               <strong>Payment Method:</strong> EFT Only<br />
               <strong>Reference:</strong> ${orderNumber}<br />
-              <strong>Important:</strong> Use your order number as the payment reference. Our team will contact you with banking details once stock availability is confirmed.
+              <strong>Important:</strong> Use your order number as the payment reference.
             </p>
             <div style="border: 1px solid #e0e0e0; padding: 0.5rem; margin-top: 1rem; border-radius: 4px;">
               <p style="font-size: 1rem; font-weight: 500; color: #353535; margin: 0;">
@@ -166,11 +170,27 @@ export const orderEmailTemplate = ({
             <tbody>
               ${itemsHtml}
               <tr>
-                <td colspan="3" style="padding: 1rem 0.5rem; text-align: right; font-weight: bold; color: #353535;">
+                <td colspan="3" style="padding: 1rem 0.5rem 0.5rem 0.5rem; text-align: right; font-weight: bold; color: #353535;">
+                  Subtotal:
+                </td>
+                <td style="padding: 1rem 0.5rem 0.5rem 0.5rem; text-align: right; color: #353535;">
+                  R${totalPrice.toFixed(2)}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" style="padding: 0.5rem; text-align: right; color: #353535;">
+                  Standard delivery:
+                </td>
+                <td style="padding: 0.5rem; text-align: right; color: #353535;">
+                  R${deliveryFee.toFixed(2)}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" style="padding: 0.5rem 0.5rem 1rem 0.5rem; text-align: right; font-weight: bold; color: #353535;">
                   Total:
                 </td>
-                <td style="padding: 1rem 0.5rem; text-align: right; font-weight: bold; color: #353535; font-size: 1.25rem;">
-                  R${totalPrice.toFixed(2)}
+                <td style="padding: 0.5rem 0.5rem 1rem 0.5rem; text-align: right; font-weight: bold; color: #353535; font-size: 1.25rem;">
+                  R${totalWithDelivery.toFixed(2)}
                 </td>
               </tr>
             </tbody>
