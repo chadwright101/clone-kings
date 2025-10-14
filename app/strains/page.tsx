@@ -86,6 +86,13 @@ const StrainsContent = () => {
     }
   };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 150);
+  };
+
   const filteredStrains = useMemo(() => {
     let filtered = [...strainData];
 
@@ -215,7 +222,7 @@ const StrainsContent = () => {
       <PaginationComponent
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        onPageChange={handlePageChange}
       />
     </div>
   );
