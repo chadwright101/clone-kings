@@ -50,12 +50,16 @@ const PaginationComponent = ({
 
   const handleFirst = () => {
     onPageChange(1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
 
   const handleLast = () => {
     onPageChange(totalPages);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
 
   const pages = getPageNumbers();
@@ -92,7 +96,9 @@ const PaginationComponent = ({
               key={page}
               onClick={() => {
                 onPageChange(page as number);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 100);
               }}
               className={`flex justify-center items-center size-10 rounded-md text-paragraph desktop:size-8 transition-all duration-300 ${
                 currentPage === page

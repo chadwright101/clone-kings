@@ -9,17 +9,12 @@ import ButtonType from "@/_components/ui/buttons/button-type";
 
 const ContactFormComponent = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
-  const [submissionStartTime, setSubmissionStartTime] = useState(0);
   const [showEmailSubmitted, setShowEmailSubmitted] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const startSubmissionTimer = () => {
-      setSubmissionStartTime(new Date().getTime());
-    };
-    startSubmissionTimer();
     if (showEmailSubmitted) {
       const element = document.getElementById("contact");
       if (element) {
@@ -29,7 +24,7 @@ const ContactFormComponent = () => {
   }, [showEmailSubmitted]);
 
   return (
-    <div className="bg-yellow rounded-md px-5 py-10 -mx-5 tablet:mx-0 tablet:py-5">
+    <div className="bg-yellow px-5 py-10 -mx-5 tablet:mx-0 tablet:py-5 tablet:rounded-md">
       {!showEmailSubmitted && (
         <p className="mb-8 text-black italic font-light">
           Fill out the form below and our team will get back to you ASAP...
