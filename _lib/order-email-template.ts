@@ -98,7 +98,7 @@ export const orderEmailTemplate = ({
           <p style="font-size: 1rem; color: #353535; margin-bottom: 1.5rem;">
             Thank you for your order, ${
               name.split(" ")[0]
-            }! We've received your order and will be in touch soon to confirm availability and arrange payment.
+            }! Please follow the instructions below to finalise payment.
           </p>
           <h3 style="font-size: 1.25rem; color: #353535; margin-bottom: 1rem;">Payment Instructions</h3>
           <div style="background-color: #f9f9f9; border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px;">
@@ -205,10 +205,9 @@ export const orderEmailTemplate = ({
           <div style="background-color: #f9f9f9; border: 1px solid #e0e0e0; padding: 1rem; border-radius: 4px;">
             <h3 style="font-size: 1.25rem; color: #353535; margin-top: 0; margin-bottom: 1rem;">Next Steps</h3>
             <p style="font-size: 1rem; color: #353535; margin: 0.5rem 0;">
-              1. We'll confirm stock availability within 24 hours<br />
-              2. Once confirmed, we'll send you banking details for payment<br />
-              3. Delivery takes a minimum of 14 days after payment clears<br />
-              4. Use your order number <strong>${orderNumber}</strong> as your payment reference
+              1. Payment must be made via EFT using the above banking details and your reference - <strong>${orderNumber}</strong><br />
+              2. Your order will only be cut once the payment has cleared in our account<br />
+              3. Delivery takes a minimum of 14 days
             </p>
             <p style="font-size: 1rem; color: #353535; margin-top: 1rem; margin-bottom: 0;">
               <strong>Questions?</strong> Feel free to reply to this email.
