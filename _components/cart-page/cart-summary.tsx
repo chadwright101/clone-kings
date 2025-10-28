@@ -21,6 +21,26 @@ export default function CartSummary() {
     clearCart,
     setShowEmailSubmitted,
   } = useCart();
+
+  const calculateDeliveryFee = (totalClones: number): number => {
+    if (totalClones >= 4 && totalClones <= 12) return 180;
+    if (totalClones >= 13 && totalClones <= 30) return 280;
+    if (totalClones >= 31) return 520;
+    return 280; // Default for edge cases (quantities < 4)
+  };
+
+  const getDeliveryFeeNote = (totalClones: number): string => {
+    if (totalClones >= 4 && totalClones <= 12) {
+      return "Delivery fee for 4-12 clones";
+    }
+    if (totalClones >= 13 && totalClones <= 30) {
+      return "Delivery fee for 13-30 clones";
+    }
+    if (totalClones >= 31) {
+      return "Delivery fee for 31+ clones";
+    }
+    return "Minimum 4 clones required for delivery";
+  };
   const [submissionStartTime, setSubmissionStartTime] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,8 +62,8 @@ export default function CartSummary() {
 
   const totalPrice = getTotalPrice();
   const totalItems = getTotalItems();
-  const DELIVERY_FEE = 180;
-  const totalWithDelivery = totalPrice + DELIVERY_FEE;
+  const deliveryFee = calculateDeliveryFee(totalItems);
+  const totalWithDelivery = totalPrice + deliveryFee;
 
   const handleFormSubmit = async (formDataObj: FormData) => {
     try {
@@ -67,7 +87,7 @@ export default function CartSummary() {
 
       formDataObj.append("cartData", JSON.stringify(items));
       formDataObj.append("totalPrice", totalPrice.toString());
-      formDataObj.append("deliveryFee", DELIVERY_FEE.toString());
+      formDataObj.append("deliveryFee", deliveryFee.toString());
       formDataObj.append("totalWithDelivery", totalWithDelivery.toString());
       formDataObj.append("orderNumber", orderNumber);
 
@@ -185,9 +205,14 @@ export default function CartSummary() {
             <span>Subtotal</span>
             <span>R{totalPrice.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-paragraph">
-            <span>Standard delivery</span>
-            <span>R{DELIVERY_FEE.toFixed(2)}</span>
+          <div>
+            <div className="flex justify-between text-paragraph">
+              <span>Standard delivery</span>
+              <span>R{deliveryFee.toFixed(2)}</span>
+            </div>
+            <div className="text-[14px] text-white/50">
+              {getDeliveryFeeNote(totalItems)}
+            </div>
           </div>
           <div className="flex justify-between text-subheading">
             <span className="font-bold text-yellow">Total</span>
