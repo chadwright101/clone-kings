@@ -5,7 +5,7 @@ import "@/_styles/globals.css";
 import Header from "@/_components/navigation/header/header";
 import Footer from "@/_components/navigation/footer/footer";
 import { CartProvider } from "@/_contexts/cart-context";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import RecaptchaProvider from "@/_lib/recaptcha-provider";
 
 const spectralSerif = Spectral({
   variable: "--font-spectral",
@@ -21,15 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${spectralSerif.variable} antialiased`}>
-        <GoogleReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-        >
+        <RecaptchaProvider>
           <CartProvider>
             <Header />
             {children}
             <Footer />
           </CartProvider>
-        </GoogleReCaptchaProvider>
+        </RecaptchaProvider>
       </body>
     </html>
   );
