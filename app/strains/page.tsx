@@ -89,7 +89,7 @@ const StrainsContent = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }, 150);
   };
 
@@ -209,9 +209,9 @@ const StrainsContent = () => {
         />
       </div>
       <ul className="grid gap-10 grid-cols-1 place-items-start tablet:gap-15 tablet:grid-cols-2 min-[1000px]:grid-cols-3">
-        {currentStrains.map((strain, index) => (
+        {currentStrains.map((strain) => (
           <StrainComponent
-            key={index}
+            key={strain.title.toLowerCase().replace(/\s+/g, "-")}
             strainData={strain}
             currentPage={currentPage}
             filter={filter}

@@ -27,15 +27,17 @@ const StrainCartComponent = ({
   const router = useRouter();
   const [quantity, setQuantity] = useState<number | string>(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [buttonState, setButtonState] = useState<"add" | "added" | "view">(
-    "add"
-  );
+  const [buttonState, setButtonState] = useState<"add" | "view">("add");
   const { addToCart } = useCart();
 
   const increaseQuantity = () =>
     setQuantity((prev) => {
       const num = typeof prev === "string" ? 1 : prev;
-      return num < 50 ? num + 1 : 50;
+      const newQuantity = num < 50 ? num + 1 : 50;
+      if (buttonState === "view" && newQuantity > 1) {
+        setButtonState("add");
+      }
+      return newQuantity;
     });
   const decreaseQuantity = () =>
     setQuantity((prev) => {
@@ -52,8 +54,14 @@ const StrainCartComponent = ({
     const numValue = parseInt(value);
     if (!isNaN(numValue) && numValue >= 1 && numValue <= 50) {
       setQuantity(numValue);
+      if (buttonState === "view" && numValue > 1) {
+        setButtonState("add");
+      }
     } else if (numValue > 50) {
       setQuantity(50);
+      if (buttonState === "view" && 50 > 1) {
+        setButtonState("add");
+      }
     }
   };
 
@@ -81,13 +89,10 @@ const StrainCartComponent = ({
     );
 
     setIsLoading(true);
-    setButtonState("added");
     setTimeout(() => {
       setIsLoading(false);
-      setTimeout(() => {
-        setButtonState("view");
-      }, 2000);
-    }, 1000);
+      setButtonState("view");
+    }, 1500);
     setQuantity(1);
   };
 
@@ -171,7 +176,7 @@ const StrainCartComponent = ({
           cssClasses={classNames({
             "cursor-not-allowed opacity-50": !inStock,
           })}
-          disabled={!inStock}
+          disabled={!inStock || isLoading}
           title={
             !inStock ? "This product is currently out of stock" : undefined
           }
@@ -181,8 +186,6 @@ const StrainCartComponent = ({
         >
           {isLoading
             ? "Adding..."
-            : buttonState === "added"
-            ? "Added!"
             : buttonState === "view"
             ? "View Cart"
             : "Add To Cart"}
