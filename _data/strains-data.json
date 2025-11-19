@@ -251,7 +251,7 @@
       "This powerhouse hybrid combines the rich, earthy depth of White Truffles with the pungent, savory profile of Garlic Sherbet, resulting in a strain that's both potent and flavorful."
     ],
     "price": 80,
-    "inStock": true,
+    "inStock": false,
     "type": "Hybrid (White Truffles x Garlic Sherb)",
     "tac": "",
     "length": "",
@@ -310,7 +310,7 @@
       "If you need a little afternoon pick me up, or you need something to help when it is that time of the month, Kosher Kush Breath has got you covered."
     ],
     "price": 80,
-    "inStock": true,
+    "inStock": false,
     "type": "Hybrid",
     "tac": "",
     "length": "",
@@ -438,7 +438,7 @@
       "Gas Face is a very potent hybrid strain that produces around 25% THC and as high as 33%. Its dense, resinous flowers also contain a rich mix of terpenes, the most dominant being caryophyllene, limonene, and pinene."
     ],
     "price": 80,
-    "inStock": true,
+    "inStock": false,
     "type": "Hybrid",
     "tac": "25-33%",
     "length": "",
