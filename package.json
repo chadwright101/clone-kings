@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
-    "isomorphic-dompurify": "^2.26.0",
     "next": "15.4.3",
     "nodemailer": "^7.0.5",
     "react": "19.1.0",

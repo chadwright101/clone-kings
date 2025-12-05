@@ -2,7 +2,6 @@
 
 import nodemailer from "nodemailer";
 import { orderEmailTemplate } from "@/_lib/order-email-template";
-import DOMPurify from "isomorphic-dompurify";
 import { CartItem } from "@/_types/cart-types";
 import { verifyRecaptchaToken } from "@/_lib/verify-recaptcha";
 
@@ -34,25 +33,19 @@ export async function sendOrderEmailStaff(
         };
       }
     }
-    const firstName = DOMPurify.sanitize(formData.get("given-name") as string);
-    const lastName = DOMPurify.sanitize(formData.get("family-name") as string);
-    const email = DOMPurify.sanitize(formData.get("email") as string);
-    const phone = DOMPurify.sanitize(formData.get("tel") as string);
-    const addressLine1 = DOMPurify.sanitize(
-      formData.get("address-line1") as string
-    );
+    const firstName = formData.get("given-name") as string;
+    const lastName = formData.get("family-name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("tel") as string;
+    const addressLine1 = formData.get("address-line1") as string;
     const addressLine2 = formData.get("address-line2")
-      ? DOMPurify.sanitize(formData.get("address-line2") as string)
+      ? formData.get("address-line2") as string
       : "";
-    const city = DOMPurify.sanitize(formData.get("address-level2") as string);
-    const province = DOMPurify.sanitize(
-      formData.get("address-level1") as string
-    );
-    const postalCode = DOMPurify.sanitize(
-      formData.get("postal-code") as string
-    );
+    const city = formData.get("address-level2") as string;
+    const province = formData.get("address-level1") as string;
+    const postalCode = formData.get("postal-code") as string;
     const notes = formData.get("notes")
-      ? DOMPurify.sanitize(formData.get("notes") as string)
+      ? formData.get("notes") as string
       : "";
 
     const name = `${firstName} ${lastName}`;
@@ -75,8 +68,8 @@ export async function sendOrderEmailStaff(
 
     const sanitizedItems = cartItems.map((item) => ({
       ...item,
-      name: DOMPurify.sanitize(item.name),
-      id: DOMPurify.sanitize(item.id),
+      name: item.name,
+      id: item.id,
     }));
 
     const emailHtmlContent = orderEmailTemplate({
@@ -145,25 +138,19 @@ export async function sendOrderEmailCustomer(
         };
       }
     }
-    const firstName = DOMPurify.sanitize(formData.get("given-name") as string);
-    const lastName = DOMPurify.sanitize(formData.get("family-name") as string);
-    const email = DOMPurify.sanitize(formData.get("email") as string);
-    const phone = DOMPurify.sanitize(formData.get("tel") as string);
-    const addressLine1 = DOMPurify.sanitize(
-      formData.get("address-line1") as string
-    );
+    const firstName = formData.get("given-name") as string;
+    const lastName = formData.get("family-name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("tel") as string;
+    const addressLine1 = formData.get("address-line1") as string;
     const addressLine2 = formData.get("address-line2")
-      ? DOMPurify.sanitize(formData.get("address-line2") as string)
+      ? formData.get("address-line2") as string
       : "";
-    const city = DOMPurify.sanitize(formData.get("address-level2") as string);
-    const province = DOMPurify.sanitize(
-      formData.get("address-level1") as string
-    );
-    const postalCode = DOMPurify.sanitize(
-      formData.get("postal-code") as string
-    );
+    const city = formData.get("address-level2") as string;
+    const province = formData.get("address-level1") as string;
+    const postalCode = formData.get("postal-code") as string;
     const notes = formData.get("notes")
-      ? DOMPurify.sanitize(formData.get("notes") as string)
+      ? formData.get("notes") as string
       : "";
 
     const name = `${firstName} ${lastName}`;
@@ -186,8 +173,8 @@ export async function sendOrderEmailCustomer(
 
     const sanitizedItems = cartItems.map((item) => ({
       ...item,
-      name: DOMPurify.sanitize(item.name),
-      id: DOMPurify.sanitize(item.id),
+      name: item.name,
+      id: item.id,
     }));
 
     const emailHtmlContent = orderEmailTemplate({

@@ -46,7 +46,6 @@ The project uses a custom Tailwind CSS v4 configuration with CSS variables defin
 - **Swiper**: For carousel/slider functionality with custom styling
 - **Nodemailer**: For email functionality in server actions
 - **classnames**: For conditional CSS class management
-- **isomorphic-dompurify**: For HTML sanitization
 - **react-google-recaptcha**: For form protection
 
 ### Path Configuration
